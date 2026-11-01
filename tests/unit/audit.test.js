@@ -42,13 +42,16 @@ describe('audit secrets', () => {
     expect(cfg).not.toMatch(/service_role/);
   });
 
+  // Motif assemblé en morceaux : ce fichier, lui aussi suivi par git, ne doit pas se détecter lui-même.
+  const SECRET_PATTERN = new RegExp(['-----BEGIN [A-Z ]*PRIVATE KEY-----', 'sk' + '_live_'].join('|'));
+
   it('aucun secret journalisé ni commité', () => {
     for (const f of appJs) expect(read(f), f).not.toMatch(/console\.\w+\([^)]*secret/i);
     const tracked = execSync('git ls-files', { encoding: 'utf8' }).split('\n').filter(Boolean)
       .filter((f) => !/\.(png|woff2)$/.test(f) && f !== 'package-lock.json');
     for (const f of tracked) {
       const text = read(f);
-      expect(text, f).not.toMatch(/-----BEGIN [A-Z ]*PRIVATE KEY-----|sk_live_/);
+      expect(text, f).not.toMatch(SECRET_PATTERN);
       // Tout JWT commité doit être une clé publique « anon », jamais « service_role ».
       for (const jwt of text.match(/eyJ[\w-]+\.eyJ[\w-]+\.[\w-]+/g) || []) {
         expect(JSON.parse(Buffer.from(jwt.split('.')[1], 'base64url').toString()).role, f).toBe('anon');
