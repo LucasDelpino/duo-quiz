@@ -298,3 +298,14 @@ fieldset.plain { border: 0; padding: 0; margin: 0; }
 .history-item .round-card-text { margin: 8px 0 4px; font-size: 1.05rem; }
 .history-date { font-size: 1rem; color: var(--muted); margin: 8px 0 0; }
 .history-date::first-letter { text-transform: uppercase; }
+
+/* Love report */
+.bar-row { display: grid; gap: 6px; margin-top: 10px; }
+.bar-head { justify-content: space-between; font-weight: 700; font-size: .95rem; }
+.love-list { margin: 0 0 8px; padding-left: 20px; display: grid; gap: 6px; }
+.portrait-block h3 { margin-top: 12px; }
+.curve { width: 100%; height: auto; }
+.curve-line { fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.curve-dot { fill: var(--coral); }
+.curve-label { fill: var(--text); font: 700 11px var(--font-body); }
+.disclaimer { margin-top: 8px; }

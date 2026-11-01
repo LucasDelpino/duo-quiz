@@ -16,6 +16,7 @@ const VIEWS = {
   add: () => import('./views/add.js'),
   report: () => import('./views/report.js'),
   history: () => import('./views/history.js'),
+  love: () => import('./views/love.js'),
   styleguide: () => import('./views/styleguide.js'),
 };
 
