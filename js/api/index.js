@@ -12,11 +12,11 @@ export function apiMode({ search, url = SUPABASE_URL, key = SUPABASE_ANON_KEY } 
 }
 
 /** Crée l'adaptateur adapté (supabase-js n'est chargé qu'en mode Supabase). */
-export async function createApi({ secret = null, search } = {}) {
+export async function createApi({ session = null, search } = {}) {
   if (apiMode({ search }) === 'memory') {
     const { createMemoryApi } = await import('./memory.js');
-    return createMemoryApi({ secret });
+    return createMemoryApi({ secret: session?.secret ?? null });
   }
   const { createSupabaseApi } = await import('./supabase.js');
-  return createSupabaseApi({ secret });
+  return createSupabaseApi({ secret: session?.secret, room_id: session?.room_id, player: session?.player });
 }

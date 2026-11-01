@@ -281,7 +281,7 @@ describe('erreurs et sélection d’adaptateur', () => {
   });
 
   it('createApi en démo renvoie l’adaptateur mémoire', async () => {
-    const api = await createApi({ search: '?demo=1', secret: 's' });
+    const api = await createApi({ search: '?demo=1', session: { secret: 's' } });
     expect(api.mode).toBe('memory');
     expect(api.secret).toBe('s');
   });
