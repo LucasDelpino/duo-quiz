@@ -14,6 +14,8 @@ const VIEWS = {
   today: () => import('./views/today.js'),
   round: () => import('./views/round.js'),
   add: () => import('./views/add.js'),
+  report: () => import('./views/report.js'),
+  history: () => import('./views/history.js'),
   styleguide: () => import('./views/styleguide.js'),
 };
 

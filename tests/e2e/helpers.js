@@ -1,3 +1,5 @@
+import { expect } from '@playwright/test';
+
 // Garde-fous communs : aucune requête externe, aucune erreur console.
 export function watchPage(page) {
   const errors = [];
@@ -34,4 +36,37 @@ export async function startSoloDemo(page, name = 'Lucas') {
 
 export async function session(page) {
   return page.evaluate(() => JSON.parse(localStorage.getItem('duo-quiz:session') || 'null'));
+}
+
+/** Répond à l'étape courante quel que soit le type de question. */
+export async function pick(page, scope, text = 'Une réponse sincère') {
+  const opt = page.locator(`${scope} .option`).first();
+  if (await opt.count()) await opt.click();
+  else await page.locator(`${scope} textarea`).fill(text);
+}
+
+export async function playRound(page) {
+  await expect(page.getByTestId('step')).toHaveText(/Étape 1\/2/);
+  await pick(page, '[data-view="round"]');
+  await page.getByTestId('next').click();
+  await expect(page.getByTestId('step')).toHaveText(/Étape 2\/2 · Et /);
+  await pick(page, '[data-view="round"]', 'Je parie sur ça');
+  await page.getByTestId('send').click();
+}
+
+/** Joue (et valide si besoin) toutes les questions « à jouer » du jour en démo solo. */
+export async function playAllToday(page) {
+  for (;;) {
+    await page.goto('./?demo=1#/today');
+    const todo = page.locator('[data-testid="today-rounds"] .round-card[data-status="todo"]');
+    await expect(page.locator('[data-testid="today-rounds"] .round-card').first()).toBeVisible();
+    if (!(await todo.count())) break;
+    await todo.first().click();
+    await playRound(page);
+    await expect(page.getByTestId('points')).toBeVisible();
+    if (await page.getByTestId('judge').count()) {
+      await page.getByTestId('judge-no').click();
+      await expect(page.getByTestId('judge')).toHaveCount(0);
+    }
+  }
 }

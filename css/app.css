@@ -280,3 +280,21 @@ fieldset.plain { border: 0; padding: 0; margin: 0; }
 .select option { color: #160a2b; }
 .pending-list { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 10px; }
 .pending-list li { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; padding: 12px; border-radius: var(--radius-sm); background: rgb(0 0 0 / .18); }
+
+/* Bilan + historique */
+.segmented { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; padding: 4px; border-radius: var(--radius-sm); background: rgb(0 0 0 / .25); }
+.segment { min-height: 44px; display: grid; place-items: center; border-radius: 10px; color: var(--muted); text-decoration: none; font-weight: 800; font-size: .9rem; text-align: center; }
+.segment.is-active { background: var(--gold); color: var(--night); }
+.date-range { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+.date-range .input { min-width: 0; padding: 12px 10px; }
+.report-title { font-size: 1.4rem; margin: 4px 0 8px; }
+.report-players { display: grid; gap: var(--gap); }
+@media (min-width: 520px) { .report-players { grid-template-columns: 1fr 1fr; } .segmented { grid-template-columns: repeat(4, 1fr); } }
+.surprises { margin: 0; padding-left: 20px; display: grid; gap: 12px; }
+.surprises p { margin: 0; }
+.chip-filter { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.chip-filter .chip { text-decoration: none; min-height: 36px; white-space: nowrap; flex: none; }
+.history-item { display: block; color: inherit; text-decoration: none; }
+.history-item .round-card-text { margin: 8px 0 4px; font-size: 1.05rem; }
+.history-date { font-size: 1rem; color: var(--muted); margin: 8px 0 0; }
+.history-date::first-letter { text-transform: uppercase; }

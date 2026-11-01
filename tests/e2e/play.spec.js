@@ -1,21 +1,5 @@
 import { test, expect, devices } from '@playwright/test';
-import { watchPage, startSoloDemo, syncDb } from './helpers.js';
-
-/** Répond à l'étape courante quel que soit le type de question. */
-async function pick(page, scope, text = 'Une réponse sincère') {
-  const opt = page.locator(`${scope} .option`).first();
-  if (await opt.count()) await opt.click();
-  else await page.locator(`${scope} textarea`).fill(text);
-}
-
-async function playRound(page) {
-  await expect(page.getByTestId('step')).toHaveText(/Étape 1\/2/);
-  await pick(page, '[data-view="round"]');
-  await page.getByTestId('next').click();
-  await expect(page.getByTestId('step')).toHaveText(/Étape 2\/2 · Et /);
-  await pick(page, '[data-view="round"]', 'Je parie sur ça');
-  await page.getByTestId('send').click();
-}
+import { watchPage, startSoloDemo, syncDb, playRound } from './helpers.js';
 
 test('démo solo : jouer les questions du jour, révélation, validation', async ({ page }) => {
   const w = watchPage(page);
