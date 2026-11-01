@@ -1,7 +1,7 @@
 // Service worker Duo Quiz : app utilisable hors ligne (coquille + banque en cache).
 // Stratégie : réseau d'abord (toujours la dernière version en ligne), cache en repli hors ligne.
 // Les appels Supabase ne sont JAMAIS mis en cache (données privées, toujours fraîches).
-const VERSION = 'duo-quiz-v1';
+const VERSION = 'duo-quiz-v2';
 
 const ASSETS = [
   './',
@@ -38,6 +38,7 @@ const ASSETS = [
   'js/logic/analysis.js',
   'js/logic/category.js',
   'js/logic/compat.js',
+  'js/logic/progress.js',
   'js/logic/custom.js',
   'js/logic/dates.js',
   'js/logic/draw.js',

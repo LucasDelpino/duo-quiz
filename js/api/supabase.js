@@ -160,6 +160,16 @@ export async function createSupabaseApi({
       return (await run(db().from('analyses').select(ANALYSIS_COLS).order('period_end', { ascending: true }))) || [];
     },
 
+    /** Compteurs du jour (migration 002). Non critique : null si indisponible. */
+    async dayProgress(date) {
+      try {
+        const { data, error } = await db().rpc('day_progress', { p_date: date });
+        return error ? null : (data || []);
+      } catch {
+        return null;
+      }
+    },
+
     async createDeviceLink() {
       return run(db().rpc('create_device_link'));
     },

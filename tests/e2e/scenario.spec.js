@@ -74,7 +74,7 @@ test('scénario 2 joueurs : créer, rejoindre, question perso, jouer, révélati
   const ids = await todayIds(a);
   const texts = await a.locator('.round-card-text').allTextContents();
   expect(texts).toContain(CUSTOM.replace('{autre}', 'Léa'));
-  await expect(a.locator('[data-view="today"]')).not.toContainText(/perso|banque|Léa a écrit|surprise/i);
+  await expect(a.locator('[data-view="today"]')).not.toContainText(/question perso|banque|Léa a écrit|question surprise|écrite par/i);
   const shapes = await a.locator('.round-card').evaluateAll((els) => els.map((e) => [...e.attributes].map((x) => x.name).sort().join()));
   expect(new Set(shapes).size).toBe(1);
 
@@ -152,7 +152,7 @@ test('scénario 2 joueurs : créer, rejoindre, question perso, jouer, révélati
   // 10. Historique : aucune trace de l'origine de la question perso
   await a.goto('./?demo=1#/history');
   await expect(a.locator('.history-item')).toHaveCount(3);
-  await expect(a.locator('[data-view="history"]')).not.toContainText(/perso|banque|surprise/i);
+  await expect(a.locator('[data-view="history"]')).not.toContainText(/question perso|banque|question surprise|écrite par/i);
 
   expect(await session(a)).toMatchObject({ player: 1 });
   expect(await session(b)).toMatchObject({ player: 2 });

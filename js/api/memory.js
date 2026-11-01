@@ -276,6 +276,18 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
         .map((a) => pick(a, ['id', 'room_id', 'period_start', 'period_end', 'compatibility', 'content', 'created_at'])));
     },
 
+    /** Équivalent de day_progress : compteurs seulement (anti-triche préservé). */
+    async dayProgress(date) {
+      return withMe((db, { room }) => {
+        const ids = new Set(db.rounds.filter((r) => r.room_id === room.id && r.play_date === date).map((r) => r.id));
+        return [1, 2].map((p) => {
+          const mine = db.answers.filter((a) => a.room_id === room.id && a.player === p);
+          const last = mine.reduce((m, a) => (!m || a.created_at > m ? a.created_at : m), null);
+          return { player: p, answered: mine.filter((a) => ids.has(a.round_id)).length, total: ids.size, last_answer_at: last };
+        });
+      });
+    },
+
     async createDeviceLink() {
       return withMe((db, { room, player }) => {
         const t = now().getTime();

@@ -320,3 +320,37 @@ fieldset.plain { border: 0; padding: 0; margin: 0; }
 
 /* Hors ligne + accessibilité */
 .offline-banner { margin: 0 16px 8px; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--danger); color: var(--night); font-weight: 800; font-size: .9rem; }
+
+/* ---------- « Qui a joué aujourd'hui ? » ---------- */
+.progress-title { font-size: 1.1rem; margin: 0 0 .5rem; }
+.progress-row { margin-top: .6rem; }
+.progress-head { justify-content: space-between; gap: .5rem; }
+.progress-track { height: 12px; border-radius: 999px; background: rgb(255 255 255 / .12); overflow: hidden; margin-top: .3rem; }
+.progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--coral), var(--gold)); transition: width 700ms var(--ease); }
+.progress-fill--done { background: linear-gradient(90deg, var(--teal), var(--success)); }
+.progress-pop {
+  position: fixed; inset: 0; z-index: 50; display: grid; place-items: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  background: rgb(10 4 24 / .72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  animation: pop-fade 220ms var(--ease);
+}
+.progress-pop--out { opacity: 0; transition: opacity 200ms; }
+.progress-pop-box {
+  position: relative; width: min(100%, 420px); text-align: center;
+  background: linear-gradient(160deg, var(--plum), var(--magenta)); box-shadow: var(--shadow), var(--glow-gold);
+  animation: pop-in 380ms var(--ease);
+}
+.progress-pop-box .btn { margin-top: .75rem; }
+.progress-pop-box .progress-row { text-align: left; }
+.progress-pop-emoji { font-size: 3.2rem; line-height: 1; margin-bottom: .25rem; animation: pop-wiggle 1.2s var(--ease) 300ms; }
+.progress-pop-close {
+  position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; border: 0; border-radius: 50%;
+  background: rgb(255 255 255 / .12); color: var(--text); font-size: 1.1rem; cursor: pointer;
+}
+@keyframes pop-fade { from { opacity: 0; } }
+@keyframes pop-in { from { transform: translateY(24px) scale(.92); opacity: 0; } }
+@keyframes pop-wiggle { 25% { transform: rotate(-12deg) scale(1.15); } 50% { transform: rotate(10deg); } 75% { transform: rotate(-4deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .progress-pop, .progress-pop-box, .progress-pop-emoji { animation: none; }
+  .progress-fill { transition: none; }
+}
