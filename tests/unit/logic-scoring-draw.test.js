@@ -80,13 +80,14 @@ describe('draw', () => {
     // alternance : 3 premières de catégories différentes
     expect(new Set(c.slice(0, 3).map((q) => q.category)).size).toBe(3);
     expect(Object.keys(c[0]).sort()).toEqual(['category', 'id', 'kind', 'options', 'text']);
+    expect(c[0].category).toMatch(/^(gouts|reves|humour):aime$/);
   });
 
   it('renvoie ce qui reste quand la banque est presque épuisée', () => {
     expect(drawCandidates(bank, bank.slice(2).map((q) => q.id))).toHaveLength(2);
     expect(drawCandidates([], [])).toEqual([]);
     expect(drawCandidates(null)).toEqual([]);
-    expect(drawCandidates([{ id: 'x', text: 'T ?', kind: 'text', category: 'gouts' }])[0].options).toBeNull();
+    expect(drawCandidates([{ id: 'x', text: 'T ?', kind: 'text', category: 'gouts' }])[0]).toMatchObject({ options: null, category: 'gouts' });
   });
 
   it("ordre d'affichage par id, jamais par created_at", () => {

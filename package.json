@@ -10,7 +10,8 @@
     "coverage": "vitest run --coverage",
     "e2e": "playwright test",
     "fonts": "node scripts/fonts.mjs",
-    "check": "npm run coverage && npm run e2e"
+    "check": "npm run bank && npm run coverage && npm run e2e",
+    "bank": "node scripts/validate-bank.mjs"
   },
   "devDependencies": {
     "@fontsource/fredoka": "^5.1.0",

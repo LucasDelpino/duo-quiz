@@ -1,6 +1,7 @@
 // Tirage des candidates de la banque et ordre d'affichage.
 import { inRange } from './dates.js';
 import { answersOf } from './scoring.js';
+import { encodeCategory } from './category.js';
 
 /** Générateur pseudo-aléatoire déterministe (tests). */
 export function seededRng(seed = 1) {
@@ -38,7 +39,8 @@ export function drawCandidates(bank, usedIds = [], { count = 20, rng = Math.rand
       if (q.length && out.length < count) out.push(q.shift());
     }
   }
-  return out.map(({ id, text, kind, options, category }) => ({ id, text, kind, options: options ?? null, category }));
+  // La facette voyage dans `category` (« gouts:aime »), exactement comme pour les questions perso.
+  return out.map(({ id, text, kind, options, category, facet }) => ({ id, text, kind, options: options ?? null, category: encodeCategory(category, facet) }));
 }
 
 /** Ordre d'affichage : par id (aléatoire côté serveur), jamais par created_at. */
