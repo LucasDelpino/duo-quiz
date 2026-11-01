@@ -2,18 +2,22 @@
 
 Chaque session de la Routine prend la **première étape non cochée**, la termine entièrement (code + tests verts), coche la case, ajoute une ligne au Journal, commit et push sur `main`. Si une étape est trop grosse, la découper en sous-cases ici avant de commencer.
 
-- [ ] **1. Socle** — `package.json` (vitest, jsdom, @playwright/test, @vitest/coverage-v8), `vitest.config.js`, `playwright.config.js` (serveur statique local, ex. `npx http-server` ou script Node), `.gitignore`, `index.html`, `css/app.css` (thème + composants de base), `js/app.js` (routeur hash), `js/store.js`, `js/config.js` (vide si pas de clés), `js/vendor.js`. Test : l'app charge en mode démo sans erreur console.
-- [ ] **2. Logique pure** — `normalize.js`, `scoring.js`, `draw.js`, `report.js` + tests unitaires exhaustifs (cas limites : égalité, validations manquantes, période vide, changement de période, fuseau Europe/Paris).
-- [ ] **3. Adaptateur mémoire** — `js/api/memory.js` respectant le contrat et les règles du schéma ; persistance localStorage en mode démo ; « joueur simulé » en démo (l'autre répond automatiquement après quelques secondes) ; tests de contrat.
-- [ ] **4. Adaptateur Supabase** — `js/api/supabase.js` + `js/api/index.js` ; tests avec client Supabase mocké (en-tête x-player-secret présent, colonnes explicites, traduction des erreurs).
-- [ ] **5. Banque de questions** — `data/questions.json` ≥ 300 questions (§5 SPEC) + test de validation.
-- [ ] **6. Écrans Setup + Aujourd'hui + Round** — création/jointure via code et lien, tirage, réponse en 2 étapes, attente, révélation, validation des questions texte, retards.
-- [ ] **7. Questions perso** — écran Ajouter + liste de mes questions en attente.
-- [ ] **8. Bilan + Historique** — sélecteur de période, stats, gagnant, partage, historique filtrable.
-- [ ] **9. Réglages** — prénoms, questions/jour, période, date de départ, quitter, mode démo.
-- [ ] **10. PWA & finitions** — manifest, icônes, service worker, hors-ligne, accessibilité, animations sobres, états vides.
-- [ ] **11. E2E** — scénario 2 joueurs complet en mode démo (Playwright).
-- [ ] **12. Revue finale** — audit Lighthouse (Playwright + mesures) et corrections, relecture sécurité (aucun secret commité), README utilisateur à jour (installation sur téléphone, déroulé du jeu), `npm run check` vert.
+- [ ] **1. Socle** — `package.json` (vitest, jsdom, @playwright/test, @vitest/coverage-v8, @fontsource/*), configs Vitest/Playwright (serveur statique local + projets « Galaxy S » et « iPhone »), `.gitignore`, `index.html` (métas iOS/Android §8), `js/app.js` (routeur + barre d'onglets), `js/store.js`, `js/vendor.js`. Test : l'app charge en mode démo sans erreur console sur les 2 émulations.
+- [ ] **2. Design system** — `css/app.css` (§7 : palette, typo auto-hébergée, cartes, boutons, onglets, safe-areas), composants `js/ui/` (carte qui se retourne, confettis, toasts, compteur, jauge). Page démo interne `#/styleguide` (non liée dans la nav).
+- [ ] **3. Logique pure** — `normalize`, `scoring`, `draw`, `report`, `compat` + tests exhaustifs (égalité, validations manquantes, période vide, fuseau Europe/Paris, pondération facettes, seuil 5 rounds).
+- [ ] **4. Adaptateur mémoire** — contrat complet (anonymat, max perso/jour, ordre aléatoire, anti-triche), persistance localStorage, « partenaire simulé » en démo + rapport IA factice ; tests de contrat.
+- [ ] **5. Adaptateur Supabase** — avec client mocké (en-tête, colonnes explicites sans source/author/bank_id, traduction des erreurs, `usedBankIds`, `listAnalyses`).
+- [ ] **6. Banque de questions** — ≥ 300 questions couple (§5) avec catégories + facettes, `{autre}` ; test de validation.
+- [ ] **7. Setup + installation** — créer/rejoindre (code + lien), tuto d'installation Android / iPhone, reconnexion d'un appareil.
+- [ ] **8. Aujourd'hui + Round** — tirage, réponse en 2 étapes, attente, révélation animée, validation `text`, retards.
+- [ ] **9. Questions perso** — formulaire normalisé (anonymat), facette, liste de mes questions en réserve.
+- [ ] **10. Bilan + Historique** — sélecteur de période, stats, gagnant, partage, historique filtrable.
+- [ ] **11. Love report** — jauge, score direct + portraits, rapport IA (affichage défensif), courbe d'évolution.
+- [ ] **12. Réglages** — prénoms, questions/jour, période, date de départ, sons, quitter, démo.
+- [ ] **13. PWA & finitions** — manifest, icônes PNG (dont apple-touch-icon 180), service worker, hors-ligne, accessibilité, états vides, `prefers-reduced-motion`.
+- [ ] **14. E2E** — scénario 2 joueurs Galaxy + iPhone complet (§9).
+- [ ] **15. Revue finale** — Lighthouse, audit anonymat (rien ne trahit une question perso), audit secrets, README utilisateur (installation sur Samsung et iPhone, règles), `npm run check` vert.
 
 ## Journal
 <!-- AAAA-MM-JJ — étape — résumé court — résultat des tests -->
+- 2026-11-01 — cadrage — SPEC v2 (couple, anonymat, iOS/Android, compatibilité + rapport IA), migration 001 testée en local — n/a
