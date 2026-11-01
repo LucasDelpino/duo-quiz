@@ -9,6 +9,9 @@ export default defineConfig({
       include: ['js/**/*.js'],
       exclude: ['js/vendor.js', 'js/config.js'],
       reporter: ['text-summary', 'text'],
+      thresholds: {
+        'js/logic/**': { lines: 90, functions: 90, branches: 90, statements: 90 },
+      },
     },
   },
 });
