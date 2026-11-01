@@ -10,3 +10,13 @@ export function apiMode({ search, url = SUPABASE_URL, key = SUPABASE_ANON_KEY } 
   if (isDemoRequested(search)) return 'memory';
   return url && key ? 'supabase' : 'memory';
 }
+
+/** Crée l'adaptateur adapté (supabase-js n'est chargé qu'en mode Supabase). */
+export async function createApi({ secret = null, search } = {}) {
+  if (apiMode({ search }) === 'memory') {
+    const { createMemoryApi } = await import('./memory.js');
+    return createMemoryApi({ secret });
+  }
+  const { createSupabaseApi } = await import('./supabase.js');
+  return createSupabaseApi({ secret });
+}

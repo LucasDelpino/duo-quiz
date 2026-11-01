@@ -2,6 +2,7 @@
 import { addDays, diffDays, inRange } from './dates.js';
 import { answersOf, isComplete, other, pointFor, scoreRounds } from './scoring.js';
 import { normalizeAnswer } from './normalize.js';
+import { decodeCategory } from './category.js';
 
 /** Bornes {from, to} : 'current' | 'previous' | 'all' | {from, to} (personnalisée). */
 export function periodBounds({ report_start, report_period_days = 7 }, which, today) {
@@ -23,7 +24,8 @@ function categoryStats(rounds, answers, judgments, p) {
   for (const r of rounds) {
     const pt = pointFor(r, answers, judgments, p);
     if (pt === null) continue;
-    const s = (stats[r.category] ??= { category: r.category, points: 0, n: 0 });
+    const cat = decodeCategory(r.category).category;
+    const s = (stats[cat] ??= { category: cat, points: 0, n: 0 });
     s.points += pt;
     s.n += 1;
   }

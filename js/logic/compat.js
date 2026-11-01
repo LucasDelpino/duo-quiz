@@ -1,6 +1,7 @@
 // Score de compatibilité en direct (déterministe) + portraits issus des réponses.
 import { sameAnswer } from './normalize.js';
 import { answersOf, isComplete, pointFor } from './scoring.js';
+import { decodeCategory } from './category.js';
 
 export const MIN_ROUNDS = 5;
 export const FACETS = ['aime', 'naime_pas', 'ressenti', 'valeurs', 'futur', 'amour', 'souvenir', 'fun'];
@@ -11,7 +12,11 @@ export const CATEGORY_FACET = {
   couple: 'amour', voyage: 'futur', humour: 'fun', 'et-si': 'fun', enfance: 'souvenir',
 };
 
-export const facetOf = (r) => (FACETS.includes(r.facet) ? r.facet : CATEGORY_FACET[r.category] || 'aime');
+export function facetOf(r) {
+  const { category, facet } = decodeCategory(r.category);
+  const f = r.facet ?? facet;
+  return FACETS.includes(f) ? f : CATEGORY_FACET[category] || 'aime';
+}
 export const weightOf = (r) => FACET_WEIGHTS[facetOf(r)] ?? 1;
 
 /** Accord des deux réponses : choice 1/0, scale 1 − |a−b|/4, text exclu (null). */

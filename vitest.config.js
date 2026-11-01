@@ -11,6 +11,7 @@ export default defineConfig({
       reporter: ['text-summary', 'text'],
       thresholds: {
         'js/logic/**': { lines: 90, functions: 90, branches: 90, statements: 90 },
+        'js/api/memory.js': { lines: 90, functions: 90, branches: 90, statements: 90 },
       },
     },
   },
