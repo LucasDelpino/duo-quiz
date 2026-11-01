@@ -167,6 +167,16 @@ export async function createSupabaseApi({
       return (await run(db().from('analyses').select(ANALYSIS_COLS).order('period_end', { ascending: true }))) || [];
     },
 
+    /** Rythme commun (migration 004) : { me, them, warn_after, block_at }. Non critique : null si indisponible. */
+    async pace() {
+      try {
+        const { data, error } = await db().rpc('pace');
+        return error ? null : (data || null);
+      } catch {
+        return null;
+      }
+    },
+
     /** Compteurs du jour (migration 002). Non critique : null si indisponible. */
     async dayProgress(date) {
       try {

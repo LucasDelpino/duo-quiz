@@ -7,7 +7,8 @@ import { share } from '../ui/share.js';
 import { messageFor } from '../api/errors.js';
 import { go } from '../context.js';
 import { loadGame, loadRoom, players, textFor, answerLabel } from '../game.js';
-import { buildReport, periodBounds, shareText } from '../logic/report.js';
+import { buildReport, periodBounds, shareText, roundsIn } from '../logic/report.js';
+import { roundStatus } from '../logic/scoring.js';
 import { todayParis, addDays, diffDays, formatShort, isISODate } from '../logic/dates.js';
 import { categoryLabel } from '../logic/category.js';
 
@@ -81,6 +82,18 @@ function periodPicker(query, period) {
   return h('div', { class: 'stack' }, nav, h('div', { class: 'date-range' }, from, to));
 }
 
+/** Intégrité du bilan : seules les questions jouées par les deux comptent ; on affiche ce qui reste en attente. */
+function pendingLine(game, period, me, names) {
+  const inPeriod = roundsIn(game.rounds, period);
+  const mine = inPeriod.filter((r) => roundStatus(r, game.answers, game.judgments, me) === 'todo').length;
+  const theirs = inPeriod.filter((r) => roundStatus(r, game.answers, game.judgments, me) === 'waiting').length;
+  const autre = names[me === 1 ? 2 : 1];
+  const text = !mine && !theirs
+    ? 'Bilan à égalité de réponses ✅ : vous avez joué exactement les mêmes questions.'
+    : `Seules les questions jouées par vous deux comptent. En attente : ${mine} de ton côté, ${theirs} du côté de ${autre}.`;
+  return h('p', { class: 'small', 'data-testid': 'report-pending' }, text);
+}
+
 export async function render() {
   const query = readQuery();
   const today = todayParis();
@@ -102,6 +115,7 @@ export async function render() {
     card([
       h('p', { class: 'small muted', 'data-testid': 'report-range' }, range),
       h('p', { class: 'title report-title', 'data-testid': 'report-title' }, report.title),
+      pendingLine(game, period, me, names),
       h('p', { class: 'small' }, `${report.complete} manche${report.complete > 1 ? 's' : ''} complète${report.complete > 1 ? 's' : ''} · série en cours : ${report.streak.current} jour${report.streak.current > 1 ? 's' : ''} (record ${report.streak.best})`),
     ], { variant: 'gold' }),
     h('div', { class: 'report-players' }, playerCard(1, report, me), playerCard(2, report, me)),

@@ -1,6 +1,7 @@
 // Adaptateur mémoire : reproduit EXACTEMENT les règles SQL (schema.sql + migration 001).
 // La « base » est partagée via un stockage clé/valeur (localStorage en démo) ; chaque instance
 // représente un appareil identifié par son secret, comme l'en-tête x-player-secret.
+import { BLOCK_AT, WARN_AFTER } from '../logic/pace.js';
 import { ApiError } from './errors.js';
 import { todayParis, addDays } from '../logic/dates.js';
 import { DEMO_PARTNER, PARTNER_TEXTS, PARTNER_QUESTIONS, fakeAnalysis } from './demo-data.js';
@@ -130,6 +131,13 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
     return ofDay().sort((a, b) => (a.id < b.id ? -1 : 1)).map((r) => pick(r, ROUND_COLUMNS));
   }
 
+  /** Avance d'un joueur (réponses à lui − réponses de l'autre), comme lead_of(). */
+  function leadOf(db, room, player) {
+    const mine = db.answers.filter((a) => a.room_id === room.id && a.player === player).length;
+    const theirs = db.answers.filter((a) => a.room_id === room.id && a.player !== player).length;
+    return mine - theirs;
+  }
+
   const api = {
     mode: 'memory',
 
@@ -216,6 +224,7 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
       return withMe((db, { room, player }) => {
         checkDate(date);
         if (room.questions_per_day !== 0) throw new ApiError('not_unlimited');
+        if (leadOf(db, room, player) >= BLOCK_AT) throw new ApiError('too_far_ahead');
         const day = db.rounds.filter((r) => r.room_id === room.id && r.play_date === date);
         if (day.some((r) => !db.answers.some((a) => a.round_id === r.id && a.player === player))) throw new ApiError('finish_first');
         const cnt = Math.min(10, Math.max(1, Number.isInteger(count) ? count : 3));
@@ -247,6 +256,7 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
         const round = db.rounds.find((r) => r.id === roundId && r.room_id === room.id);
         if (!round) throw new ApiError('not_found');
         if (db.answers.some((a) => a.round_id === roundId && a.player === player)) throw new ApiError('already_answered');
+        if (leadOf(db, room, player) >= BLOCK_AT) throw new ApiError('too_far_ahead');
         const s = String(self ?? '');
         const g = String(guess ?? '');
         if (len(s) < 1 || len(s) > 500 || len(g) < 1 || len(g) > 500) throw new ApiError('invalid_answer');
@@ -296,6 +306,16 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
       return withMe((db, { room }) => db.analyses.filter((a) => a.room_id === room.id)
         .sort((a, b) => (a.period_end < b.period_end ? -1 : 1))
         .map((a) => pick(a, ['id', 'room_id', 'period_start', 'period_end', 'compatibility', 'content', 'created_at'])));
+    },
+
+    /** Équivalent de pace() : compteurs de réponses des deux joueurs. */
+    async pace() {
+      return withMe((db, { room, player }) => ({
+        me: db.answers.filter((a) => a.room_id === room.id && a.player === player).length,
+        them: db.answers.filter((a) => a.room_id === room.id && a.player !== player).length,
+        warn_after: WARN_AFTER,
+        block_at: BLOCK_AT,
+      }));
     },
 
     /** Équivalent de day_progress : compteurs seulement (anti-triche préservé). */

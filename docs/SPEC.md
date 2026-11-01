@@ -68,6 +68,12 @@ Supabase : `createClient(URL, KEY, { global: { headers: { 'x-player-secret': sec
 ### Anonymat des questions perso (exigence forte)
 Rien dans l'interface ne doit permettre de savoir si une question vient de la banque ou de l'autre : même carte, même style, même catégorie affichable, pas de badge, pas d'ordre révélateur, pas de mention dans l'historique ni dans les rapports. Le formulaire « Ajouter » **normalise** le texte (majuscule initiale, espaces, « ? » final) et propose les mêmes catégories que la banque. L'auteur voit seulement la liste de **ses** questions en attente (« 3 questions surprises en réserve »).
 
+### Rythme commun (intégrité du bilan — migration 004)
+- Écart = réponses du joueur − réponses de l'autre, toutes questions confondues (RPC `pace()`).
+- **Retard > 10** : pop-up « Tu es en retard ! » à l'ouverture (max 1 fois / 30 min), prioritaire sur « Qui a joué ? ».
+- **Avance > 10** : bandeau d'information ; **avance ≥ 15** : bloqué (trigger SQL `too_far_ahead` sur `answers` + `draw_more`) jusqu'au rattrapage ; écran de réponse verrouillé.
+- Le bilan et le rapport IA ne comptent que les questions jouées par les deux ; le bilan affiche ce qui reste en attente de chaque côté.
+
 ### Déroulé d'un round
 1. Étape 1/2 « Toi » : ma réponse. Étape 2/2 « Et {nom} ? » : ma prédiction. Envoi unique, définitif.
 2. Attente : « {nom} n'a pas encore répondu 🤫 » (réponse de l'autre invisible, garanti côté serveur).

@@ -13,6 +13,7 @@ import { getApi, go } from '../context.js';
 import { players, textFor, answerLabel } from '../game.js';
 import { answersOf, judgmentsOf, roundStatus, pointFor } from '../logic/scoring.js';
 import { formatDay } from '../logic/dates.js';
+import { paceState, paceMessage } from '../logic/pace.js';
 
 const SEEN_KEY = 'duo-quiz:revealed';
 
@@ -206,6 +207,15 @@ function revealView(data, ctx) {
   ];
 }
 
+async function loadPace() {
+  try {
+    const api = await getApi();
+    return api.pace ? paceState(await api.pace()) : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function render({ params }) {
   const root = h('section', { class: 'view stack', 'data-view': 'round' });
   let data;
@@ -226,7 +236,14 @@ export async function render({ params }) {
   root.append(h('p', { class: 'small muted' }, formatDay(data.round.play_date)));
   const body = h('div', { class: 'stack' });
   root.append(body);
-  if (status === 'todo') playFlow(body, data, ctx);
+  const pace = status === 'todo' ? await loadPace() : null;
+  if (pace?.state === 'blocked') {
+    const msg = paceMessage(pace, ctx.names, ctx.me);
+    body.append(card([
+      h('p', { class: 'pace-title' }, h('span', { 'aria-hidden': 'true' }, msg.emoji + ' '), h('strong', {}, msg.title)),
+      h('p', {}, msg.text),
+    ], { variant: 'danger', 'data-testid': 'pace-blocked' }), button('Retour', { variant: 'ghost', block: true, onClick: () => go('#/today') }));
+  } else if (status === 'todo') playFlow(body, data, ctx);
   else if (status === 'waiting') body.append(...waitingView(data, ctx));
   else body.append(...revealView(data, ctx).filter(Boolean));
   return root;
