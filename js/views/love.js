@@ -48,7 +48,7 @@ function personalityCard(timeline, p, names) {
   if (!pr) {
     return card([
       h('h2', {}, `Portrait de ${n} 🔮`),
-      h('p', { class: 'muted', 'data-testid': 'portrait-pending' }, `Le portrait psychologique de ${n} sera dressé par l’IA dans le prochain Love report (dimanche soir), à partir de ses réponses et de la façon dont vous vous devinez.`),
+      h('p', { class: 'muted', 'data-testid': 'portrait-pending' }, `Le portrait psychologique de ${n} sera dressé par l’IA dans le prochain Love report (chaque soir vers 19 h 30), à partir de ses réponses et de la façon dont vous vous devinez.`),
     ], { 'data-testid': `portrait-${p}` });
   }
   const para = (title, text) => (text ? h('div', { class: 'portrait-block' }, h('h3', {}, title), h('p', {}, text)) : null);

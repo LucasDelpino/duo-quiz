@@ -99,7 +99,7 @@ Sur les rounds complets de la période (et global) :
 
 ### 4.2 Rapport IA hebdomadaire (table `analyses`)
 Le Love report affiche, sur chaque téléphone, le **portrait de personnalité de l'AUTRE joueur** (`players.N.portrait` : resume, traits, comportement, emotions, en_couple, besoins, points_forts, vigilance, conseil) — bilan psychologique et comportemental ludique, non clinique, rédigé par l'IA à partir de toutes les réponses.
-Une seconde Routine Claude lit les réponses chaque dimanche soir (RPC `analyst_export`) et écrit un rapport (RPC `analyst_save`). L'app ne fait que **l'afficher** (lecture `analyses`). Format `content` (JSON) :
+Une seconde Routine Claude lit les réponses chaque soir vers 19 h 30 (fenêtre glissante de 7 jours) (RPC `analyst_export`) et écrit un rapport (RPC `analyst_save`). L'app ne fait que **l'afficher** (lecture `analyses`). Format `content` (JSON) :
 ```json
 {
   "summary": "2-3 phrases",
