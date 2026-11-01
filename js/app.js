@@ -5,7 +5,9 @@ import { apiMode } from './api/index.js';
 import { h, clear } from './ui/dom.js';
 
 // Chargement paresseux des écrans : chaque vue exporte render(ctx) → Node (ou Promise<Node>).
-const VIEWS = {};
+const VIEWS = {
+  styleguide: () => import('./views/styleguide.js'),
+};
 
 async function loadView(name) {
   const loader = VIEWS[name];
