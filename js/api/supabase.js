@@ -21,6 +21,7 @@ export function translateError(err) {
   if (known) return new ApiError(known, err);
   if (err?.name === 'TypeError' || /fetch|network|Failed to fetch|Load failed/i.test(text)) return new ApiError('network', err);
   if (err?.code === '23505') return new ApiError('already_answered', err);
+  if (err?.code === '23514') return new ApiError('invalid_settings', err);
   if (err?.code === '42501' || err?.code === 'PGRST301') return new ApiError('not_allowed', err);
   return new ApiError('unknown', err);
 }
@@ -98,6 +99,12 @@ export async function createSupabaseApi({
 
     async ensureRounds(date, candidates = []) {
       const rows = await run(db().rpc('ensure_rounds', { p_date: date, p_candidates: candidates }));
+      return [...(rows || [])].sort(byId);
+    },
+
+    /** Mode illimité : tire `count` questions de plus (après avoir tout répondu). */
+    async drawMore(date, candidates = [], count = 3) {
+      const rows = await run(db().rpc('draw_more', { p_date: date, p_candidates: candidates, p_count: count }));
       return [...(rows || [])].sort(byId);
     },
 

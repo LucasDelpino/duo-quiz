@@ -18,7 +18,7 @@ export function settingsPatch({ p1_name, p2_name, questions_per_day, report_peri
   const n2 = String(p2_name ?? '').trim();
   if (n1.length < 1 || n1.length > 30 || (hasPartner && (n2.length < 1 || n2.length > 30))) return { error: 'Les prénoms doivent faire entre 1 et 30 caractères.' };
   const q = Number(questions_per_day);
-  if (!Number.isInteger(q) || q < 1 || q > 10) return { error: 'Questions par jour : entre 1 et 10.' };
+  if (!Number.isInteger(q) || q < 0 || q > 10) return { error: 'Questions par jour : entre 1 et 10, ou Illimité.' };
   const d = Number(report_period_days);
   if (!Number.isInteger(d) || d < 1 || d > 90) return { error: 'Durée du bilan : entre 1 et 90 jours.' };
   if (!isISODate(report_start)) return { error: 'Date de départ invalide.' };
@@ -27,13 +27,23 @@ export function settingsPatch({ p1_name, p2_name, questions_per_day, report_peri
   return { patch };
 }
 
+/** Questions par jour : 1 à 10, ou « Illimité » (0). */
+function perDayField(value) {
+  const options = [h('option', { value: '0', selected: value === 0 }, 'Illimité ♾️'),
+    ...Array.from({ length: 10 }, (_, i) => h('option', { value: String(i + 1), selected: value === i + 1 }, String(i + 1)))];
+  return h('div', { class: 'field' },
+    h('label', { for: 'questions_per_day' }, 'Questions par jour'),
+    h('select', { id: 'questions_per_day', name: 'questions_per_day', class: 'input', 'data-testid': 'questions-per-day', 'aria-describedby': 'questions_per_day-hint' }, options),
+    h('small', { class: 'muted', id: 'questions_per_day-hint' }, 'Illimité : 3 questions par jour, puis « Encore des questions » dès que tu as tout répondu.'));
+}
+
 function roomForm(room) {
   const err = errorBox();
   const hasPartner = Boolean(room.p2_name);
   const f = h('form', { id: 'settings-form', class: 'stack', novalidate: true },
     field({ id: 'p1_name', label: 'Prénom du joueur 1', value: room.p1_name, maxlength: 30, autocomplete: 'off' }),
     hasPartner ? field({ id: 'p2_name', label: 'Prénom du joueur 2', value: room.p2_name, maxlength: 30, autocomplete: 'off' }) : null,
-    field({ id: 'questions_per_day', label: 'Questions par jour (1 à 10)', type: 'number', inputmode: 'numeric', min: 1, max: 10, step: 1, value: room.questions_per_day }),
+    perDayField(room.questions_per_day),
     field({ id: 'report_period_days', label: 'Durée du bilan, en jours (1 à 90)', type: 'number', inputmode: 'numeric', min: 1, max: 90, step: 1, value: room.report_period_days, hint: '7 = un bilan par semaine.' }),
     field({ id: 'report_start', label: 'Date de départ des bilans', type: 'date', value: room.report_start, hint: 'Choisis un lundi pour un bilan clôturé le dimanche soir.' }),
     err,

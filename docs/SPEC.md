@@ -62,7 +62,7 @@ Supabase : `createClient(URL, KEY, { global: { headers: { 'x-player-secret': sec
 
 ### Tirage quotidien
 - Date locale **Europe/Paris** (`YYYY-MM-DD`), y compris si le téléphone est dans un autre fuseau.
-- Ouverture de « Aujourd'hui » : `usedBankIds()` → ~20 candidates mélangées non utilisées (`draw.js`, en variant les catégories) → `ensureRounds`. Le serveur complète jusqu'à `questions_per_day` (défaut 3), avec **au plus max(1, n/2) questions perso par jour**, et renvoie les questions **dans un ordre aléatoire** : l'app les affiche dans l'ordre reçu (tri par `id`), **jamais** par `created_at`.
+- Ouverture de « Aujourd'hui » : `usedBankIds()` → ~20 candidates mélangées non utilisées (`draw.js`, en variant les catégories) → `ensureRounds`. Le serveur complète jusqu'à `questions_per_day` (défaut 3 ; **0 = Illimité** : 3 questions de base, puis bouton « Encore des questions 🎲 » — RPC `draw_more`, migration 003 — dès que le joueur a répondu à toutes celles du jour, lots de 3, sans limite), avec **au plus max(1, n/2) questions perso par jour**, et renvoie les questions **dans un ordre aléatoire** : l'app les affiche dans l'ordre reçu (tri par `id`), **jamais** par `created_at`.
 - Les rounds non répondus des jours précédents restent jouables (« En retard »).
 
 ### Anonymat des questions perso (exigence forte)
@@ -112,7 +112,7 @@ Une seconde Routine Claude lit les réponses chaque dimanche soir (RPC `analyst_
 
 ## 5. Banque de questions (`data/questions.json`)
 
-≥ **300 questions** originales, pensées pour un **couple de 25 et 30 ans** : bienveillantes, drôles ou profondes, qui font **apprendre des choses** (goûts, enfance, souvenirs du couple, rêves, peurs légères, façons d'aimer, projets, petits travers, et-si). Pas de contenu sexuel explicite, pas de questions sur l'argent personnel, la santé ou les ex en détail. Questions neutres en genre (« ton/ta partenaire » → utiliser le prénom de l'autre via `{autre}` remplacé à l'affichage).
+≥ **1 000 questions** originales (1 020 au 01/11/2026), pensées pour un **couple de 25 et 30 ans** : bienveillantes, drôles ou profondes, qui font **apprendre des choses** (goûts, enfance, souvenirs du couple, rêves, peurs légères, façons d'aimer, projets, petits travers, et-si). Pas de contenu sexuel explicite, pas de questions sur l'argent personnel, la santé ou les ex en détail. Questions neutres en genre (« ton/ta partenaire » → utiliser le prénom de l'autre via `{autre}` remplacé à l'affichage).
 Répartition : `choice` 50 %, `scale` 25 %, `text` 25 %.
 Format : `{"id":"q001","text":"…","kind":"choice","options":["…"],"category":"gouts","facet":"aime"}` — `id` stable.
 Catégories (affichées) : `gouts`, `souvenirs`, `quotidien`, `reves`, `valeurs`, `couple`, `voyage`, `humour`, `et-si`, `enfance`.
@@ -122,7 +122,7 @@ Le formulaire perso demande aussi la facette (libellé simple : « Ça parle de�
 ## 6. Écrans
 - **Setup** : Créer (prénom → code + lien `#/join/CODE` + Partager) / Rejoindre. Écran « Installer l'app » adapté à l'appareil : Android → bouton `beforeinstallprompt` ; iPhone → tuto illustré « Partager → Sur l'écran d'accueil ».
 - **Aujourd'hui** : cartes du jour (à jouer / en attente / révélée / à valider), bandeau score de la période, retards.
-- **Round**, **Ajouter**, **Bilan**, **Love report**, **Historique** (filtrable par catégorie), **Réglages** (prénoms, questions/jour 1–10, période 1–90 j, date de départ, sons on/off, quitter sur cet appareil, mode démo).
+- **Round**, **Ajouter**, **Bilan**, **Love report**, **Historique** (filtrable par catégorie), **Réglages** (prénoms, questions/jour 1–10 ou Illimité, période 1–90 j, date de départ, sons on/off, quitter sur cet appareil, mode démo).
 - **Pop-up « Qui a joué ? » à chaque ouverture de l'app** (et au retour au premier plan, max 1 fois / 30 min) via `dayProgress(aujourd'hui)` : pour chaque joueur, nombre de questions répondues sur le total du jour + « il y a 2 h ». Messages motivants selon l'état, ex. « {autre} a déjà répondu à 2/3 questions 👀 — à toi de jouer ! », « Vous avez tout fini aujourd'hui 🎉 Révélations dispo », « Personne n'a encore joué… lance la partie ! », « Tu as fini, {autre} pas encore 🤫 ». Bouton principal « Jouer » (ou « Voir les révélations »), fermeture par glisser/croix. Version compacte permanente dans le bandeau d'« Aujourd'hui » (2 avatars + mini-barres de progression). Si la RPC est absente (migration non exécutée) : ne rien afficher, pas d'erreur.
 - Navigation par barre d'onglets en bas (Aujourd'hui · Ajouter · Bilan · Love · Plus).
 - Rafraîchissement à l'ouverture, au retour au premier plan (`visibilitychange`), bouton/tirer-pour-rafraîchir.

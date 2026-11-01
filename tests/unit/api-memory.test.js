@@ -58,7 +58,7 @@ describe('adaptateur mémoire — contrat', () => {
   it('réglages : champs autorisés et bornes', async () => {
     expect(await c.p2.updateRoom({ questions_per_day: 5, report_period_days: 14, report_start: '2026-10-26', p2_name: ' Léa B ' })).toMatchObject({ questions_per_day: 5, report_period_days: 14, p2_name: 'Léa B' });
     expect((await c.p1.getRoom()).questions_per_day).toBe(5);
-    for (const bad of [{ questions_per_day: 0 }, { questions_per_day: 11 }, { questions_per_day: 2.5 }, { report_period_days: 91 }, { report_start: 'demain' }, { invite_code: 'X' }]) {
+    for (const bad of [{ questions_per_day: -1 }, { questions_per_day: 11 }, { questions_per_day: 2.5 }, { report_period_days: 91 }, { report_start: 'demain' }, { invite_code: 'X' }]) {
       expect(await code(c.p1.updateRoom(bad))).toBe('invalid_settings');
     }
     expect(await code(c.p1.updateRoom({ p1_name: '' }))).toBe('invalid_name');

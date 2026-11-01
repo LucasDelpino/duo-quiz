@@ -7,6 +7,8 @@ import { DEMO_PARTNER, PARTNER_TEXTS, PARTNER_QUESTIONS, fakeAnalysis } from './
 
 export const DB_KEY = 'duo-quiz:demo-db';
 const ROUND_COLUMNS = ['id', 'room_id', 'play_date', 'text', 'kind', 'options', 'category', 'created_at'];
+/** Mode illimité : questions de base par jour avant « Encore des questions ». */
+export const UNLIMITED_BASE = 3;
 const ROOM_COLUMNS = ['id', 'p1_name', 'p2_name', 'invite_code', 'questions_per_day', 'report_period_days', 'report_start', 'created_at'];
 const KINDS = ['choice', 'scale', 'text'];
 const emptyDb = () => ({ rooms: [], custom_questions: [], rounds: [], answers: [], judgments: [], analyses: [], device_links: [] });
@@ -94,6 +96,40 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
     return clone(res);
   }
 
+  function checkDate(date) {
+    const today = todayParis(now());
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date)) || date > addDays(today, 1) || date < addDays(today, -1)) {
+      throw new ApiError('invalid_date');
+    }
+  }
+
+  /** Équivalent de fill_rounds : complète jusqu'à `want` questions dont au plus `maxCustom` perso. */
+  function fill(db, room, date, want, maxCustom, candidates) {
+    const ofDay = () => db.rounds.filter((r) => r.room_id === room.id && r.play_date === date);
+    let n = ofDay().length;
+    let nCustom = ofDay().filter((r) => r.source === 'custom').length;
+    const base = { room_id: room.id, play_date: date };
+    while (n < want && nCustom < maxCustom) {
+      const cq = db.custom_questions
+        .filter((c) => c.room_id === room.id && !c.used)
+        .sort((a, b) => (a.created_at < b.created_at ? -1 : a.created_at > b.created_at ? 1 : 0))[0];
+      if (!cq) break;
+      cq.used = true;
+      db.rounds.push({ ...base, id: uuid(), source: 'custom', bank_id: null, author: cq.author, text: cq.text, kind: cq.kind, options: cq.options ?? null, category: cq.category, created_at: nowISO() });
+      n += 1;
+      nCustom += 1;
+    }
+    for (const c of Array.isArray(candidates) ? candidates : []) {
+      if (n >= want) break;
+      const ok = c && KINDS.includes(c.kind) && len(c.text) >= 3 && len(c.text) <= 300
+        && !db.rounds.some((r) => r.room_id === room.id && r.bank_id === c.id);
+      if (!ok) continue;
+      db.rounds.push({ ...base, id: uuid(), source: 'bank', bank_id: c.id, author: null, text: c.text, kind: c.kind, options: c.options ?? null, category: c.category ?? 'perso', created_at: nowISO() });
+      n += 1;
+    }
+    return ofDay().sort((a, b) => (a.id < b.id ? -1 : 1)).map((r) => pick(r, ROUND_COLUMNS));
+  }
+
   const api = {
     mode: 'memory',
 
@@ -154,7 +190,7 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
           if (!allowed.includes(k)) throw new ApiError('invalid_settings');
           if (k === 'p1_name' && !validName(v)) throw new ApiError('invalid_name');
           if (k === 'p2_name' && v !== null && !validName(v)) throw new ApiError('invalid_name');
-          if (k === 'questions_per_day' && !(Number.isInteger(v) && v >= 1 && v <= 10)) throw new ApiError('invalid_settings');
+          if (k === 'questions_per_day' && !(Number.isInteger(v) && v >= 0 && v <= 10)) throw new ApiError('invalid_settings');
           if (k === 'report_period_days' && !(Number.isInteger(v) && v >= 1 && v <= 90)) throw new ApiError('invalid_settings');
           if (k === 'report_start' && !/^\d{4}-\d{2}-\d{2}$/.test(String(v))) throw new ApiError('invalid_settings');
         }
@@ -169,36 +205,22 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
 
     async ensureRounds(date, candidates = []) {
       return withMe((db, { room }) => {
-        const today = todayParis(now());
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date)) || date > addDays(today, 1) || date < addDays(today, -1)) {
-          throw new ApiError('invalid_date');
-        }
-        const target = room.questions_per_day;
-        const maxCustom = Math.max(1, Math.floor(target / 2));
-        const ofDay = () => db.rounds.filter((r) => r.room_id === room.id && r.play_date === date);
-        let n = ofDay().length;
-        let nCustom = ofDay().filter((r) => r.source === 'custom').length;
-        const base = { room_id: room.id, play_date: date };
+        checkDate(date);
+        const target = room.questions_per_day === 0 ? UNLIMITED_BASE : room.questions_per_day;
+        return fill(db, room, date, target, Math.max(1, Math.floor(target / 2)), candidates);
+      }, { write: true });
+    },
 
-        while (n < target && nCustom < maxCustom) {
-          const cq = db.custom_questions
-            .filter((c) => c.room_id === room.id && !c.used)
-            .sort((a, b) => (a.created_at < b.created_at ? -1 : a.created_at > b.created_at ? 1 : 0))[0];
-          if (!cq) break;
-          cq.used = true;
-          db.rounds.push({ ...base, id: uuid(), source: 'custom', bank_id: null, author: cq.author, text: cq.text, kind: cq.kind, options: cq.options ?? null, category: cq.category, created_at: nowISO() });
-          n += 1;
-          nCustom += 1;
-        }
-        for (const c of Array.isArray(candidates) ? candidates : []) {
-          if (n >= target) break;
-          const ok = c && KINDS.includes(c.kind) && len(c.text) >= 3 && len(c.text) <= 300
-            && !db.rounds.some((r) => r.room_id === room.id && r.bank_id === c.id);
-          if (!ok) continue;
-          db.rounds.push({ ...base, id: uuid(), source: 'bank', bank_id: c.id, author: null, text: c.text, kind: c.kind, options: c.options ?? null, category: c.category ?? 'perso', created_at: nowISO() });
-          n += 1;
-        }
-        return ofDay().sort((a, b) => (a.id < b.id ? -1 : 1)).map((r) => pick(r, ROUND_COLUMNS));
+    /** Mode illimité (questions_per_day = 0) : comme la RPC draw_more. */
+    async drawMore(date, candidates = [], count = 3) {
+      return withMe((db, { room, player }) => {
+        checkDate(date);
+        if (room.questions_per_day !== 0) throw new ApiError('not_unlimited');
+        const day = db.rounds.filter((r) => r.room_id === room.id && r.play_date === date);
+        if (day.some((r) => !db.answers.some((a) => a.round_id === r.id && a.player === player))) throw new ApiError('finish_first');
+        const cnt = Math.min(10, Math.max(1, Number.isInteger(count) ? count : 3));
+        const nCustom = day.filter((r) => r.source === 'custom').length;
+        return fill(db, room, date, day.length + cnt, nCustom + Math.max(1, Math.floor(cnt / 2)), candidates);
       }, { write: true });
     },
 

@@ -10,6 +10,8 @@ export const MESSAGES = {
   already_answered: 'Tu as déjà répondu à cette question.',
   invalid_question: 'Question invalide : 3 à 300 caractères, et 2 à 6 choix pour un QCM.',
   invalid_settings: 'Réglage invalide.',
+  not_unlimited: 'Le mode « Illimité » n’est pas activé dans les réglages.',
+  finish_first: 'Réponds d’abord à toutes les questions du jour 😉',
   not_allowed: 'Action impossible pour le moment.',
   not_found: 'Introuvable.',
   network: 'Connexion impossible. Vérifie ton réseau et réessaie.',

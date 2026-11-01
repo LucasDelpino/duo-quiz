@@ -9,7 +9,7 @@ const bank = JSON.parse(readFileSync('data/questions.json', 'utf8'));
 const base = { category: 'gouts', facet: 'aime' };
 
 /** Une question perso doit passer EXACTEMENT les mêmes règles qu'une question de la banque. */
-function asBankItem(q, id = 'q999') {
+function asBankItem(q, id = 'q99999') {
   const { category, facet } = decodeCategory(q.category);
   return { id, text: q.text, kind: q.kind, options: q.options, category, facet };
 }

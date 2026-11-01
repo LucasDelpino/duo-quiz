@@ -53,3 +53,4 @@ Ajoute `?demo=1` à l'adresse : tout reste sur le téléphone, rien n'est envoy�
 ## À exécuter par Lucas (Supabase → SQL Editor)
 - [x] `supabase/migrations/001_anonymat_et_analyses.sql` — anonymat des questions perso, rapports IA, reconnexion d'appareil (déjà exécutée en production d'après la SPEC).
 - Aucune nouvelle migration requise : la facette des questions est stockée dans `category` (« gouts:aime ») pour la banque comme pour les questions perso.
+- [ ] `supabase/migrations/003_questions_illimitees.sql` — option « Illimité » pour les questions par jour.

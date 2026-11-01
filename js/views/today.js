@@ -6,7 +6,8 @@ import { statusChip, categoryChip } from '../ui/status.js';
 import { animateCount } from '../ui/counter.js';
 import { share } from '../ui/share.js';
 import { ApiError, messageFor } from '../api/errors.js';
-import { ensureToday, loadGame, loadRoom, players, textFor } from '../game.js';
+import { ensureToday, drawMoreToday, loadGame, loadRoom, players, textFor } from '../game.js';
+import { toast } from '../ui/toast.js';
 import { todayParis, formatDay, formatShort, addDays } from '../logic/dates.js';
 import { roundStatus, pointFor, scoreRounds } from '../logic/scoring.js';
 import { sortForDisplay } from '../logic/draw.js';
@@ -116,6 +117,30 @@ function progressPopup(summary, me, names, todays, game) {
   return overlay;
 }
 
+/** Mode illimité : « Encore des questions » quand j'ai répondu à tout aujourd'hui. */
+function moreButton(room, todays, game, me) {
+  if (room.questions_per_day !== 0 || !room.p2_name) return null;
+  const mineDone = todays.every((r) => roundStatus(r, game.answers, game.judgments, me) !== 'todo');
+  if (!todays.length || !mineDone) return null;
+  const btn = button('Encore des questions 🎲', {
+    variant: 'coral', block: true, 'data-testid': 'draw-more',
+    onClick: async () => {
+      btn.disabled = true;
+      try {
+        await drawMoreToday();
+        go('#/today');
+      } catch (error) {
+        btn.disabled = false;
+        toast(messageFor(error), { type: 'error' });
+      }
+    },
+  });
+  return card([
+    h('p', { class: 'center' }, 'Mode illimité ♾️ — tu as répondu à tout. On continue ?'),
+    btn,
+  ], { 'data-testid': 'more-card' });
+}
+
 function errorView(error) {
   const lost = error instanceof ApiError && error.code === 'unauthorized';
   return h('section', { class: 'view stack', 'data-view': 'today' },
@@ -157,9 +182,10 @@ export async function render() {
     waitingPartner(room),
     scoreBanner(room, game, me, names, today),
     progressBanner(summary, me, names),
-    todays.length && done ? h('p', { class: 'notice', 'data-testid': 'all-done' }, 'Tout est joué pour aujourd’hui 🎉 Reviens demain pour de nouvelles questions !') : null,
+    todays.length && done ? h('p', { class: 'notice', 'data-testid': 'all-done' }, room.questions_per_day === 0 ? 'Tout est joué pour l’instant 🎉' : 'Tout est joué pour aujourd’hui 🎉 Reviens demain pour de nouvelles questions !') : null,
     h('div', { class: 'stack', 'data-testid': 'today-rounds' },
       todays.length ? todays.map((r) => roundCard(r, game, me, names)) : h('p', { class: 'empty' }, h('span', { class: 'emoji' }, '🃏'), 'Pas de question aujourd’hui.')),
+    moreButton(room, todays, game, me),
     late.length ? h('div', { class: 'stack', 'data-testid': 'late-rounds' },
       h('h2', {}, 'En retard'),
       late.map((r) => roundCard(r, game, me, names, { showDate: true }))) : null,

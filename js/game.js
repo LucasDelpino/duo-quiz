@@ -27,6 +27,13 @@ export async function ensureToday(today = todayParis()) {
   return api.ensureRounds(today, drawCandidates(bank, used, { count: 20 }));
 }
 
+/** Mode illimité : tire un nouveau lot de questions (après avoir tout répondu). */
+export async function drawMoreToday(today = todayParis(), count = 3) {
+  const api = await getApi();
+  const [bank, used] = await Promise.all([loadBank(), api.usedBankIds()]);
+  return api.drawMore(today, drawCandidates(bank, used, { count: 20 }), count);
+}
+
 /** Rounds + réponses + validations visibles pour une plage de dates. */
 export async function loadGame({ from = null, to = null } = {}) {
   const api = await getApi();

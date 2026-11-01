@@ -11,10 +11,13 @@ test('réglages : prénoms, questions par jour, sons, appareil, quitter', async 
   await expect(page.getByTestId('invite')).toHaveCount(0);
 
   await page.fill('#p2_name', 'Alexis');
-  await page.fill('#questions_per_day', '11');
+  await page.fill('#report_period_days', '91');
   await page.getByTestId('save-settings').click();
-  await expect(page.locator('#settings-form .form-error')).toHaveText(/entre 1 et 10/);
-  await page.fill('#questions_per_day', '5');
+  await expect(page.locator('#settings-form .form-error')).toHaveText(/entre 1 et 90/);
+  await page.fill('#report_period_days', '7');
+  await expect(page.locator('#questions_per_day option')).toHaveCount(11);
+  await expect(page.locator('#questions_per_day option').first()).toHaveText(/Illimité/);
+  await page.selectOption('#questions_per_day', '5');
   await page.getByTestId('save-settings').click();
   await expect(page.locator('.toast').last()).toHaveText(/enregistrés/);
   expect((await session(page)).names[2]).toBe('Alexis');

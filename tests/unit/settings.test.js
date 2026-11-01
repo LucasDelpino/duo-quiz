@@ -14,6 +14,8 @@ describe('réglages', () => {
     expect(settingsPatch({ ...ok, p2_name: '' }, true).error).toMatch(/prénoms/);
     expect(settingsPatch({ ...ok, p2_name: '' }, false).error).toBeUndefined();
     expect(settingsPatch({ ...ok, questions_per_day: '11' }, true).error).toMatch(/1 et 10/);
+    expect(settingsPatch({ ...ok, questions_per_day: '-1' }, true).error).toMatch(/Illimité/);
+    expect(settingsPatch({ ...ok, questions_per_day: '0' }, true).patch.questions_per_day).toBe(0);
     expect(settingsPatch({ ...ok, questions_per_day: '2.5' }, true).error).toMatch(/1 et 10/);
     expect(settingsPatch({ ...ok, report_period_days: '0' }, true).error).toMatch(/1 et 90/);
     expect(settingsPatch({ ...ok, report_start: '2026-02-30' }, true).error).toMatch(/Date/);
