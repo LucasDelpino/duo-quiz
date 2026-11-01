@@ -1,0 +1,23 @@
+{
+  "name": "duo-quiz",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Duo Quiz — le jeu à deux pour mieux se connaître",
+  "scripts": {
+    "serve": "node scripts/serve.mjs",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "e2e": "playwright test",
+    "fonts": "node scripts/fonts.mjs",
+    "check": "npm run coverage && npm run e2e"
+  },
+  "devDependencies": {
+    "@fontsource/fredoka": "^5.1.0",
+    "@fontsource/nunito": "^5.1.0",
+    "@playwright/test": "1.63.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "jsdom": "^25.0.1",
+    "vitest": "^2.1.8"
+  }
+}
