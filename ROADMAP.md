@@ -9,7 +9,7 @@ Chaque session de la Routine prend la **première étape non cochée**, la termi
 - [x] **5. Adaptateur Supabase** — avec client mocké (en-tête, colonnes explicites sans source/author/bank_id, traduction des erreurs, `usedBankIds`, `listAnalyses`).
 - [ ] **6. Banque de questions** — ≥ 300 questions couple (§5) avec catégories + facettes, `{autre}` ; test de validation.
 - [ ] **7. Setup + installation** — créer/rejoindre (code + lien), tuto d'installation Android / iPhone, reconnexion d'un appareil.
-- [ ] **8. Aujourd'hui + Round** — tirage, réponse en 2 étapes, attente, révélation animée, validation `text`, retards.
+- [ ] **8. Aujourd'hui + Round** — pop-up « Qui a joué ? » à l'ouverture + bandeau de progression (§6), tirage, réponse en 2 étapes, attente, révélation animée, validation `text`, retards.
 - [ ] **9. Questions perso** — formulaire normalisé (anonymat), facette, liste de mes questions en réserve.
 - [ ] **10. Bilan + Historique** — sélecteur de période, stats, gagnant, partage, historique filtrable.
 - [ ] **11. Love report** — jauge, score direct + portraits, rapport IA (affichage défensif), courbe d'évolution.

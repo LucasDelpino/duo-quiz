@@ -47,6 +47,7 @@ listJudgments(roundIds) / judge(roundId, correct)
 addCustomQuestion({text, kind, options, category}) / listMyPendingCustom()
 listAnalyses() -> Analysis[]             // rapports IA (table analyses)
 createDeviceLink() -> code / claimDeviceLink(code) -> {room_id, secret, player}
+dayProgress(dateISO) -> [{player, answered, total, last_answer_at}]   // RPC day_progress (migration 002) : compteurs seulement
 ```
 
 Supabase : `createClient(URL, KEY, { global: { headers: { 'x-player-secret': secret } } })`. Le secret vient du serveur, reste dans le localStorage, **jamais** dans le dépôt ni les logs. **Colonnes explicites** dans chaque `select` : `rounds` n'expose plus `source`, `author`, `bank_id` (un `select('*')` échoue). Erreurs `invalid_invite`, `unauthorized`, `invalid_date` → messages français.
@@ -76,7 +77,7 @@ Rien dans l'interface ne doit permettre de savoir si une question vient de la ba
 ### Score et bilan (`report.js`)
 - Point = 1 si prédiction correcte, 0 sinon, `null` si en attente.
 - Bilan de période : points par joueur, rounds complets, précision %, gagnant / égalité (titre fun : « {nom} te connaît par cœur 👑 »), meilleure/pire catégorie de chacun, série de jours joués, top 3 « tu ne l'aurais jamais deviné », évolution vs période précédente.
-- Période : `report_period_days` jours à partir de `report_start` (défaut 7, clôture dimanche soir). Sélecteur : en cours / précédente / personnalisée / depuis le début.
+- Période : `report_period_days` jours à partir de `report_start` (défaut 7, clôture dimanche soir ; 1 = bilan quotidien, chaque jour à minuit). Réglage **commun à la partie** : modifiable par l'un ou l'autre dans Réglages, s'applique aux deux téléphones ; l'autre joueur voit un toast « {nom} a changé la période du bilan ». Le rapport IA reste hebdomadaire quel que soit ce réglage. Sélecteur : en cours / précédente / personnalisée / depuis le début.
 - **Visible et identique sur les 2 téléphones** (calculé depuis les mêmes données serveur). Bouton « Partager » (Web Share API sur Android et iOS, repli copier).
 
 ## 4. Compatibilité amoureuse
@@ -122,6 +123,7 @@ Le formulaire perso demande aussi la facette (libellé simple : « Ça parle de�
 - **Setup** : Créer (prénom → code + lien `#/join/CODE` + Partager) / Rejoindre. Écran « Installer l'app » adapté à l'appareil : Android → bouton `beforeinstallprompt` ; iPhone → tuto illustré « Partager → Sur l'écran d'accueil ».
 - **Aujourd'hui** : cartes du jour (à jouer / en attente / révélée / à valider), bandeau score de la période, retards.
 - **Round**, **Ajouter**, **Bilan**, **Love report**, **Historique** (filtrable par catégorie), **Réglages** (prénoms, questions/jour 1–10, période 1–90 j, date de départ, sons on/off, quitter sur cet appareil, mode démo).
+- **Pop-up « Qui a joué ? » à chaque ouverture de l'app** (et au retour au premier plan, max 1 fois / 30 min) via `dayProgress(aujourd'hui)` : pour chaque joueur, nombre de questions répondues sur le total du jour + « il y a 2 h ». Messages motivants selon l'état, ex. « {autre} a déjà répondu à 2/3 questions 👀 — à toi de jouer ! », « Vous avez tout fini aujourd'hui 🎉 Révélations dispo », « Personne n'a encore joué… lance la partie ! », « Tu as fini, {autre} pas encore 🤫 ». Bouton principal « Jouer » (ou « Voir les révélations »), fermeture par glisser/croix. Version compacte permanente dans le bandeau d'« Aujourd'hui » (2 avatars + mini-barres de progression). Si la RPC est absente (migration non exécutée) : ne rien afficher, pas d'erreur.
 - Navigation par barre d'onglets en bas (Aujourd'hui · Ajouter · Bilan · Love · Plus).
 - Rafraîchissement à l'ouverture, au retour au premier plan (`visibilitychange`), bouton/tirer-pour-rafraîchir.
 

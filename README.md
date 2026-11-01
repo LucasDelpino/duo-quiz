@@ -15,4 +15,5 @@ Le jeu à deux pour mieux se connaître : chaque jour, répondez aux mêmes ques
 `npm install` puis `npm run check`. Mode démo sans backend : ajouter `?demo=1` à l'URL.
 
 ## À exécuter par Lucas (Supabase → SQL Editor)
-- [ ] `supabase/migrations/001_anonymat_et_analyses.sql` — anonymat des questions perso, rapports IA, reconnexion d'appareil.
+- [x] `supabase/migrations/001_anonymat_et_analyses.sql` — anonymat des questions perso, rapports IA, reconnexion d'appareil.
+- [x] `supabase/migrations/002_progression_du_jour.sql` — indicateur « qui a joué aujourd'hui ».
