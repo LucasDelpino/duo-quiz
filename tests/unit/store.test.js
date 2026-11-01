@@ -36,6 +36,12 @@ describe('store', () => {
     expect(store.loadPrefs().sounds).toBe(true);
   });
 
+  it('session séparée pour le mode démo', () => {
+    expect(store.sessionKey('')).toBe('duo-quiz:session');
+    expect(store.sessionKey('?demo=1')).toBe('duo-quiz:demo-session');
+    expect(store.sessionKey('?demo=true&x=1')).toBe('duo-quiz:demo-session');
+  });
+
   it('donne un prénom de repli', () => {
     expect(store.playerName(S, 1)).toBe('Lucas');
     expect(store.playerName(S, 2)).toBe('Joueur 2');

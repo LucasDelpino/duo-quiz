@@ -5,6 +5,7 @@ import { card, flipCard, reveal } from '../ui/card.js';
 import { categoryChip } from '../ui/status.js';
 import { confetti } from '../ui/confetti.js';
 import { vibrate, prefersReducedMotion } from '../ui/motion.js';
+import { play } from '../ui/sound.js';
 import { toast } from '../ui/toast.js';
 import { errorBox, busy } from '../ui/form.js';
 import { messageFor } from '../api/errors.js';
@@ -189,7 +190,7 @@ function revealView(data, ctx) {
     }
     points.hidden = false;
     if (!instant) {
-      if (myPt === 1) { vibrate(40); confetti(); } else if (myPt === 0) points.classList.add('shake');
+      if (myPt === 1) { vibrate(40); confetti(); play('win'); } else if (myPt === 0) { points.classList.add('shake'); play('miss'); }
     }
     markSeen(round.id);
   };

@@ -35,7 +35,7 @@ export async function startSoloDemo(page, name = 'Lucas') {
 }
 
 export async function session(page) {
-  return page.evaluate(() => JSON.parse(localStorage.getItem('duo-quiz:session') || 'null'));
+  return page.evaluate(() => JSON.parse(localStorage.getItem('duo-quiz:demo-session') || 'null'));
 }
 
 /** Répond à l'étape courante quel que soit le type de question. */

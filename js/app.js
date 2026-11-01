@@ -17,6 +17,7 @@ const VIEWS = {
   report: () => import('./views/report.js'),
   history: () => import('./views/history.js'),
   love: () => import('./views/love.js'),
+  settings: () => import('./views/settings.js'),
   styleguide: () => import('./views/styleguide.js'),
 };
 

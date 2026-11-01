@@ -309,3 +309,11 @@ fieldset.plain { border: 0; padding: 0; margin: 0; }
 .curve-dot { fill: var(--coral); }
 .curve-label { fill: var(--text); font: 700 11px var(--font-body); }
 .disclaimer { margin-top: 8px; }
+
+/* Réglages */
+.nav-card { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; font-weight: 800; min-height: 64px; }
+.switch-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; }
+.switch-row input { appearance: none; -webkit-appearance: none; width: 56px; height: 32px; border-radius: 999px; background: rgb(255 255 255 / .2); position: relative; cursor: pointer; flex: none; transition: background var(--dur); }
+.switch-row input::after { content: ''; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform var(--dur) var(--ease); }
+.switch-row input:checked { background: var(--teal); }
+.switch-row input:checked::after { transform: translateX(24px); }

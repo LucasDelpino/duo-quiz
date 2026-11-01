@@ -1,7 +1,11 @@
 // Session locale de l'appareil (localStorage) : room_id, player, secret, noms, préférences.
 // Le secret ne quitte jamais cet appareil (ni dépôt, ni logs).
 
-const KEY = 'duo-quiz:session';
+// Le mode démo (?demo=1) a sa propre session : ouvrir la démo ne déconnecte pas la vraie partie.
+export function sessionKey(search = globalThis.location?.search ?? '') {
+  const demo = new URLSearchParams(search).get('demo');
+  return demo === '1' || demo === 'true' ? 'duo-quiz:demo-session' : 'duo-quiz:session';
+}
 const PREFS_KEY = 'duo-quiz:prefs';
 const DEFAULT_PREFS = { sounds: false };
 
@@ -40,14 +44,14 @@ export function isValidSession(s) {
 }
 
 export function loadSession() {
-  const s = readJSON(KEY);
+  const s = readJSON(sessionKey());
   return isValidSession(s) ? s : null;
 }
 
 export function saveSession({ room_id, player, secret, names = {} }) {
   const session = { room_id, player, secret, names: { ...names } };
   if (!isValidSession(session)) throw new Error('Session invalide');
-  writeJSON(KEY, session);
+  writeJSON(sessionKey(), session);
   return session;
 }
 
@@ -59,7 +63,7 @@ export function updateNames(names) {
 
 export function clearSession() {
   try {
-    storage()?.removeItem(KEY);
+    storage()?.removeItem(sessionKey());
   } catch {
     /* rien à faire */
   }

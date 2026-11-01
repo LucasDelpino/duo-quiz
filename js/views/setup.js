@@ -27,10 +27,10 @@ function form(id, children, onSubmit) {
   return f;
 }
 
-export function invitePanel(code) {
+export function invitePanel(code, { onboarding = true } = {}) {
   const link = `${appBaseUrl()}#/join/${code}`;
   return card([
-    h('h2', {}, 'Partie créée 🎉'),
+    h('h2', {}, onboarding ? 'Partie créée 🎉' : 'Invitation en attente'),
     h('p', {}, 'Envoie ce code (ou le lien) à ton/ta partenaire pour qu’il ou elle te rejoigne :'),
     h('p', { class: 'code', 'data-testid': 'invite-code' }, code),
     h('p', { class: 'small muted link-text', 'data-testid': 'invite-link' }, link),
@@ -38,7 +38,7 @@ export function invitePanel(code) {
       button('Partager', { variant: 'teal', onClick: () => share({ title: 'Duo Quiz', text: `Rejoins-moi sur Duo Quiz avec le code ${code} 💞`, url: link }) }),
       button('Copier le lien', { variant: 'ghost', onClick: () => copy(link) })),
     h('p', { class: 'small muted' }, 'Ce code reste visible dans Réglages tant que ton/ta partenaire n’a pas rejoint.'),
-    button('Continuer', { size: 'lg', block: true, 'data-testid': 'continue', onClick: () => go('#/install') }),
+    onboarding ? button('Continuer', { size: 'lg', block: true, 'data-testid': 'continue', onClick: () => go('#/install') }) : null,
   ], { variant: 'gold', 'data-testid': 'invite' });
 }
 
