@@ -42,8 +42,15 @@ describe('audit secrets', () => {
     expect(cfg).not.toMatch(/service_role/);
   });
 
+  // Un secret = un vrai corps de clé, pas une simple mention du préfixe (ex. dans le Journal).
   // Motif assemblé en morceaux : ce fichier, lui aussi suivi par git, ne doit pas se détecter lui-même.
-  const SECRET_PATTERN = new RegExp(['-----BEGIN [A-Z ]*PRIVATE KEY-----', 'sk' + '_live_'].join('|'));
+  const SECRET_PATTERN = new RegExp(['-----BEGIN [A-Z ]*PRIVATE KEY-----', 'sk' + '_live_[A-Za-z0-9]{16,}'].join('|'));
+
+  it('le motif détecte une vraie clé mais pas une mention du préfixe', () => {
+    const prefix = 'sk' + '_live_';
+    expect(prefix + 'a1B2c3D4e5F6g7H8i9J0').toMatch(SECRET_PATTERN);
+    expect(`le motif \`${prefix}\` du Journal`).not.toMatch(SECRET_PATTERN);
+  });
 
   it('aucun secret journalisé ni commité', () => {
     for (const f of appJs) expect(read(f), f).not.toMatch(/console\.\w+\([^)]*secret/i);
