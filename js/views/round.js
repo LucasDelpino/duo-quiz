@@ -222,6 +222,7 @@ export async function render({ params }) {
   const ctx = players();
   const status = roundStatus(data.round, data.answers, data.judgments, ctx.me);
   root.dataset.status = status;
+  root.dataset.round = data.round.id;
   root.append(h('p', { class: 'small muted' }, formatDay(data.round.play_date)));
   const body = h('div', { class: 'stack' });
   root.append(body);
