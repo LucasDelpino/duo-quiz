@@ -13,6 +13,7 @@ const VIEWS = {
   install: () => import('./views/install.js'),
   today: () => import('./views/today.js'),
   round: () => import('./views/round.js'),
+  add: () => import('./views/add.js'),
   styleguide: () => import('./views/styleguide.js'),
 };
 
