@@ -3,7 +3,9 @@ import { normalizeQuestionText, normalizeOptions, normalizeAnswer } from '../js/
 import { CATEGORIES } from '../js/logic/category.js';
 import { FACETS } from '../js/logic/compat.js';
 
-const FORBIDDEN = /\bsex|\bsalaire|\bton ex\b|\btes ex\b|\bmaladie|\bmédicament|\bton poids\b|\bcombien gagnes/i;
+// Sujets exclus partout ; le vocabulaire intime n'est autorisé que dans la catégorie « coquin ».
+const FORBIDDEN = /\bsalaire|\bton ex\b|\btes ex\b|\bmaladie|\bmédicament|\bton poids\b|\bcombien gagnes/i;
+const INTIMATE = /\bsex|\bnu·?e?\b|lingerie|torride|strip|libido|coquin|faire l’amour|sous la couette/i;
 
 export function validateBank(bank) {
   const errors = [];
@@ -28,7 +30,8 @@ export function validateBank(bank) {
     if (texts.has(key)) err('texte en double');
     texts.add(key);
     if ((String(q.text).match(/\{[^}]*\}/g) || []).some((t) => t !== '{autre}')) err('seul {autre} est autorisé');
-    if (FORBIDDEN.test(q.text) || (q.options || []).some((o) => FORBIDDEN.test(o))) err('sujet exclu (sexe, argent personnel, santé, ex)');
+    if (FORBIDDEN.test(q.text) || (q.options || []).some((o) => FORBIDDEN.test(o))) err('sujet exclu (argent personnel, santé, ex)');
+    if (q.category !== 'coquin' && (INTIMATE.test(q.text) || (q.options || []).some((o) => INTIMATE.test(o)))) err('contenu intime hors de la catégorie « coquin »');
     if (!(q.kind in kinds)) err('kind invalide');
     else kinds[q.kind] += 1;
     if (!CATEGORIES.includes(q.category)) err('catégorie inconnue');

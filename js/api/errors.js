@@ -12,6 +12,7 @@ export const MESSAGES = {
   invalid_settings: 'Réglage invalide.',
   not_unlimited: 'Le mode « Illimité » n’est pas activé dans les réglages.',
   too_far_ahead: 'Tu as 15 réponses d’avance : attends que ton/ta partenaire te rattrape ⏳',
+  needs_migration: 'Ce réglage demande une mise à jour de la base Supabase (script 005).',
   finish_first: 'Réponds d’abord à toutes les questions du jour 😉',
   not_allowed: 'Action impossible pour le moment.',
   not_found: 'Introuvable.',

@@ -10,7 +10,7 @@ export const DB_KEY = 'duo-quiz:demo-db';
 const ROUND_COLUMNS = ['id', 'room_id', 'play_date', 'text', 'kind', 'options', 'category', 'created_at'];
 /** Mode illimité : questions de base par jour avant « Encore des questions ». */
 export const UNLIMITED_BASE = 3;
-const ROOM_COLUMNS = ['id', 'p1_name', 'p2_name', 'invite_code', 'questions_per_day', 'report_period_days', 'report_start', 'created_at'];
+const ROOM_COLUMNS = ['id', 'p1_name', 'p2_name', 'invite_code', 'questions_per_day', 'report_period_days', 'report_start', 'created_at', 'spicy'];
 const KINDS = ['choice', 'scale', 'text'];
 const emptyDb = () => ({ rooms: [], custom_questions: [], rounds: [], answers: [], judgments: [], analyses: [], device_links: [] });
 
@@ -150,7 +150,7 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
       const s = hex(48);
       const room = {
         id: uuid(), p1_name: name.trim(), p2_name: null, p1_secret_hash: hash(s), p2_secret_hash: null,
-        invite_code: hex(8).toUpperCase(), questions_per_day: 3, report_period_days: 7,
+        invite_code: hex(8).toUpperCase(), questions_per_day: 3, report_period_days: 7, spicy: 1,
         report_start: todayParis(now()), created_at: nowISO(),
       };
       db.rooms.push(room);
@@ -193,12 +193,13 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
 
     async updateRoom(patch = {}) {
       return withMe((db, { room }) => {
-        const allowed = ['p1_name', 'p2_name', 'questions_per_day', 'report_period_days', 'report_start'];
+        const allowed = ['p1_name', 'p2_name', 'questions_per_day', 'report_period_days', 'report_start', 'spicy'];
         for (const [k, v] of Object.entries(patch)) {
           if (!allowed.includes(k)) throw new ApiError('invalid_settings');
           if (k === 'p1_name' && !validName(v)) throw new ApiError('invalid_name');
           if (k === 'p2_name' && v !== null && !validName(v)) throw new ApiError('invalid_name');
           if (k === 'questions_per_day' && !(Number.isInteger(v) && v >= 0 && v <= 10)) throw new ApiError('invalid_settings');
+          if (k === 'spicy' && !(Number.isInteger(v) && v >= 0 && v <= 2)) throw new ApiError('invalid_settings');
           if (k === 'report_period_days' && !(Number.isInteger(v) && v >= 1 && v <= 90)) throw new ApiError('invalid_settings');
           if (k === 'report_start' && !/^\d{4}-\d{2}-\d{2}$/.test(String(v))) throw new ApiError('invalid_settings');
         }

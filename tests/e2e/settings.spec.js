@@ -17,10 +17,14 @@ test('réglages : prénoms, questions par jour, sons, appareil, quitter', async 
   await page.fill('#report_period_days', '7');
   await expect(page.locator('#questions_per_day option')).toHaveCount(11);
   await expect(page.locator('#questions_per_day option').first()).toHaveText(/Illimité/);
+  await expect(page.locator('#spicy')).toHaveValue('1');
+  await page.selectOption('#spicy', '2');
   await page.selectOption('#questions_per_day', '5');
   await page.getByTestId('save-settings').click();
   await expect(page.locator('.toast').last()).toHaveText(/enregistrés/);
   expect((await session(page)).names[2]).toBe('Alexis');
+  await page.reload();
+  await expect(page.locator('#spicy')).toHaveValue('2');
 
   // Sons : désactivés par défaut, mémorisés
   await expect(page.getByTestId('sounds')).not.toBeChecked();

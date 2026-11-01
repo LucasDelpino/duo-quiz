@@ -9,7 +9,8 @@ import { ApiError, messageFor } from '../api/errors.js';
 import { ensureToday, drawMoreToday, loadGame, loadRoom, players, textFor } from '../game.js';
 import { toast } from '../ui/toast.js';
 import { todayParis, formatDay, formatShort, addDays } from '../logic/dates.js';
-import { roundStatus, pointFor, scoreRounds } from '../logic/scoring.js';
+import { roundStatus, pointFor, scoreRounds, answersOf } from '../logic/scoring.js';
+import { splitRounds } from '../logic/home.js';
 import { sortForDisplay } from '../logic/draw.js';
 import { periodBounds, roundsIn } from '../logic/report.js';
 import { appBaseUrl, go, leave, getApi } from '../context.js';
@@ -18,14 +19,39 @@ import { paceState, paceMessage, PACE_POPUP_KEY } from '../logic/pace.js';
 
 const LOOKBACK_DAYS = 30;
 
+/** État d'un joueur sur une question : bonne / mauvaise prédiction, en attente, pas encore répondu. */
+function duoState(round, game, p) {
+  const answered = Boolean(answersOf(round.id, game.answers)[p]);
+  if (!answered) return 'none';
+  const pt = pointFor(round, game.answers, game.judgments, p);
+  return pt === 1 ? 'good' : pt === 0 ? 'bad' : 'wait';
+}
+
+const DUO_LABEL = { good: 'bonne réponse', bad: 'mauvaise réponse', wait: 'en attente', none: 'pas encore répondu' };
+
+/** Rectangle coupé en diagonale (barre jaune) : un triangle par joueur, vert si juste, rouge si faux. */
+function duoBox(round, game, me, names) {
+  const them = me === 1 ? 2 : 1;
+  const sMe = duoState(round, game, me);
+  const sThem = duoState(round, game, them);
+  const short = (n) => (n.length > 9 ? n.slice(0, 8) + '…' : n);
+  return h('div', { class: 'duo', role: 'img', 'data-testid': 'duo', 'data-me': sMe, 'data-them': sThem,
+    'aria-label': `${names[me]} : ${DUO_LABEL[sMe]} · ${names[them]} : ${DUO_LABEL[sThem]}` },
+  h('span', { class: `duo-tri duo-tri--a duo--${sMe}` }),
+  h('span', { class: `duo-tri duo-tri--b duo--${sThem}` }),
+  h('span', { class: 'duo-diag', 'aria-hidden': 'true' }),
+  h('span', { class: 'duo-name duo-name--a', 'aria-hidden': 'true' }, short(names[me])),
+  h('span', { class: 'duo-name duo-name--b', 'aria-hidden': 'true' }, short(names[them])));
+}
+
 function roundCard(round, game, me, names, { showDate = false } = {}) {
   const status = roundStatus(round, game.answers, game.judgments, me);
-  const pt = status === 'revealed' || status === 'to_judge' ? pointFor(round, game.answers, game.judgments, me) : null;
   return h('a', { class: 'card round-card', href: `#/round/${encodeURIComponent(round.id)}`, 'data-round': round.id, 'data-status': status },
-    h('div', { class: 'row round-card-head' }, categoryChip(round.category), statusChip(status),
-      showDate ? h('span', { class: 'small muted' }, formatShort(round.play_date)) : null,
-      pt === 1 ? h('span', { class: 'chip chip--gold' }, '+1') : null),
-    h('p', { class: 'round-card-text' }, textFor(round.text, me, names)));
+    h('div', { class: 'round-card-main' },
+      h('div', { class: 'row round-card-head' }, categoryChip(round.category), statusChip(status),
+        showDate ? h('span', { class: 'small muted' }, formatShort(round.play_date)) : null),
+      h('p', { class: 'round-card-text' }, textFor(round.text, me, names))),
+    duoBox(round, game, me, names));
 }
 
 function scoreBanner(room, game, me, names, today) {
@@ -169,7 +195,7 @@ export async function render() {
   let game;
   try {
     room = await loadRoom();
-    await ensureToday(today);
+    await ensureToday(today, room);
     game = await loadGame({ from: addDays(today, -LOOKBACK_DAYS), to: today });
   } catch (error) {
     return errorView(error);
@@ -187,8 +213,7 @@ export async function render() {
   } catch { summary = null; pace = null; } // indicateurs non critiques
   const paceMsg = pace?.state === 'behind' ? paceMessage(pace, names, me) : null;
   const todays = sortForDisplay(game.rounds.filter((r) => r.play_date === today));
-  const older = game.rounds.filter((r) => r.play_date < today);
-  const late = sortForDisplay(older.filter((r) => ['todo', 'to_judge'].includes(roundStatus(r, game.answers, game.judgments, me))));
+  const { pending, recent } = splitRounds(game.rounds, game.answers, game.judgments, me, today);
   const done = todays.every((r) => roundStatus(r, game.answers, game.judgments, me) === 'revealed');
 
   return h('section', { class: 'view stack', 'data-view': 'today' },
@@ -201,11 +226,17 @@ export async function render() {
     progressBanner(summary, me, names),
     todays.length && done ? h('p', { class: 'notice', 'data-testid': 'all-done' }, room.questions_per_day === 0 ? 'Tout est joué pour l’instant 🎉' : 'Tout est joué pour aujourd’hui 🎉 Reviens demain pour de nouvelles questions !') : null,
     h('div', { class: 'stack', 'data-testid': 'today-rounds' },
-      todays.length ? todays.map((r) => roundCard(r, game, me, names)) : h('p', { class: 'empty' }, h('span', { class: 'emoji' }, '🃏'), 'Pas de question aujourd’hui.')),
-    moreButton(room, todays, game, me, pace),
-    late.length ? h('div', { class: 'stack', 'data-testid': 'late-rounds' },
-      h('h2', {}, 'En retard'),
-      late.map((r) => roundCard(r, game, me, names, { showDate: true }))) : null,
+      pending.length
+        ? h('div', { class: 'stack', 'data-testid': 'pending-rounds' },
+          h('h2', {}, `À jouer (${pending.length})`),
+          pending.map((r) => roundCard(r, game, me, names, { showDate: r.play_date !== today })))
+        : (!todays.length ? h('p', { class: 'empty' }, h('span', { class: 'emoji' }, '🃏'), 'Pas de question aujourd’hui.') : null),
+      moreButton(room, todays, game, me, pace),
+      recent.length
+        ? h('div', { class: 'stack', 'data-testid': 'recent-rounds' },
+          h('h2', {}, 'Dernières réponses'),
+          recent.map((r) => roundCard(r, game, me, names, { showDate: r.play_date !== today })))
+        : null),
     button('Rafraîchir', { variant: 'ghost', block: true, 'data-testid': 'refresh', onClick: () => go('#/today') }),
     paceMsg
       ? progressPopup(summary, me, names, todays, game, { msg: paceMsg, key: PACE_POPUP_KEY, testid: 'pace-popup' })

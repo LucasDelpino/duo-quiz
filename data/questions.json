@@ -9911,7 +9911,7 @@
       "Musique",
       "Vidéo",
       "GPS",
-      "Banque"
+      "Appli bancaire"
     ],
     "category": "et-si",
     "facet": "fun"
@@ -11220,5 +11220,2725 @@
     "options": null,
     "category": "enfance",
     "facet": "souvenir"
+  },
+  {
+    "id": "q1021",
+    "text": "Ton moment préféré pour un câlin coquin ?",
+    "kind": "choice",
+    "options": [
+      "Le matin au réveil",
+      "En pleine journée",
+      "Le soir avant de dormir",
+      "Au milieu de la nuit",
+      "N’importe quand"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1022",
+    "text": "L’ambiance idéale pour un moment intime ?",
+    "kind": "choice",
+    "options": [
+      "Lumière tamisée",
+      "Bougies",
+      "Noir complet",
+      "Grand jour",
+      "Musique douce"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1023",
+    "text": "Ce qui t’excite le plus chez {autre} ?",
+    "kind": "choice",
+    "options": [
+      "Son regard",
+      "Sa voix",
+      "Son corps",
+      "Son odeur",
+      "Son assurance",
+      "Sa façon de m’embrasser"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1024",
+    "text": "Le lieu le plus excitant pour faire l’amour ?",
+    "kind": "choice",
+    "options": [
+      "Le lit",
+      "La douche",
+      "Le canapé",
+      "Une chambre d’hôtel",
+      "En pleine nature",
+      "La voiture"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1025",
+    "text": "Tu préfères les préliminaires… ?",
+    "kind": "choice",
+    "options": [
+      "Longs et lents",
+      "Courts et intenses",
+      "Ça dépend de l’humeur",
+      "Pas besoin, on fonce"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1026",
+    "text": "La tenue de {autre} qui te fait le plus d’effet ?",
+    "kind": "choice",
+    "options": [
+      "Rien du tout",
+      "De la lingerie",
+      "Une chemise trop grande",
+      "Une tenue de soirée",
+      "Un jogging, c’est sexy aussi"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1027",
+    "text": "Ton type de baiser préféré ?",
+    "kind": "choice",
+    "options": [
+      "Lent et tendre",
+      "Passionné",
+      "Dans le cou",
+      "Volé en public",
+      "Mordillé"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1028",
+    "text": "Qui prend le plus souvent l’initiative chez nous ?",
+    "kind": "choice",
+    "options": [
+      "C’est équilibré",
+      "Celui qui en a le plus envie",
+      "Ça dépend des périodes",
+      "Pas assez souvent l’un comme l’autre"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1029",
+    "text": "Ton rythme idéal, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Tous les jours",
+      "Plusieurs fois par semaine",
+      "Une fois par semaine",
+      "Quand l’envie vient",
+      "Je n’ai pas de rythme idéal"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1030",
+    "text": "La partie de ton corps où tu préfères être embrassé·e ?",
+    "kind": "choice",
+    "options": [
+      "Le cou",
+      "Les lèvres",
+      "Le ventre",
+      "Le dos",
+      "Les oreilles",
+      "Les cuisses"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1031",
+    "text": "Pour te mettre dans l’ambiance, rien de tel que… ?",
+    "kind": "choice",
+    "options": [
+      "Un massage",
+      "Des mots doux",
+      "Un regard appuyé",
+      "Un baiser dans le cou",
+      "Un message coquin dans la journée"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1032",
+    "text": "La douche à deux, pour toi c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Un classique délicieux",
+      "Pas assez fréquent",
+      "Peu pratique",
+      "Jamais assez chaud"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1033",
+    "text": "Tu es plutôt… ?",
+    "kind": "choice",
+    "options": [
+      "Tendre",
+      "Sauvage",
+      "Joueur·se",
+      "Romantique",
+      "Un peu de tout selon le moment"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1034",
+    "text": "Les messages coquins dans la journée, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "J’adore en recevoir",
+      "J’adore en envoyer",
+      "Les deux",
+      "Un peu gênant",
+      "Jamais essayé"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1035",
+    "text": "Ce que tu préfères juste après ?",
+    "kind": "choice",
+    "options": [
+      "Un câlin",
+      "Discuter",
+      "Dormir",
+      "Rire",
+      "Manger quelque chose",
+      "Recommencer"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1036",
+    "text": "La musique pendant les moments intimes ?",
+    "kind": "choice",
+    "options": [
+      "Indispensable",
+      "Ça peut aider",
+      "Je préfère le silence",
+      "Je n’y ai jamais pensé"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1037",
+    "text": "Le massage idéal, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Du dos",
+      "Des pieds",
+      "Complet et sensuel",
+      "Avec des huiles",
+      "Celui qui dérape"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1038",
+    "text": "Un week-end en amoureux idéal côté intimité ?",
+    "kind": "choice",
+    "options": [
+      "Ne pas sortir de la chambre",
+      "Un spa et un jacuzzi",
+      "Une cabane isolée",
+      "Un hôtel chic",
+      "Une surprise de {autre}"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1039",
+    "text": "Ce qui te fait le plus craquer : la séduction… ?",
+    "kind": "choice",
+    "options": [
+      "Directe",
+      "Subtile",
+      "Drôle",
+      "Mystérieuse",
+      "Tendre"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1040",
+    "text": "Le moment de la journée où {autre} te paraît le plus sexy ?",
+    "kind": "choice",
+    "options": [
+      "Au réveil",
+      "En sortant de la douche",
+      "Habillé·e pour sortir",
+      "Quand il·elle est concentré·e",
+      "Quand il·elle rit"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1041",
+    "text": "Les jeux de rôle, ça te tente ?",
+    "kind": "choice",
+    "options": [
+      "Carrément",
+      "Pourquoi pas une fois",
+      "Seulement si c’est drôle",
+      "Pas trop mon truc"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1042",
+    "text": "Les yeux bandés, tu préfères… ?",
+    "kind": "choice",
+    "options": [
+      "Les avoir",
+      "Les bander à {autre}",
+      "Les deux",
+      "Pas pour moi"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1043",
+    "text": "Les sous-vêtements qui te plaisent le plus sur {autre} ?",
+    "kind": "choice",
+    "options": [
+      "Classiques",
+      "En dentelle",
+      "Sportifs",
+      "Colorés",
+      "Aucun"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1044",
+    "text": "Tu préfères faire l’amour… ?",
+    "kind": "choice",
+    "options": [
+      "Avec les lumières allumées",
+      "Dans le noir",
+      "À la lumière des bougies",
+      "Au soleil"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1045",
+    "text": "Le plus excitant pour toi, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "L’attente",
+      "La surprise",
+      "La nouveauté",
+      "La complicité",
+      "Le regard de l’autre"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1046",
+    "text": "Ta saison la plus sensuelle ?",
+    "kind": "choice",
+    "options": [
+      "Printemps",
+      "Été",
+      "Automne",
+      "Hiver"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1047",
+    "text": "La première chose que tu remarques quand {autre} a envie de toi ?",
+    "kind": "choice",
+    "options": [
+      "Son regard",
+      "Ses mains",
+      "Sa voix",
+      "Ses baisers",
+      "Ses messages"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1048",
+    "text": "Pour toi, la séduction après plusieurs années ensemble, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Encore plus importante",
+      "Différente mais présente",
+      "À réveiller parfois",
+      "Naturelle, sans effort"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1049",
+    "text": "Le compliment intime qui te fait le plus d’effet ?",
+    "kind": "choice",
+    "options": [
+      "Sur mon corps",
+      "Sur ma façon d’embrasser",
+      "Sur mon odeur",
+      "Sur ce que je fais ressentir",
+      "Sur mon regard"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1050",
+    "text": "Ta position préférée, c’est plutôt… ?",
+    "kind": "choice",
+    "options": [
+      "Face à face",
+      "Quand je mène",
+      "Quand {autre} mène",
+      "Les cuillères",
+      "Ça change à chaque fois"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1051",
+    "text": "Les câlins du matin, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Le meilleur réveil",
+      "Seulement le week-end",
+      "Trop tôt pour moi",
+      "Toujours oui"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1052",
+    "text": "Un endroit insolite que tu aimerais essayer ?",
+    "kind": "choice",
+    "options": [
+      "Une plage déserte",
+      "Une cabine d’essayage",
+      "Un ascenseur",
+      "Un train de nuit",
+      "Une forêt",
+      "Aucun"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1053",
+    "text": "Tu aimes qu’on te parle pendant ?",
+    "kind": "choice",
+    "options": [
+      "Oui, des mots doux",
+      "Oui, des mots crus",
+      "Un peu",
+      "Je préfère le silence"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1054",
+    "text": "La lingerie ou les sous-vêtements sexy, pour toi c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Un vrai plus",
+      "Sympa de temps en temps",
+      "Pas indispensable",
+      "Ça me fait rire"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1055",
+    "text": "Le geste discret en public qui te donne envie ?",
+    "kind": "choice",
+    "options": [
+      "Une main sur la cuisse",
+      "Un murmure à l’oreille",
+      "Un regard insistant",
+      "Un baiser dans le cou",
+      "Une main dans le dos"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1056",
+    "text": "Ce qui rend un moment intime inoubliable ?",
+    "kind": "choice",
+    "options": [
+      "L’intensité",
+      "La tendresse",
+      "Le lieu",
+      "La surprise",
+      "Les fous rires"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1057",
+    "text": "Le parfum de {autre} sur toi, ça te fait… ?",
+    "kind": "choice",
+    "options": [
+      "Craquer",
+      "Sourire",
+      "Penser à lui·elle toute la journée",
+      "Rien de spécial"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1058",
+    "text": "Tu préfères les moments intimes… ?",
+    "kind": "choice",
+    "options": [
+      "Planifiés et attendus",
+      "Spontanés",
+      "Les deux",
+      "Plutôt spontanés mais pas toujours possible"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1059",
+    "text": "Le jeu coquin qui te tente le plus ?",
+    "kind": "choice",
+    "options": [
+      "Un strip-poker",
+      "Un action ou vérité",
+      "Des dés coquins",
+      "Un jeu de cartes coquin",
+      "Une chasse au trésor sensuelle"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1060",
+    "text": "Les accessoires dans l’intimité, tu en penses quoi ?",
+    "kind": "choice",
+    "options": [
+      "J’adore",
+      "Curieux·se d’essayer",
+      "Pourquoi pas un jour",
+      "Pas pour moi"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1061",
+    "text": "L’odeur qui t’attire le plus chez {autre} ?",
+    "kind": "choice",
+    "options": [
+      "Sa peau",
+      "Son parfum",
+      "Ses cheveux",
+      "Après le sport",
+      "Au réveil"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1062",
+    "text": "Ton fantasme le plus sage ?",
+    "kind": "choice",
+    "options": [
+      "Un week-end sans sortir du lit",
+      "Un bain moussant à deux",
+      "Un massage aux chandelles",
+      "Un rendez-vous comme au premier jour"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1063",
+    "text": "Tu préfères recevoir ou donner de l’attention ?",
+    "kind": "choice",
+    "options": [
+      "Recevoir",
+      "Donner",
+      "Les deux à égalité",
+      "Ça dépend du jour"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1064",
+    "text": "Ce que tu préfères dans la tenue de nuit de {autre} ?",
+    "kind": "choice",
+    "options": [
+      "Qu’il·elle n’en porte pas",
+      "Mon t-shirt sur lui·elle",
+      "Un pyjama tout doux",
+      "Quelque chose de sexy"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1065",
+    "text": "La sieste coquine du week-end, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Sacré",
+      "Rare mais génial",
+      "Trop fatigué·e",
+      "À instaurer"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1066",
+    "text": "L’endroit de la maison où tu aimerais plus de folie ?",
+    "kind": "choice",
+    "options": [
+      "La cuisine",
+      "Le canapé",
+      "La salle de bain",
+      "Le balcon",
+      "Le bureau"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1067",
+    "text": "Pour toi, le plus sexy chez quelqu’un, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "La confiance en soi",
+      "L’humour",
+      "Le regard",
+      "Le corps",
+      "L’intelligence",
+      "La gentillesse"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1068",
+    "text": "Ta tenue pour séduire {autre} ce soir ?",
+    "kind": "choice",
+    "options": [
+      "Une tenue élégante",
+      "De la lingerie",
+      "Une chemise ouverte",
+      "Rien du tout",
+      "Ce que je porte déjà"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1069",
+    "text": "Les caresses que tu préfères recevoir ?",
+    "kind": "choice",
+    "options": [
+      "Dans les cheveux",
+      "Sur le dos",
+      "Sur le ventre",
+      "Le long des bras",
+      "Partout"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1070",
+    "text": "Le film ou la série la plus sensuelle à regarder ensemble ?",
+    "kind": "choice",
+    "options": [
+      "Un drame passionné",
+      "Une comédie romantique",
+      "Une série audacieuse",
+      "On ne regarde pas longtemps de toute façon"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1071",
+    "text": "Ton rapport au jacuzzi ou au bain à deux ?",
+    "kind": "choice",
+    "options": [
+      "Le rêve",
+      "Ça me tente",
+      "Trop petit chez nous",
+      "Pas mon truc"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1072",
+    "text": "Pour séduire {autre}, ta meilleure arme ?",
+    "kind": "choice",
+    "options": [
+      "Mon regard",
+      "Mon humour",
+      "Mes mots",
+      "Mes mains",
+      "Mon parfum",
+      "Ma patience"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1073",
+    "text": "Un rendez-vous coquin idéal commence par… ?",
+    "kind": "choice",
+    "options": [
+      "Un dîner",
+      "Un message osé",
+      "Un bain",
+      "Un slow",
+      "Un regard dans l’entrée"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1074",
+    "text": "Ce qui te fait rougir le plus ?",
+    "kind": "choice",
+    "options": [
+      "Un compliment sur mon corps",
+      "Un regard insistant",
+      "Un mot coquin en public",
+      "Une question indiscrète",
+      "Rien ne me fait rougir"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1075",
+    "text": "En vacances, l’intimité c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Plus souvent",
+      "Plus intense",
+      "Comme d’habitude",
+      "Compliqué selon le logement"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1076",
+    "text": "Le baiser parfait dure… ?",
+    "kind": "choice",
+    "options": [
+      "Quelques secondes",
+      "Une minute",
+      "Le temps d’oublier où on est",
+      "Jusqu’à ce qu’on manque d’air"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1077",
+    "text": "Une nuit d’hôtel juste pour nous deux, tu veux… ?",
+    "kind": "choice",
+    "options": [
+      "Une suite avec jacuzzi",
+      "Une chambre avec vue",
+      "Un lieu insolite",
+      "N’importe laquelle, tant qu’on est seuls"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1078",
+    "text": "La qualité d’un·e bon·ne amant·e selon toi ?",
+    "kind": "choice",
+    "options": [
+      "L’écoute",
+      "La générosité",
+      "L’audace",
+      "La tendresse",
+      "L’humour",
+      "La patience"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1079",
+    "text": "Ton style de séduction ?",
+    "kind": "choice",
+    "options": [
+      "Le regard qui dit tout",
+      "Les mots doux",
+      "L’humour",
+      "Le contact",
+      "Je laisse venir"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1080",
+    "text": "La phrase coquine qui marche à tous les coups sur toi ?",
+    "kind": "choice",
+    "options": [
+      "Tu m’as manqué",
+      "J’ai envie de toi",
+      "Viens par là",
+      "Ce soir tu es à moi",
+      "Ne dis rien"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1081",
+    "text": "Ce qui casse le plus l’envie ?",
+    "kind": "choice",
+    "options": [
+      "La fatigue",
+      "Le stress",
+      "Une dispute",
+      "Le téléphone",
+      "Le froid",
+      "Les enfants ou la famille dans les parages"
+    ],
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1082",
+    "text": "Ce que tu n’aimes pas pendant un moment intime ?",
+    "kind": "choice",
+    "options": [
+      "Être pressé·e",
+      "Le silence gênant",
+      "Les interruptions",
+      "Trop de lumière",
+      "Le téléphone qui sonne"
+    ],
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1083",
+    "text": "Ce qui te met mal à l’aise dans l’intimité ?",
+    "kind": "choice",
+    "options": [
+      "Parler de mes envies",
+      "Être regardé·e",
+      "Essayer des nouveautés",
+      "Les bruits",
+      "Rien du tout"
+    ],
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1084",
+    "text": "Le pire tue-l’amour selon toi ?",
+    "kind": "choice",
+    "options": [
+      "Les chaussettes",
+      "Une haleine douteuse",
+      "Les ronflements",
+      "Parler du travail",
+      "Regarder son téléphone"
+    ],
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1085",
+    "text": "La chose que tu ne tenterais pas, même par curiosité ?",
+    "kind": "choice",
+    "options": [
+      "L’exhibition",
+      "La douleur",
+      "Le public",
+      "Un tiers dans le couple",
+      "Je suis ouvert·e à tout essayer"
+    ],
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1086",
+    "text": "Ce qui te frustre parfois dans notre intimité ?",
+    "kind": "choice",
+    "options": [
+      "Le manque de temps",
+      "La routine",
+      "La fatigue",
+      "Le manque de communication",
+      "Rien du tout"
+    ],
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1087",
+    "text": "Ce que tu détestes entendre juste après ?",
+    "kind": "choice",
+    "options": [
+      "Rien, j’aime tout",
+      "Une remarque sur le travail",
+      "Une blague mal placée",
+      "Le bruit de la télé",
+      "Des ronflements immédiats"
+    ],
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1088",
+    "text": "En ce moment, ta libido est plutôt… ?",
+    "kind": "choice",
+    "options": [
+      "Au plus haut",
+      "Normale",
+      "En baisse",
+      "Ça dépend des jours",
+      "Je préfère ne pas répondre"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1089",
+    "text": "Ce qui réveille le plus vite ton désir ?",
+    "kind": "choice",
+    "options": [
+      "Un regard",
+      "Une odeur",
+      "Un souvenir",
+      "Une tenue",
+      "Un message",
+      "Un baiser"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1090",
+    "text": "Parler de sexe avec {autre}, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Facile",
+      "Possible mais gênant",
+      "Difficile",
+      "Ça dépend du sujet"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1091",
+    "text": "Ce que tu ressens après un moment intime réussi ?",
+    "kind": "choice",
+    "options": [
+      "De la tendresse",
+      "De la fierté",
+      "De l’apaisement",
+      "De l’énergie",
+      "Envie de dormir"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1092",
+    "text": "Ta confiance en toi dans l’intimité ?",
+    "kind": "choice",
+    "options": [
+      "Totale",
+      "Bonne",
+      "Variable",
+      "À construire"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1093",
+    "text": "Ce qui te rassure le plus dans notre intimité ?",
+    "kind": "choice",
+    "options": [
+      "La tendresse",
+      "Les mots",
+      "Le regard de {autre}",
+      "Le rire",
+      "La confiance"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1094",
+    "text": "Quand {autre} n’a pas envie, tu… ?",
+    "kind": "choice",
+    "options": [
+      "Comprends sans problème",
+      "Es un peu vexé·e",
+      "Te poses des questions",
+      "Proposes un câlin à la place"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1095",
+    "text": "Ton corps, en ce moment, tu le vis… ?",
+    "kind": "choice",
+    "options": [
+      "Très bien",
+      "Plutôt bien",
+      "Avec des complexes",
+      "Ça dépend des jours"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1096",
+    "text": "Ce qui te donne le plus confiance au lit ?",
+    "kind": "choice",
+    "options": [
+      "Les compliments de {autre}",
+      "Me sentir bien dans mon corps",
+      "L’ambiance",
+      "L’habitude",
+      "L’humour entre nous"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1097",
+    "text": "Après une dispute, l’intimité c’est… ?",
+    "kind": "choice",
+    "options": [
+      "La meilleure réconciliation",
+      "Impossible tout de suite",
+      "Ça dépend de la dispute",
+      "Pas un bon réflexe"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1098",
+    "text": "Quand tu as envie et pas {autre}, tu préfères… ?",
+    "kind": "choice",
+    "options": [
+      "Qu’on en parle",
+      "Un câlin tout doux",
+      "Attendre le bon moment",
+      "Le·la séduire doucement"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1099",
+    "text": "Quand tu penses à {autre} dans la journée, tu as plutôt… ?",
+    "kind": "choice",
+    "options": [
+      "Envie de le·la serrer dans mes bras",
+      "Envie de lui",
+      "Envie de lui parler",
+      "Le sourire"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1100",
+    "text": "Notre première nuit ensemble, c’était… ?",
+    "kind": "choice",
+    "options": [
+      "Magique",
+      "Maladroite",
+      "Intense",
+      "Drôle",
+      "Inoubliable"
+    ],
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1101",
+    "text": "Le meilleur moment intime qu’on a vécu, c’était plutôt… ?",
+    "kind": "choice",
+    "options": [
+      "En vacances",
+      "À la maison",
+      "Après une soirée",
+      "Une surprise",
+      "Lors de nos débuts"
+    ],
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1102",
+    "text": "Le lieu le plus fou où on a été coquins ?",
+    "kind": "choice",
+    "options": [
+      "Pas encore assez fou",
+      "Dehors",
+      "Chez quelqu’un d’autre",
+      "En voyage",
+      "Dans la voiture"
+    ],
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1103",
+    "text": "Ton premier baiser avec {autre}, tu l’as trouvé… ?",
+    "kind": "choice",
+    "options": [
+      "Parfait",
+      "Timide",
+      "Passionné",
+      "Inattendu",
+      "Trop court"
+    ],
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1104",
+    "text": "La fois où on a failli se faire surprendre ?",
+    "kind": "choice",
+    "options": [
+      "Ça ne nous est jamais arrivé",
+      "Chez nos parents",
+      "En vacances",
+      "Dans un lieu public",
+      "Je préfère ne pas raconter"
+    ],
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1105",
+    "text": "Le jour où tu as eu le plus envie de {autre} ?",
+    "kind": "choice",
+    "options": [
+      "Au début de notre histoire",
+      "Lors d’une soirée",
+      "En vacances",
+      "Après une absence",
+      "Tous les jours, voyons"
+    ],
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1106",
+    "text": "Ce qui t’a le plus séduit·e physiquement chez {autre} au début ?",
+    "kind": "choice",
+    "options": [
+      "Les yeux",
+      "Le sourire",
+      "La silhouette",
+      "Les mains",
+      "La voix",
+      "Le style"
+    ],
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1107",
+    "text": "Notre meilleure soirée coquine, elle a commencé par… ?",
+    "kind": "choice",
+    "options": [
+      "Un dîner",
+      "Un verre",
+      "Une danse",
+      "Un fou rire",
+      "Un regard",
+      "Un message"
+    ],
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1108",
+    "text": "Une nouveauté que tu aimerais essayer avec {autre} ?",
+    "kind": "choice",
+    "options": [
+      "Un nouveau lieu",
+      "Un accessoire",
+      "Un jeu de rôle",
+      "Un massage sensuel",
+      "Une tenue",
+      "Un week-end coquin"
+    ],
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1109",
+    "text": "Notre vie intime dans dix ans, tu l’imagines… ?",
+    "kind": "choice",
+    "options": [
+      "Aussi intense",
+      "Plus complice",
+      "Plus tendre",
+      "Plus audacieuse",
+      "À entretenir"
+    ],
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1110",
+    "text": "Le week-end coquin de tes rêves se passerait… ?",
+    "kind": "choice",
+    "options": [
+      "Dans un spa",
+      "Dans un chalet",
+      "À la mer",
+      "Dans une grande ville",
+      "Chez nous, porte fermée"
+    ],
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1111",
+    "text": "Pour pimenter notre couple, tu proposerais… ?",
+    "kind": "choice",
+    "options": [
+      "Plus de surprises",
+      "Plus de lieux différents",
+      "Plus de jeux",
+      "Plus de temps à deux",
+      "Plus de communication"
+    ],
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1112",
+    "text": "Ce que tu aimerais qu’on ose plus souvent ?",
+    "kind": "choice",
+    "options": [
+      "Les messages coquins",
+      "Les massages",
+      "Les moments spontanés",
+      "Les nouveautés",
+      "Les jeux"
+    ],
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1113",
+    "text": "Ton petit nom coquin pour {autre} serait plutôt… ?",
+    "kind": "choice",
+    "options": [
+      "Mon cœur",
+      "Ma tentation",
+      "Mon péché mignon",
+      "Mon dessert",
+      "Un surnom secret"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1114",
+    "text": "Si notre vie intime était un film, ce serait… ?",
+    "kind": "choice",
+    "options": [
+      "Une comédie romantique",
+      "Un film d’action",
+      "Un drame passionné",
+      "Un film d’aventure",
+      "Un film d’auteur"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1115",
+    "text": "Si notre vie intime était un plat, ce serait… ?",
+    "kind": "choice",
+    "options": [
+      "Un plat épicé",
+      "Un dessert gourmand",
+      "Un plat mijoté",
+      "Un apéro qui s’éternise",
+      "Un fast-food efficace"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1116",
+    "text": "Ton émoji coquin préféré ?",
+    "kind": "choice",
+    "options": [
+      "🔥",
+      "😏",
+      "🍑",
+      "🍆",
+      "😈",
+      "💋"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1117",
+    "text": "Dans un jeu action ou vérité coquin, tu choisis… ?",
+    "kind": "choice",
+    "options": [
+      "Action",
+      "Vérité",
+      "Je me défile",
+      "Les deux"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1118",
+    "text": "Le strip-tease, tu serais plutôt… ?",
+    "kind": "choice",
+    "options": [
+      "Celui·celle qui le fait",
+      "Celui·celle qui regarde",
+      "Mort·e de rire",
+      "Trop timide"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1119",
+    "text": "Le slow langoureux, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Mon arme secrète",
+      "Un bon début",
+      "Un truc de film",
+      "Pas pour moi"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1120",
+    "text": "La chanson parfaite pour une nuit torride ?",
+    "kind": "choice",
+    "options": [
+      "Un classique de soul",
+      "Un son RnB",
+      "De l’électro",
+      "Une chanson française",
+      "Le silence"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1121",
+    "text": "Un gage coquin que tu donnerais à {autre} ?",
+    "kind": "choice",
+    "options": [
+      "Un massage",
+      "Un strip-tease",
+      "Un baiser où je veux",
+      "Une nuit sans téléphone",
+      "Le petit-déjeuner au lit"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1122",
+    "text": "Ton côté coquin se réveille surtout… ?",
+    "kind": "choice",
+    "options": [
+      "Le matin",
+      "Après un verre",
+      "En vacances",
+      "Quand {autre} me regarde",
+      "Toute la journée"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1123",
+    "text": "Le meilleur dessert pour une soirée coquine ?",
+    "kind": "choice",
+    "options": [
+      "Des fraises",
+      "Du chocolat fondu",
+      "De la chantilly",
+      "Une glace",
+      "{autre}"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1124",
+    "text": "Si tu devais noter ton talent de séducteur·rice ?",
+    "kind": "choice",
+    "options": [
+      "Irrésistible",
+      "Efficace",
+      "Maladroit·e mais touchant·e",
+      "Je compte sur la chance"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1125",
+    "text": "La chose la plus coquine que tu aies faite par message ?",
+    "kind": "choice",
+    "options": [
+      "Une photo osée",
+      "Un message très explicite",
+      "Un vocal sensuel",
+      "Une proposition directe",
+      "Rien de très coquin"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1126",
+    "text": "Ton déguisement coquin idéal ?",
+    "kind": "choice",
+    "options": [
+      "Infirmier·ère",
+      "Pompier·ère",
+      "Policier·ère",
+      "Super-héros",
+      "Agent secret",
+      "Pas de déguisement"
+    ],
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1127",
+    "text": "Pour toi, faire l’amour c’est surtout… ?",
+    "kind": "choice",
+    "options": [
+      "Une preuve d’amour",
+      "Un plaisir partagé",
+      "Un moment de complicité",
+      "Une façon de se retrouver",
+      "Tout ça à la fois"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1128",
+    "text": "Le plus important pendant un moment intime ?",
+    "kind": "choice",
+    "options": [
+      "La tendresse",
+      "Le plaisir",
+      "Le regard",
+      "La complicité",
+      "Le lâcher-prise"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1129",
+    "text": "Ce qui rend notre intimité unique ?",
+    "kind": "choice",
+    "options": [
+      "Notre complicité",
+      "Notre humour",
+      "Notre tendresse",
+      "Notre passion",
+      "Notre confiance"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1130",
+    "text": "Un câlin sans arrière-pensée, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Indispensable",
+      "Rare mais précieux",
+      "Souvent le début d’autre chose",
+      "Mon préféré"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1131",
+    "text": "Après une longue journée, tu as plutôt envie… ?",
+    "kind": "choice",
+    "options": [
+      "D’un câlin tout doux",
+      "D’un moment torride",
+      "De dormir dans ses bras",
+      "D’un massage"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1132",
+    "text": "La tendresse au quotidien, ça compte pour ton désir ?",
+    "kind": "choice",
+    "options": [
+      "Énormément",
+      "Beaucoup",
+      "Un peu",
+      "Pas vraiment"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1133",
+    "text": "Le moment où tu te sens le plus connecté·e à {autre} physiquement ?",
+    "kind": "choice",
+    "options": [
+      "Pendant un baiser",
+      "Dans ses bras",
+      "Peau contre peau",
+      "En se regardant",
+      "En s’endormant"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1134",
+    "text": "La meilleure façon de te dire « j’ai envie de toi » ?",
+    "kind": "choice",
+    "options": [
+      "Un regard",
+      "Un message",
+      "Un baiser",
+      "Une caresse",
+      "Des mots doux à l’oreille"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1135",
+    "text": "Ce que tu aimerais entendre plus souvent de {autre} dans l’intimité ?",
+    "kind": "choice",
+    "options": [
+      "Que je lui plais",
+      "Que je l’excite",
+      "Ce qu’il·elle aime",
+      "Je t’aime",
+      "Rien, ses gestes suffisent"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1136",
+    "text": "L’intimité idéale mélange surtout… ?",
+    "kind": "choice",
+    "options": [
+      "Tendresse et passion",
+      "Jeu et complicité",
+      "Romantisme et audace",
+      "Douceur et lenteur"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1137",
+    "text": "Le petit rituel coquin que tu aimerais créer ?",
+    "kind": "choice",
+    "options": [
+      "Une soirée par semaine rien qu’à nous",
+      "Un message osé le vendredi",
+      "Un bain le dimanche",
+      "Une surprise par mois"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1138",
+    "text": "La séduction entre nous, tu la trouves… ?",
+    "kind": "choice",
+    "options": [
+      "Toujours aussi forte",
+      "Plus douce qu’avant",
+      "À réveiller",
+      "Plus forte qu’au début"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1139",
+    "text": "Dormir nu·e à côté de {autre}, c’est… ?",
+    "kind": "choice",
+    "options": [
+      "Toujours",
+      "Parfois",
+      "Seulement l’été",
+      "Jamais"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1140",
+    "text": "Le moment où tu trouves {autre} irrésistible ?",
+    "kind": "choice",
+    "options": [
+      "Quand il·elle prend soin de moi",
+      "Quand il·elle s’apprête",
+      "Quand il·elle est passionné·e",
+      "Quand il·elle me taquine"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1141",
+    "text": "Pour toi, l’intimité commence… ?",
+    "kind": "choice",
+    "options": [
+      "Dès le matin, avec des petites attentions",
+      "Avec un message dans la journée",
+      "Au dîner",
+      "Au moment de se coucher"
+    ],
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1142",
+    "text": "Le meilleur moment pour un message coquin ?",
+    "kind": "choice",
+    "options": [
+      "Le matin au réveil",
+      "Pendant la pause de midi",
+      "Juste avant de rentrer",
+      "Le soir au lit",
+      "Quand on ne s’y attend pas"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1143",
+    "text": "Ce que tu préfères dans un baiser dans le cou ?",
+    "kind": "choice",
+    "options": [
+      "Le frisson",
+      "Le souffle",
+      "La surprise",
+      "Ce qui vient après"
+    ],
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1144",
+    "text": "La nuit idéale à l’hôtel, tu commences par… ?",
+    "kind": "choice",
+    "options": [
+      "Un bain à deux",
+      "Un dîner en chambre",
+      "Un massage",
+      "Ouvrir le champagne",
+      "Fermer la porte à clé"
+    ],
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1145",
+    "text": "Quand {autre} te complimente sur ton physique, tu… ?",
+    "kind": "choice",
+    "options": [
+      "Rougis",
+      "Souris",
+      "Le crois à moitié",
+      "Lui retournes le compliment",
+      "Fonds complètement"
+    ],
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1146",
+    "text": "À quel point te sens-tu épanoui·e dans notre vie intime (1 = pas du tout, 5 = complètement) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1147",
+    "text": "À quel point te sens-tu désiré·e par {autre} en ce moment (1 = pas assez, 5 = énormément) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1148",
+    "text": "À quel point es-tu à l’aise pour parler de tes envies (1 = très gêné·e, 5 = sans aucun tabou) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1149",
+    "text": "À quel point ta libido est-elle élevée en ce moment (1 = en veille, 5 = au maximum) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1150",
+    "text": "À quel point te sens-tu bien dans ton corps quand {autre} te regarde (1 = complexé·e, 5 = super à l’aise) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1151",
+    "text": "À quel point la fatigue influence-t-elle ton envie (1 = pas du tout, 5 = énormément) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1152",
+    "text": "À quel point le stress du travail coupe-t-il ton désir (1 = jamais, 5 = complètement) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1153",
+    "text": "À quel point te sens-tu en confiance avec {autre} dans l’intimité (1 = un peu, 5 = totalement) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1154",
+    "text": "À quel point notre vie intime te rend-elle heureux·se (1 = un peu, 5 = énormément) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1155",
+    "text": "À quel point une dispute affecte-t-elle ton envie (1 = pas du tout, 5 = complètement) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1156",
+    "text": "À quel point aimes-tu les préliminaires (1 = pas indispensables, 5 = le meilleur moment) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1157",
+    "text": "À quel point aimes-tu la spontanéité dans l’intimité (1 = je préfère prévoir, 5 = surprise totale) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1158",
+    "text": "À quel point aimes-tu les massages sensuels (1 = bof, 5 = j’adore) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1159",
+    "text": "À quel point aimes-tu les câlins après l’amour (1 = pas besoin, 5 = indispensables) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1160",
+    "text": "À quel point aimes-tu recevoir des messages coquins (1 = gênant, 5 = j’adore) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1161",
+    "text": "À quel point aimes-tu envoyer des messages coquins (1 = jamais, 5 = tout le temps) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1162",
+    "text": "À quel point aimes-tu les baisers langoureux (1 = moyennement, 5 = je pourrais y passer des heures) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1163",
+    "text": "À quel point aimes-tu la lingerie ou les sous-vêtements sexy (1 = indifférent·e, 5 = fan) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1164",
+    "text": "À quel point aimes-tu faire l’amour le matin (1 = jamais, 5 = le meilleur moment) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1165",
+    "text": "À quel point aimes-tu qu’on te murmure des choses à l’oreille (1 = pas du tout, 5 = ça me rend fou·folle) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1166",
+    "text": "À quel point aimes-tu prendre les commandes (1 = je préfère me laisser guider, 5 = toujours aux commandes) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1167",
+    "text": "À quel point aimes-tu les caresses lentes (1 = trop lent, 5 = délicieux) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1168",
+    "text": "À quel point aimes-tu la douche ou le bain à deux (1 = pas mon truc, 5 = j’adore) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1169",
+    "text": "À quel point aimes-tu les regards complices en public (1 = gênant, 5 = excitant) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1170",
+    "text": "À quel point aimes-tu les surprises coquines (1 = je préfère savoir, 5 = surprends-moi) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1171",
+    "text": "À quel point aimes-tu qu’on prenne son temps (1 = vite et bien, 5 = toute la nuit) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1172",
+    "text": "À quel point aimes-tu l’odeur de la peau de {autre} (1 = neutre, 5 = enivrante) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1173",
+    "text": "À quel point aimes-tu les jeux coquins (1 = pas du tout, 5 = beaucoup) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1174",
+    "text": "À quel point aimes-tu les compliments sur ton corps (1 = ça me gêne, 5 = j’adore) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1175",
+    "text": "À quel point aimes-tu les câlins peau contre peau (1 = un peu, 5 = énormément) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1176",
+    "text": "À quel point as-tu envie de tester de nouvelles choses avec {autre} (1 = pas trop, 5 = très envie) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1177",
+    "text": "À quel point aimerais-tu un week-end rien que coquin (1 = pas spécialement, 5 = vivement) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1178",
+    "text": "À quel point aimerais-tu essayer un jeu de rôle (1 = pas du tout, 5 = très envie) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1179",
+    "text": "À quel point aimerais-tu essayer un accessoire (1 = pas du tout, 5 = très curieux·se) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1180",
+    "text": "À quel point aimerais-tu qu’on soit plus spontanés (1 = c’est bien comme ça, 5 = vraiment) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1181",
+    "text": "À quel point aimerais-tu qu’on parle plus de nos envies (1 = pas besoin, 5 = beaucoup plus) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1182",
+    "text": "À quel point aimerais-tu essayer un lieu insolite (1 = jamais, 5 = dès que possible) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1183",
+    "text": "À quel point aimerais-tu recevoir un strip-tease de {autre} (1 = ça me ferait rire, 5 = j’en rêve) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1184",
+    "text": "À quel point aimerais-tu plus de moments intimes dans la semaine (1 = c’est parfait, 5 = beaucoup plus) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1185",
+    "text": "À quel point serais-tu prêt·e à réaliser un fantasme de {autre} (1 = ça dépend beaucoup, 5 = sans hésiter) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1186",
+    "text": "À quel point la routine nuit-elle à ton désir (1 = pas du tout, 5 = beaucoup) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1187",
+    "text": "À quel point le manque de temps à deux te frustre-t-il (1 = pas du tout, 5 = énormément) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1188",
+    "text": "À quel point les téléphones au lit t’agacent-ils (1 = pas du tout, 5 = énormément) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1189",
+    "text": "À quel point la pudeur te freine-t-elle (1 = pas du tout, 5 = beaucoup) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1190",
+    "text": "À quel point les interruptions te coupent-elles l’envie (1 = je repars vite, 5 = c’est fini) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1191",
+    "text": "À quel point l’intimité est-elle importante pour toi dans un couple (1 = secondaire, 5 = essentielle) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1192",
+    "text": "À quel point la tendresse compte-t-elle autant que la passion (1 = la passion d’abord, 5 = la tendresse d’abord) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1193",
+    "text": "À quel point te sens-tu connecté·e à {autre} après un moment intime (1 = un peu, 5 = complètement) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1194",
+    "text": "À quel point {autre} te trouve-t-il·elle irrésistible, selon toi (1 = pas trop, 5 = totalement) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1195",
+    "text": "À quel point notre attirance est-elle restée forte depuis le début (1 = elle a baissé, 5 = elle a grandi) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1196",
+    "text": "À quel point aimes-tu séduire {autre}, même après tout ce temps (1 = pas besoin, 5 = toujours) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1197",
+    "text": "À quel point les petits gestes tendres de la journée nourrissent-ils ton désir (1 = pas du tout, 5 = énormément) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1198",
+    "text": "À quel point te sens-tu respecté·e dans tes envies et tes limites (1 = peu, 5 = complètement) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1199",
+    "text": "À quel point es-tu joueur·se au lit (1 = sérieux·se, 5 = toujours partant·e pour rire) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1200",
+    "text": "À quel point es-tu doué·e pour les massages (1 = des mains de bûcheron, 5 = des doigts de fée) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1201",
+    "text": "À quel point es-tu doué·e pour le strip-tease (1 = catastrophe, 5 = professionnel·le) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1202",
+    "text": "À quel point es-tu bruyant·e (1 = discret·e, 5 = les voisins savent tout) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1203",
+    "text": "À quel point es-tu audacieux·se (1 = sage, 5 = sans limites raisonnables) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1204",
+    "text": "À quel point es-tu doué·e pour les messages coquins (1 = maladroit·e, 5 = poète torride) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1205",
+    "text": "À quel point te souviens-tu de notre première fois (1 = vaguement, 5 = chaque détail) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1206",
+    "text": "À quel point nos débuts étaient-ils passionnés (1 = tout doux, 5 = volcaniques) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1207",
+    "text": "À quel point as-tu été séduit·e physiquement dès la première rencontre (1 = pas tout de suite, 5 = coup de foudre) ?",
+    "kind": "scale",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1208",
+    "text": "Ce qui te fait instantanément craquer chez {autre} ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1209",
+    "text": "Le geste de {autre} qui te donne le plus envie ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1210",
+    "text": "Ton endroit préféré pour être embrassé·e ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1211",
+    "text": "La tenue dans laquelle tu trouves {autre} le plus sexy ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1212",
+    "text": "Le mot ou la phrase qui t’excite le plus ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1213",
+    "text": "Ce que tu préfères que {autre} te fasse pour te mettre dans l’ambiance ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1214",
+    "text": "L’ambiance parfaite pour une nuit inoubliable, en une phrase ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1215",
+    "text": "La partie du corps de {autre} que tu préfères ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1216",
+    "text": "Le parfum ou l’odeur qui te rend fou·folle ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1217",
+    "text": "La chanson qui te met d’humeur coquine ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1218",
+    "text": "Ce que tu aimes le plus dans notre façon de faire l’amour ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1219",
+    "text": "Le compliment intime que tu aimerais entendre plus souvent ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1220",
+    "text": "Le moment le plus sensuel de ta journée idéale ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "aime"
+  },
+  {
+    "id": "q1221",
+    "text": "Ce qui te coupe l’envie à coup sûr ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1222",
+    "text": "Une chose que tu aimerais qu’on évite dans l’intimité ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1223",
+    "text": "Ce qui te met parfois mal à l’aise, et dont tu n’as jamais parlé ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "naime_pas"
+  },
+  {
+    "id": "q1224",
+    "text": "Ce que tu ressens quand {autre} te regarde avec envie ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1225",
+    "text": "Un complexe que tu aimerais que {autre} t’aide à oublier ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1226",
+    "text": "Ce qui te fait te sentir le plus désirable ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1227",
+    "text": "Ce dont tu as besoin pour vraiment lâcher prise ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1228",
+    "text": "Ce que tu n’as jamais osé dire à {autre} sur tes envies ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1229",
+    "text": "Ce qui te rend le plus tendre après un moment intime ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "ressenti"
+  },
+  {
+    "id": "q1230",
+    "text": "Le souvenir le plus torride de notre histoire ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1231",
+    "text": "Le moment où tu as su que tu avais envie de {autre} pour la première fois ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1232",
+    "text": "Notre baiser le plus mémorable ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1233",
+    "text": "L’endroit le plus inattendu où on s’est embrassés passionnément ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1234",
+    "text": "La fois où {autre} t’a le plus surpris·e dans l’intimité ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1235",
+    "text": "Un moment coquin qui nous a fait mourir de rire ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1236",
+    "text": "Le message le plus coquin que {autre} t’ait envoyé ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1237",
+    "text": "Le détail de notre première nuit dont tu te souviens le mieux ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "souvenir"
+  },
+  {
+    "id": "q1238",
+    "text": "Une envie que tu aimerais qu’on réalise avant la fin de l’année ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1239",
+    "text": "Un fantasme un peu plus osé que tu n’as jamais avoué ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1240",
+    "text": "Le lieu où tu rêverais de faire l’amour avec {autre} ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1241",
+    "text": "L’ambiance que tu aimerais créer pour une soirée surprise à deux ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1242",
+    "text": "Le week-end coquin parfait, décrit en trois mots ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1243",
+    "text": "Le scénario de jeu de rôle qui te tenterait ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1244",
+    "text": "Le cadeau coquin que tu aimerais recevoir ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1245",
+    "text": "Le cadeau coquin que tu aimerais offrir à {autre} ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1246",
+    "text": "Ce que tu aimerais qu’on fasse plus souvent sous la couette ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1247",
+    "text": "La surprise coquine que tu prépares secrètement dans ta tête ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "futur"
+  },
+  {
+    "id": "q1248",
+    "text": "Ce qui, pour toi, rend notre intimité différente de tout ce que tu as connu ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1249",
+    "text": "La façon dont tu aimerais que {autre} te séduise ce soir ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1250",
+    "text": "Ce que tu aimerais que {autre} sache sur ce qui te fait du bien ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1251",
+    "text": "Le plus beau compliment que {autre} t’ait fait sur ton corps ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1252",
+    "text": "Ce qui fait que tu te sens aimé·e pendant un moment intime ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1253",
+    "text": "Le petit rituel de tendresse que tu aimerais instaurer le soir ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1254",
+    "text": "Le moment où {autre} est le plus irrésistible selon toi ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1255",
+    "text": "Ce que tu aimerais murmurer à l’oreille de {autre} ce soir ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1256",
+    "text": "Une limite que tu aimerais que {autre} connaisse et respecte ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1257",
+    "text": "Ce qui entretient le mieux notre flamme selon toi ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "amour"
+  },
+  {
+    "id": "q1258",
+    "text": "Ton surnom coquin secret pour {autre} ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1259",
+    "text": "Le titre du film de notre vie intime ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1260",
+    "text": "Le gage coquin que tu adorerais recevoir ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1261",
+    "text": "La récompense coquine que tu voudrais si tu gagnais ce jeu ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1262",
+    "text": "La chanson pour un strip-tease improvisé ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1263",
+    "text": "Le plat ou le dessert que tu associes à une soirée coquine ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1264",
+    "text": "Le message coquin que tu pourrais envoyer à {autre} là, maintenant ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1265",
+    "text": "Ton talent caché sous la couette ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1266",
+    "text": "Le déguisement coquin que tu aimerais voir sur {autre} ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1267",
+    "text": "L’émoji qui résume le mieux notre vie intime ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1268",
+    "text": "Le mot de passe secret pour dire « ce soir, j’ai envie » ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1269",
+    "text": "La pire tentative de séduction que tu aies faite ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
+  },
+  {
+    "id": "q1270",
+    "text": "La phrase de drague la plus nulle que tu oserais dire à {autre} ?",
+    "kind": "text",
+    "options": null,
+    "category": "coquin",
+    "facet": "fun"
   }
 ]

@@ -46,6 +46,6 @@ test('bilan de la période, sélecteur, partage, historique filtrable', async ({
   const n = await items.count();
   expect(n).toBeGreaterThan(0);
   expect(n).toBeLessThanOrEqual(3);
-  await expect(page.locator('[data-view="history"]')).not.toContainText(/perso|banque/i);
+  await expect(page.locator('[data-view="history"]')).not.toContainText(/question perso|banque|écrite par/i);
   expect(w.errors).toEqual([]);
 });

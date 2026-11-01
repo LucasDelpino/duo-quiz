@@ -10,9 +10,30 @@ const pct = (v) => {
   return v !== null && v !== '' && Number.isFinite(n) ? Math.max(0, Math.min(100, Math.round(n))) : null;
 };
 
+const obj = (v) => (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
+
+/** Portrait de personnalité rédigé par l'IA (bilan psychologique et comportemental, ludique). */
+function personality(v) {
+  const o = obj(v);
+  const out = {
+    resume: str(o.resume),
+    traits: list(o.traits),
+    comportement: str(o.comportement),
+    emotions: str(o.emotions),
+    en_couple: str(o.en_couple),
+    besoins: list(o.besoins),
+    points_forts: list(o.points_forts),
+    vigilance: list(o.vigilance),
+    conseil: str(o.conseil),
+  };
+  const filled = Object.values(out).some((x) => (Array.isArray(x) ? x.length : x));
+  return filled ? out : null;
+}
+
 function player(p) {
   const o = p && typeof p === 'object' && !Array.isArray(p) ? p : {};
   return {
+    portrait: personality(o.portrait),
     aime: list(o.aime),
     naime_pas: list(o.naime_pas),
     ressenti: str(o.ressenti),

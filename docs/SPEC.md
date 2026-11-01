@@ -98,6 +98,7 @@ Sur les rounds complets de la période (et global) :
 - Détail par facette (barres) + **portrait** de chacun généré à partir des réponses : « Ce qu'il/elle aime », « Ce qu'il/elle n'aime pas », « Ses rêves », « Ce qui compte pour lui/elle » (regroupement des réponses perso par facette, sans interprétation inventée).
 
 ### 4.2 Rapport IA hebdomadaire (table `analyses`)
+Le Love report affiche, sur chaque téléphone, le **portrait de personnalité de l'AUTRE joueur** (`players.N.portrait` : resume, traits, comportement, emotions, en_couple, besoins, points_forts, vigilance, conseil) — bilan psychologique et comportemental ludique, non clinique, rédigé par l'IA à partir de toutes les réponses.
 Une seconde Routine Claude lit les réponses chaque dimanche soir (RPC `analyst_export`) et écrit un rapport (RPC `analyst_save`). L'app ne fait que **l'afficher** (lecture `analyses`). Format `content` (JSON) :
 ```json
 {
@@ -118,7 +119,7 @@ Une seconde Routine Claude lit les réponses chaque dimanche soir (RPC `analyst_
 
 ## 5. Banque de questions (`data/questions.json`)
 
-≥ **1 000 questions** originales (1 020 au 01/11/2026), pensées pour un **couple de 25 et 30 ans** : bienveillantes, drôles ou profondes, qui font **apprendre des choses** (goûts, enfance, souvenirs du couple, rêves, peurs légères, façons d'aimer, projets, petits travers, et-si). Pas de contenu sexuel explicite, pas de questions sur l'argent personnel, la santé ou les ex en détail. Questions neutres en genre (« ton/ta partenaire » → utiliser le prénom de l'autre via `{autre}` remplacé à l'affichage).
+≥ **1 000 questions** originales (1 270 au 01/11/2026, dont 250 « coquin »), pensées pour un **couple de 25 et 30 ans** : bienveillantes, drôles ou profondes, qui font **apprendre des choses** (goûts, enfance, souvenirs du couple, rêves, peurs légères, façons d'aimer, projets, petits travers, et-si). Pas de questions sur l'argent personnel, la santé ou les ex en détail. Catégorie **« Coquin 🔥 »** (250 questions sur l'intimité, suggestives sans être crues) réservée à ce sujet : le vocabulaire intime est interdit ailleurs (`scripts/bank-rules.mjs`). Dosage par le réglage commun `rooms.spicy` (migration 005) : 0 = désactivées, 1 = de temps en temps (≈ 1/11), 2 = souvent (≈ 1 question sur 3). Questions neutres en genre (« ton/ta partenaire » → utiliser le prénom de l'autre via `{autre}` remplacé à l'affichage).
 Répartition : `choice` 50 %, `scale` 25 %, `text` 25 %.
 Format : `{"id":"q001","text":"…","kind":"choice","options":["…"],"category":"gouts","facet":"aime"}` — `id` stable.
 Catégories (affichées) : `gouts`, `souvenirs`, `quotidien`, `reves`, `valeurs`, `couple`, `voyage`, `humour`, `et-si`, `enfance`.
@@ -127,7 +128,8 @@ Le formulaire perso demande aussi la facette (libellé simple : « Ça parle de�
 
 ## 6. Écrans
 - **Setup** : Créer (prénom → code + lien `#/join/CODE` + Partager) / Rejoindre. Écran « Installer l'app » adapté à l'appareil : Android → bouton `beforeinstallprompt` ; iPhone → tuto illustré « Partager → Sur l'écran d'accueil ».
-- **Aujourd'hui** : cartes du jour (à jouer / en attente / révélée / à valider), bandeau score de la période, retards.
+- **Aujourd'hui** : en haut, toutes les questions qui attendent une action (du jour puis retards) ; dessous, historique tournant des **5 dernières réponses** (la plus récente en premier, trié par l'heure de MA réponse — `js/logic/home.js`). Chaque carte a à droite un rectangle coupé en diagonale par une barre jaune : un triangle par joueur (prénom affiché), vert = prédiction juste, rouge = fausse, gris = en attente / pas répondu.
+- **Round** : après avoir répondu, bouton « Question suivante → » (prochaine question à jouer ; en illimité, tire un nouveau lot si besoin).
 - **Round**, **Ajouter**, **Bilan**, **Love report**, **Historique** (filtrable par catégorie), **Réglages** (prénoms, questions/jour 1–10 ou Illimité, période 1–90 j, date de départ, sons on/off, quitter sur cet appareil, mode démo).
 - **Pop-up « Qui a joué ? » à chaque ouverture de l'app** (et au retour au premier plan, max 1 fois / 30 min) via `dayProgress(aujourd'hui)` : pour chaque joueur, nombre de questions répondues sur le total du jour + « il y a 2 h ». Messages motivants selon l'état, ex. « {autre} a déjà répondu à 2/3 questions 👀 — à toi de jouer ! », « Vous avez tout fini aujourd'hui 🎉 Révélations dispo », « Personne n'a encore joué… lance la partie ! », « Tu as fini, {autre} pas encore 🤫 ». Bouton principal « Jouer » (ou « Voir les révélations »), fermeture par glisser/croix. Version compacte permanente dans le bandeau d'« Aujourd'hui » (2 avatars + mini-barres de progression). Si la RPC est absente (migration non exécutée) : ne rien afficher, pas d'erreur.
 - Navigation par barre d'onglets en bas (Aujourd'hui · Ajouter · Bilan · Love · Plus).

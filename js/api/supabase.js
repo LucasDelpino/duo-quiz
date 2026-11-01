@@ -4,7 +4,10 @@ import { ApiError, MESSAGES } from './errors.js';
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../config.js';
 
 export const ROUND_COLS = 'id, room_id, play_date, text, kind, options, category, created_at';
-export const ROOM_COLS = 'id, p1_name, p2_name, invite_code, questions_per_day, report_period_days, report_start, created_at';
+export const ROOM_COLS = 'id, p1_name, p2_name, invite_code, questions_per_day, report_period_days, report_start, created_at, spicy';
+/** Sans la colonne `spicy` (migration 005 pas encore exécutée) : on retombe sur « de temps en temps ». */
+export const ROOM_COLS_LEGACY = 'id, p1_name, p2_name, invite_code, questions_per_day, report_period_days, report_start, created_at';
+const missingSpicy = (e) => /spicy/.test(`${e?.message ?? ''} ${e?.cause?.message ?? ''}`) || e?.cause?.code === '42703' || e?.code === '42703';
 export const ANSWER_COLS = 'round_id, player, self_answer, guess_other, created_at';
 export const JUDGMENT_COLS = 'round_id, judge, correct, created_at';
 export const CUSTOM_COLS = 'id, text, kind, options, category, created_at';
@@ -76,19 +79,30 @@ export async function createSupabaseApi({
     },
 
     async getRoom() {
-      const room = await run(db().from('rooms').select(ROOM_COLS).maybeSingle());
+      let room;
+      try {
+        room = await run(db().from('rooms').select(ROOM_COLS).maybeSingle());
+      } catch (e) {
+        if (!missingSpicy(e)) throw e;
+        room = await run(db().from('rooms').select(ROOM_COLS_LEGACY).maybeSingle());
+        if (room) room = { ...room, spicy: 1 };
+      }
       if (!room) throw new ApiError('unauthorized');
       return room;
     },
 
     async updateRoom(patch = {}) {
       needSession();
-      const allowed = ['p1_name', 'p2_name', 'questions_per_day', 'report_period_days', 'report_start'];
+      const allowed = ['p1_name', 'p2_name', 'questions_per_day', 'report_period_days', 'report_start', 'spicy'];
       if (Object.keys(patch).some((k) => !allowed.includes(k))) throw new ApiError('invalid_settings');
+      const update = (cols) => run(db().from('rooms').update(patch).eq('id', session.room_id).select(cols).single());
       try {
-        return await run(db().from('rooms').update(patch).eq('id', session.room_id).select(ROOM_COLS).single());
+        return await update(ROOM_COLS);
       } catch (e) {
-        throw e.cause?.code === '23514' ? new ApiError('invalid_settings', e.cause) : e;
+        if (e.cause?.code === '23514') throw new ApiError('invalid_settings', e.cause);
+        if (!missingSpicy(e)) throw e;
+        if ('spicy' in patch) throw new ApiError('needs_migration', e.cause);
+        return { ...(await update(ROOM_COLS_LEGACY)), spicy: 1 };
       }
     },
 

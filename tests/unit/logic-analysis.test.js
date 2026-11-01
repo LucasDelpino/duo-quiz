@@ -17,7 +17,7 @@ describe('rapport IA : lecture défensive', () => {
     for (const bad of [null, undefined, 42, 'x', [], { content: 'pas du json' }, { content: '[1,2]' }, { content: [] }]) {
       const a = sanitizeAnalysis(bad);
       expect(a.summary).toBeNull();
-      expect(a.players[1]).toEqual({ aime: [], naime_pas: [], ressenti: null, a_savoir: [], surprises: [] });
+      expect(a.players[1]).toEqual({ portrait: null, aime: [], naime_pas: [], ressenti: null, a_savoir: [], surprises: [] });
     }
     const a = sanitizeAnalysis({
       compatibility: '140', period_end: 5,
@@ -48,5 +48,16 @@ describe('rapport IA : lecture défensive', () => {
     expect(analysesTimeline(rows).map((a) => a.compatibility)).toEqual([60, 70]);
     expect(analysesTimeline(null)).toEqual([]);
     expect(analysesTimeline([{ period_end: 'b', compatibility: 1 }, { period_end: 'b', compatibility: 2 }])).toHaveLength(2);
+  });
+});
+
+import { sanitizeAnalysis as sanitize2 } from '../../js/logic/analysis.js';
+import { describe as d2, it as it2, expect as e2 } from 'vitest';
+d2('portrait de personnalité (IA)', () => {
+  it2('lu de façon défensive, null si vide', () => {
+    const a = sanitize2({ content: { players: { 1: { portrait: { resume: ' Calme ', traits: ['Fiable', 3, ''], besoins: 'Du calme', vigilance: null } }, 2: { portrait: {} } } } });
+    e2(a.players[1].portrait).toMatchObject({ resume: 'Calme', traits: ['Fiable'], besoins: ['Du calme'], vigilance: [], comportement: null });
+    e2(a.players[2].portrait).toBeNull();
+    e2(sanitize2({ content: { players: { 1: { portrait: 'oups' } } } }).players[1].portrait).toBeNull();
   });
 });

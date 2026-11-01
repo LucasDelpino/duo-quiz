@@ -20,7 +20,11 @@ test('love report : rapport IA factice, score direct verrouillé puis portraits,
   await playAllToday(page);
   await page.goto('./?demo=1#/love');
   await expect(page.getByTestId('locked')).toContainText('Encore 2 questions');
-  await expect(page.getByTestId('portrait-1')).toBeVisible();
+  // Portrait psychologique de l'AUTRE joueur seulement (rapport IA)
+  await expect(page.getByTestId('portrait-1')).toHaveCount(0);
+  await expect(page.getByTestId('portrait-2')).toContainText('Portrait de Alex');
+  await expect(page.getByTestId('portrait-resume')).toContainText('énergie solaire');
+  await expect(page.getByTestId('portrait-2')).toContainText('Points de vigilance');
 
   // Second rapport (contenu bancal) : courbe + aucune casse
   await page.evaluate((key) => {
@@ -34,6 +38,7 @@ test('love report : rapport IA factice, score direct verrouillé puis portraits,
   await expect(page.locator('.gauge')).toHaveAttribute('aria-valuenow', '64');
   await expect(page.locator('.gauge-value span')).toHaveText('Très complices');
   await expect(page.getByTestId('curve')).toBeVisible();
+  await expect(page.getByTestId('portrait-resume')).toContainText('énergie solaire'); // portrait du dernier rapport qui en a un
   await expect(page.locator('.curve')).toHaveAttribute('aria-label', 'Évolution : 78 %, 64 %');
   await expect(page.getByTestId('ai-summary')).toHaveCount(0);
   await expect(page.getByTestId('ai-common')).toContainText('Le rire');

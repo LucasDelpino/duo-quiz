@@ -13,7 +13,7 @@ import { isISODate } from '../logic/dates.js';
 import { invitePanel } from './setup.js';
 
 /** Valide le formulaire ; renvoie { patch } ou { error }. */
-export function settingsPatch({ p1_name, p2_name, questions_per_day, report_period_days, report_start }, hasPartner) {
+export function settingsPatch({ p1_name, p2_name, questions_per_day, report_period_days, report_start, spicy }, hasPartner, current = {}) {
   const n1 = String(p1_name ?? '').trim();
   const n2 = String(p2_name ?? '').trim();
   if (n1.length < 1 || n1.length > 30 || (hasPartner && (n2.length < 1 || n2.length > 30))) return { error: 'Les prénoms doivent faire entre 1 et 30 caractères.' };
@@ -24,6 +24,11 @@ export function settingsPatch({ p1_name, p2_name, questions_per_day, report_peri
   if (!isISODate(report_start)) return { error: 'Date de départ invalide.' };
   const patch = { p1_name: n1, questions_per_day: q, report_period_days: d, report_start };
   if (hasPartner) patch.p2_name = n2;
+  if (spicy !== undefined && spicy !== null && spicy !== '') {
+    const sp = Number(spicy);
+    if (![0, 1, 2].includes(sp)) return { error: 'Réglage des questions coquines invalide.' };
+    if (sp !== Number(current.spicy ?? 1)) patch.spicy = sp; // envoyé seulement s'il change
+  }
   return { patch };
 }
 
@@ -37,6 +42,16 @@ function perDayField(value) {
     h('small', { class: 'muted', id: 'questions_per_day-hint' }, 'Illimité : 3 questions par jour, puis « Encore des questions » dès que tu as tout répondu.'));
 }
 
+/** Questions coquines : réglage commun aux deux téléphones. */
+function spicyField(value = 1) {
+  const opts = [[0, 'Désactivées'], [1, 'De temps en temps'], [2, 'Souvent 🔥']]
+    .map(([v, label]) => h('option', { value: String(v), selected: Number(value) === v }, label));
+  return h('div', { class: 'field' },
+    h('label', { for: 'spicy' }, 'Questions coquines 🔥'),
+    h('select', { id: 'spicy', name: 'spicy', class: 'input', 'data-testid': 'spicy', 'aria-describedby': 'spicy-hint' }, opts),
+    h('small', { class: 'muted', id: 'spicy-hint' }, 'Réglage commun : il s’applique aux prochains tirages, sur les deux téléphones.'));
+}
+
 function roomForm(room) {
   const err = errorBox();
   const hasPartner = Boolean(room.p2_name);
@@ -44,6 +59,7 @@ function roomForm(room) {
     field({ id: 'p1_name', label: 'Prénom du joueur 1', value: room.p1_name, maxlength: 30, autocomplete: 'off' }),
     hasPartner ? field({ id: 'p2_name', label: 'Prénom du joueur 2', value: room.p2_name, maxlength: 30, autocomplete: 'off' }) : null,
     perDayField(room.questions_per_day),
+    spicyField(room.spicy),
     field({ id: 'report_period_days', label: 'Durée du bilan, en jours (1 à 90)', type: 'number', inputmode: 'numeric', min: 1, max: 90, step: 1, value: room.report_period_days, hint: '7 = un bilan par semaine.' }),
     field({ id: 'report_start', label: 'Date de départ des bilans', type: 'date', value: room.report_start, hint: 'Choisis un lundi pour un bilan clôturé le dimanche soir.' }),
     err,
@@ -51,10 +67,11 @@ function roomForm(room) {
   f.addEventListener('submit', async (e) => {
     e.preventDefault();
     err.show(null);
-    const { patch, error } = settingsPatch(Object.fromEntries(new FormData(f)), hasPartner);
+    const { patch, error } = settingsPatch(Object.fromEntries(new FormData(f)), hasPartner, room);
     if (error) return err.show(error);
     try {
-      await busy(f.querySelector('[type="submit"]'), async () => (await getApi()).updateRoom(patch));
+      const updated = await busy(f.querySelector('[type="submit"]'), async () => (await getApi()).updateRoom(patch));
+      if (updated && typeof updated === 'object') Object.assign(room, updated);
       await refreshNames().catch(() => {});
       toast('Réglages enregistrés ✅', { type: 'success' });
     } catch (error2) {

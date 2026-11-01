@@ -9,7 +9,7 @@ test('démo solo : jouer les questions du jour, révélation, validation', async
   await expect(cards).toHaveCount(3);
   await expect(page.getByTestId('score-me')).toHaveText('0');
   // aucune trace de l'origine des questions
-  await expect(page.locator('[data-view="today"]')).not.toContainText(/perso|banque|Alex a écrit/i);
+  await expect(page.locator('[data-view="today"]')).not.toContainText(/question perso|banque|Alex a écrit|écrite par/i);
 
   for (let i = 0; i < 3; i++) {
     await page.locator('[data-testid="today-rounds"] .round-card[data-status="todo"]').first().click();
@@ -69,7 +69,7 @@ test('deux téléphones : attente, anti-triche, révélation identique', async (
 
   // Retour chez Léa : révélation
   await syncDb(a, b);
-  await b.getByTestId('refresh').click();
+  await b.reload();
   await expect(b.getByTestId('reveal-card')).toHaveCount(4);
   const bTexts = await b.locator('.reveal-value').allTextContents();
   // mêmes 4 valeurs, vues de chaque côté (ma réponse ↔ sa réponse)

@@ -1,7 +1,7 @@
 // Tirage des candidates de la banque et ordre d'affichage.
 import { inRange } from './dates.js';
 import { answersOf } from './scoring.js';
-import { encodeCategory } from './category.js';
+import { encodeCategory, SPICY } from './category.js';
 
 /** Générateur pseudo-aléatoire déterministe (tests). */
 export function seededRng(seed = 1) {
@@ -25,10 +25,26 @@ export function shuffle(list, rng = Math.random) {
 }
 
 /** ~`count` questions non utilisées, mélangées, en alternant les catégories. */
-export function drawCandidates(bank, usedIds = [], { count = 20, rng = Math.random } = {}) {
+/**
+ * `spicy` : 0 = aucune question « coquin », 1 = une catégorie comme les autres (≈ 1 sur 11),
+ * 2 = souvent (≈ 1 question sur 3, à une position aléatoire dans chaque groupe de 3).
+ */
+export function drawCandidates(bank, usedIds = [], { count = 20, rng = Math.random, spicy = 1 } = {}) {
   const used = new Set(usedIds);
+  const pool = (bank || []).filter((q) => q && !used.has(q.id) && (spicy !== 0 || q.category !== SPICY));
+  if (spicy === 2) {
+    const hot = drawCandidates(pool.filter((q) => q.category === SPICY), [], { count, rng, spicy: 1 });
+    const rest = drawCandidates(pool.filter((q) => q.category !== SPICY), [], { count, rng, spicy: 1 });
+    const out = [];
+    while (out.length < count && (hot.length || rest.length)) {
+      const group = [rest.shift(), rest.shift()].filter(Boolean);
+      if (hot.length) group.splice(Math.floor(rng() * (group.length + 1)), 0, hot.shift());
+      out.push(...group);
+    }
+    return out.slice(0, count);
+  }
   const byCat = new Map();
-  for (const q of shuffle((bank || []).filter((q) => q && !used.has(q.id)), rng)) {
+  for (const q of shuffle(pool, rng)) {
     if (!byCat.has(q.category)) byCat.set(q.category, []);
     byCat.get(q.category).push(q);
   }

@@ -10,7 +10,7 @@ import { toast } from '../ui/toast.js';
 import { errorBox, busy } from '../ui/form.js';
 import { messageFor } from '../api/errors.js';
 import { getApi, go } from '../context.js';
-import { players, textFor, answerLabel } from '../game.js';
+import { players, textFor, answerLabel, nextRoundId, loadRoom, drawMoreToday } from '../game.js';
 import { answersOf, judgmentsOf, roundStatus, pointFor } from '../logic/scoring.js';
 import { formatDay } from '../logic/dates.js';
 import { paceState, paceMessage } from '../logic/pace.js';
@@ -125,7 +125,7 @@ function waitingView(data, ctx) {
         h('dt', {}, 'Ta réponse'), h('dd', {}, answerLabel(round, mine.self_answer, me, names)),
         h('dt', {}, 'Ta prédiction'), h('dd', {}, answerLabel(round, mine.guess_other, them, names))),
     ]),
-    button('Rafraîchir', { variant: 'ghost', block: true, 'data-testid': 'refresh', onClick: () => go(location.hash) }),
+    nextButton(round.id),
   ];
 }
 
@@ -203,8 +203,36 @@ function revealView(data, ctx) {
     points,
     status === 'to_judge' ? judgeCard(data, ctx) : null,
     round.kind === 'text' && judged ? h('p', { class: 'small muted center' }, `Tu as jugé : ${judged.correct ? 'bien vu ✅' : 'raté ❌'}`) : null,
-    button('Retour à aujourd’hui', { variant: 'ghost', block: true, onClick: () => go('#/today') }),
+    nextButton(round.id),
+    button('Retour à l’accueil', { variant: 'ghost', block: true, onClick: () => go('#/today') }),
   ];
+}
+
+/** « Question suivante » : la prochaine question à jouer ; en mode illimité, en tire de nouvelles si besoin. */
+function nextButton(currentId) {
+  const btn = button('Question suivante →', {
+    block: true, size: 'lg', 'data-testid': 'next-round',
+    onClick: async () => {
+      btn.disabled = true;
+      try {
+        let id = await nextRoundId(currentId);
+        if (!id) {
+          const room = await loadRoom().catch(() => null);
+          if (room?.questions_per_day === 0) {
+            await drawMoreToday();
+            id = await nextRoundId(currentId);
+          }
+        }
+        if (id) return go(`#/round/${encodeURIComponent(id)}`);
+        toast('Plus de question pour l’instant 🎉', { type: 'success' });
+        go('#/today');
+      } catch (error) {
+        btn.disabled = false;
+        toast(messageFor(error), { type: 'error' });
+      }
+    },
+  });
+  return btn;
 }
 
 async function loadPace() {

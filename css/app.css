@@ -358,3 +358,31 @@ fieldset.plain { border: 0; padding: 0; margin: 0; }
 /* ---------- Rythme commun ---------- */
 .card--danger { border-color: rgb(255 138 128 / .7); background: linear-gradient(160deg, rgb(255 79 94 / .18), rgb(255 255 255 / .06)); }
 .pace-title { margin: 0 0 .25rem; font-size: 1.05rem; }
+
+/* ---------- Carte de question : zone joueurs coupée en diagonale ---------- */
+.round-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.round-card-main { min-width: 0; }
+.duo {
+  position: relative; width: 92px; height: 64px; flex: none; border-radius: 12px; overflow: hidden;
+  background: rgb(255 255 255 / .06); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .18);
+}
+.duo-tri { position: absolute; inset: 0; transition: background-color var(--dur) var(--ease); }
+.duo-tri--a { clip-path: polygon(0 0, 100% 0, 0 100%); }
+.duo-tri--b { clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.duo--none { background: rgb(255 255 255 / .06); }
+.duo--wait { background: rgb(255 255 255 / .18); }
+.duo--good { background: #1fae6b; }
+.duo--bad { background: #e5484d; }
+.duo-diag {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom right, transparent calc(50% - 2.5px), var(--gold) calc(50% - 2.5px), var(--gold) calc(50% + 2.5px), transparent calc(50% + 2.5px));
+}
+.duo-name {
+  position: absolute; font: 700 .7rem/1 var(--font-body); color: #fff; text-shadow: 0 1px 2px rgb(0 0 0 / .6);
+  max-width: 60px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.duo-name--a { top: 7px; left: 7px; }
+.duo-name--b { bottom: 7px; right: 7px; text-align: right; }
+@media (max-width: 340px) { .duo { width: 76px; height: 56px; } .duo-name { font-size: .62rem; max-width: 48px; } }
+.portrait-resume { font: 600 1.05rem/1.45 var(--font-title); margin: .25rem 0 .5rem; }
+.portrait-traits { flex-wrap: wrap; gap: 6px; margin-bottom: .5rem; }

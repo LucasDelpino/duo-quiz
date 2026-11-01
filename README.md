@@ -54,4 +54,5 @@ Ajoute `?demo=1` à l'adresse : tout reste sur le téléphone, rien n'est envoy�
 - [x] `supabase/migrations/001_anonymat_et_analyses.sql` — anonymat des questions perso, rapports IA, reconnexion d'appareil (déjà exécutée en production d'après la SPEC).
 - Aucune nouvelle migration requise : la facette des questions est stockée dans `category` (« gouts:aime ») pour la banque comme pour les questions perso.
 - [x] `supabase/migrations/003_questions_illimitees.sql` — option « Illimité » pour les questions par jour.
-- [ ] `supabase/migrations/004_rythme_commun.sql` — rythme commun : alerte au-delà de 10 réponses de retard, blocage à 15 d’avance.
+- [x] `supabase/migrations/004_rythme_commun.sql` — rythme commun : alerte au-delà de 10 réponses de retard, blocage à 15 d’avance.
+- [ ] `supabase/migrations/005_questions_coquines.sql` — réglage commun « Questions coquines 🔥 » (sans ce script : « de temps en temps » par défaut, réglage non modifiable).

@@ -5,7 +5,7 @@ import { gauge } from '../ui/gauge.js';
 import { messageFor } from '../api/errors.js';
 import { getApi } from '../context.js';
 import { loadGame, players, textFor } from '../game.js';
-import { compatibility, labelFor, portrait } from '../logic/compat.js';
+import { compatibility, labelFor } from '../logic/compat.js';
 import { analysesTimeline } from '../logic/analysis.js';
 import { FACET_LABELS } from '../logic/custom.js';
 import { formatShort, todayParis } from '../logic/dates.js';
@@ -40,14 +40,32 @@ function liveCard(c) {
   ], { 'data-testid': 'live' });
 }
 
-function portraitCard(game, p, names) {
-  const pr = portrait(game, p);
+/** Portrait psychologique et comportemental de l'autre joueur (rapport IA le plus récent qui en contient un). */
+function personalityCard(timeline, p, names) {
   const n = names[p];
-  const titles = { aime: `Ce que ${n} aime`, naime_pas: `Ce que ${n} n’aime pas`, reves: 'Ses rêves', compte: `Ce qui compte pour ${n}` };
-  const blocks = Object.entries(pr).filter(([, list]) => list.length).map(([id, list]) => h('div', { class: 'portrait-block' },
-    h('h3', {}, titles[id]),
-    h('ul', { class: 'love-list' }, list.map((x) => h('li', {}, h('strong', {}, x.answer), h('span', { class: 'small muted' }, ` — ${textFor(x.question, p, names)}`))))));
-  return card([h('h2', {}, `Portrait de ${n}`), blocks.length ? blocks : h('p', { class: 'muted' }, 'Jouez encore un peu pour le voir se dessiner ✏️')], { 'data-testid': `portrait-${p}` });
+  const latest = [...timeline].reverse().find((a) => a.players?.[p]?.portrait);
+  const pr = latest?.players[p].portrait;
+  if (!pr) {
+    return card([
+      h('h2', {}, `Portrait de ${n} 🔮`),
+      h('p', { class: 'muted', 'data-testid': 'portrait-pending' }, `Le portrait psychologique de ${n} sera dressé par l’IA dans le prochain Love report (dimanche soir), à partir de ses réponses et de la façon dont vous vous devinez.`),
+    ], { 'data-testid': `portrait-${p}` });
+  }
+  const para = (title, text) => (text ? h('div', { class: 'portrait-block' }, h('h3', {}, title), h('p', {}, text)) : null);
+  const lst = (title, arr) => (arr.length ? h('div', { class: 'portrait-block' }, h('h3', {}, title), items(arr)) : null);
+  return card([
+    h('h2', {}, `Portrait de ${n} 🔮`),
+    pr.resume ? h('p', { class: 'portrait-resume', 'data-testid': 'portrait-resume' }, pr.resume) : null,
+    pr.traits.length ? h('div', { class: 'row portrait-traits' }, pr.traits.map((t) => h('span', { class: 'chip chip--gold' }, t))) : null,
+    para('Son comportement', pr.comportement),
+    para('Ses émotions', pr.emotions),
+    para('En couple', pr.en_couple),
+    lst('Ce dont il·elle a besoin', pr.besoins),
+    lst('Ses points forts', pr.points_forts),
+    lst('Points de vigilance', pr.vigilance),
+    para('Le conseil pour le·la rendre heureux·se', pr.conseil),
+    latest.period_end ? h('p', { class: 'small muted' }, `D’après vos réponses jusqu’au ${formatShort(latest.period_end)}`) : null,
+  ].filter(Boolean), { 'data-testid': `portrait-${p}` });
 }
 
 /** Courbe de compatibilité semaine après semaine (SVG). */
@@ -109,7 +127,7 @@ export async function render() {
   } catch (error) {
     return h('section', { class: 'view stack', 'data-view': 'love' }, h('h1', {}, 'Love report'), card(h('p', { role: 'alert' }, messageFor(error))));
   }
-  const { names } = players();
+  const { names, them } = players();
   const live = compatibility(game);
   const timeline = analysesTimeline(rows);
   const ai = timeline.at(-1) ?? null;
@@ -126,8 +144,7 @@ export async function render() {
     ], { variant: 'gold', 'data-testid': 'gauge-card' }),
     ...aiSections(ai, names),
     liveCard(live),
-    portraitCard(game, 1, names),
-    portraitCard(game, 2, names),
+    personalityCard(timeline, them, names),
     curve(timeline),
     h('p', { class: 'small muted center disclaimer' }, 'Analyse ludique, pas une vérité scientifique 😉'),
   );
