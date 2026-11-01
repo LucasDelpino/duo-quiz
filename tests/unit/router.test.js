@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseHash, resolve, defaultHash, ROUTES, TABS } from '../../js/router.js';
+import { parseHash, resolve, defaultHash, hrefOf, ROUTES, TABS } from '../../js/router.js';
 
 describe('router', () => {
   it('reconnaît les routes simples et paramétrées', () => {
@@ -25,11 +25,23 @@ describe('router', () => {
     expect(defaultHash(true)).toBe('#/today');
     expect(resolve('', false).route.name).toBe('setup');
     expect(resolve('#/zzz', true).route.name).toBe('today');
-    expect(resolve('#/love', false).route.name).toBe('love');
+    expect(resolve('#/love', false)).toMatchObject({ route: { name: 'setup' }, redirected: true });
+    expect(resolve('#/love', true)).toMatchObject({ route: { name: 'love' }, redirected: false });
+    expect(resolve('#/setup', true).route.name).toBe('today');
+    expect(resolve('#/join/ABC', true)).toMatchObject({ route: { name: 'join' }, params: { code: 'ABC' }, redirected: false });
+    expect(resolve('#/install', false).redirected).toBe(false);
   });
 
   it('chaque onglet pointe vers une route existante', () => {
     for (const tab of TABS) expect(parseHash(tab.href)).not.toBeNull();
     for (const r of ROUTES.filter((r) => r.tab)) expect(TABS.some((t) => t.id === r.tab)).toBe(true);
+  });
+});
+
+describe('hrefOf', () => {
+  it('reconstruit le hash', () => {
+    expect(hrefOf(parseHash('#/join/A%20B'))).toBe('#/join/A%20B');
+    expect(hrefOf(parseHash('#/today'))).toBe('#/today');
+    expect(hrefOf({ route: { path: '/round/:id' }, params: {} })).toBe('#/round/');
   });
 });

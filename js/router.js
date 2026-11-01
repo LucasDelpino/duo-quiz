@@ -1,9 +1,10 @@
 // Routeur hash : fonctions pures (testées) utilisées par app.js.
 
 export const ROUTES = [
-  { name: 'setup', path: '/setup', title: 'Bienvenue', tabs: false },
-  { name: 'join', path: '/join/:code', title: 'Rejoindre', tabs: false },
-  { name: 'link', path: '/link/:code', title: 'Connecter cet appareil', tabs: false },
+  { name: 'setup', path: '/setup', title: 'Bienvenue', tabs: false, public: true },
+  { name: 'join', path: '/join/:code', title: 'Rejoindre', tabs: false, public: true },
+  { name: 'link', path: '/link/:code', title: 'Connecter cet appareil', tabs: false, public: true },
+  { name: 'install', path: '/install', title: 'Installer l’app', tabs: false, public: true },
   { name: 'today', path: '/today', title: "Aujourd'hui", tab: 'today' },
   { name: 'round', path: '/round/:id', title: 'Question', tab: 'today' },
   { name: 'add', path: '/add', title: 'Ajouter', tab: 'add' },
@@ -11,7 +12,7 @@ export const ROUTES = [
   { name: 'love', path: '/love', title: 'Love report', tab: 'love' },
   { name: 'history', path: '/history', title: 'Historique', tab: 'more' },
   { name: 'settings', path: '/settings', title: 'Réglages', tab: 'more' },
-  { name: 'styleguide', path: '/styleguide', title: 'Styleguide', tabs: false },
+  { name: 'styleguide', path: '/styleguide', title: 'Styleguide', tabs: false, public: true },
 ];
 
 export const TABS = [
@@ -54,7 +55,18 @@ export function defaultHash(hasSession) {
   return hasSession ? '#/today' : '#/setup';
 }
 
-/** Résout le hash courant (redirige les routes inconnues ou vides). */
+/**
+ * Résout le hash courant : routes inconnues → défaut, écrans de jeu → setup sans session,
+ * setup → aujourd'hui avec session. `redirected` indique qu'il faut corriger l'URL.
+ */
 export function resolve(hash, hasSession) {
-  return parseHash(hash) ?? parseHash(defaultHash(hasSession));
+  const match = parseHash(hash);
+  const ok = match && (match.route.public || hasSession) && !(hasSession && match.route.name === 'setup');
+  if (ok) return { ...match, redirected: false };
+  return { ...parseHash(defaultHash(hasSession)), redirected: true };
+}
+
+/** Hash canonique d'une route résolue. */
+export function hrefOf(match) {
+  return '#' + match.route.path.replace(/:(\w+)/g, (_, k) => encodeURIComponent(match.params[k] ?? ''));
 }

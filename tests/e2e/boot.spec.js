@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { watchPage } from './helpers.js';
+import { watchPage, startSoloDemo } from './helpers.js';
 
 test.describe('Socle', () => {
   test("l'app charge en mode démo sans erreur ni réseau externe", async ({ page }) => {
@@ -15,7 +15,7 @@ test.describe('Socle', () => {
 
   test("la barre d'onglets navigue entre les écrans", async ({ page }) => {
     const w = watchPage(page);
-    await page.goto('./?demo=1#/today');
+    await startSoloDemo(page);
     const tabs = page.locator('#tabs .tab');
     await expect(tabs).toHaveCount(5);
     await expect(page.locator('#tabs [aria-current="page"]')).toHaveAttribute('data-tab', 'today');
@@ -30,9 +30,12 @@ test.describe('Socle', () => {
     expect(w.external).toEqual([]);
   });
 
-  test('une route inconnue redirige vers le setup', async ({ page }) => {
+  test('une route inconnue ou un écran de jeu sans session redirige vers le setup', async ({ page }) => {
     await page.goto('./?demo=1#/nimporte/quoi');
     await expect(page).toHaveURL(/#\/setup$/);
+    await page.goto('./?demo=1#/today');
+    await expect(page).toHaveURL(/#\/setup$/);
+    await expect(page.locator('[data-view="setup"]')).toBeVisible();
   });
 
   test('métas iOS/Android présentes', async ({ page }) => {

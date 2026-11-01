@@ -51,12 +51,19 @@ body {
   min-height: 100dvh;
   background:
     radial-gradient(120% 60% at 50% -10%, rgb(255 111 97 / .25), transparent 60%),
-    linear-gradient(165deg, var(--night) 0%, var(--plum) 45%, var(--magenta) 100%) fixed;
+    linear-gradient(165deg, var(--night) 0%, var(--plum) 45%, var(--magenta) 100%);
   background-color: var(--night);
   color: var(--text);
   font: 400 1rem/1.5 var(--font-body);
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: contain;
+}
+/* Fond fixe via pseudo-élément : background-attachment: fixed est ignoré sur iOS. */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgb(255 111 97 / .25), transparent 60%),
+    linear-gradient(165deg, var(--night) 0%, var(--plum) 45%, var(--magenta) 100%);
 }
 h1, h2, h3, .title { font-family: var(--font-title); font-weight: 700; line-height: 1.15; margin: 0 0 .5em; letter-spacing: .01em; }
 h1 { font-size: clamp(1.7rem, 7vw, 2.3rem); }
@@ -83,6 +90,7 @@ a { color: var(--gold); }
 .topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; }
 .brand { font-family: var(--font-title); font-weight: 700; font-size: 1.3rem; background: linear-gradient(90deg, var(--gold), var(--coral)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .demo-badge { background: var(--gold); color: var(--night); border-radius: 999px; padding: 2px 10px; font-size: .8rem; font-weight: 800; }
+main:focus, main:focus-visible { outline: none; }
 main { flex: 1; padding: 8px 16px calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 24px); outline: none; }
 .view { animation: view-in var(--dur) var(--ease); }
 @keyframes view-in { from { opacity: 0; transform: translateY(8px); } }
@@ -99,6 +107,7 @@ main { flex: 1; padding: 8px 16px calc(var(--tabbar-h) + env(safe-area-inset-bot
 }
 .card--gold { border-color: rgb(255 209 102 / .6); box-shadow: var(--shadow), var(--glow-gold); }
 .card--question { min-height: 40dvh; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+.card--question .chip { align-self: center; }
 .card--question .q-text { font-family: var(--font-title); font-size: clamp(1.4rem, 6vw, 1.9rem); font-weight: 600; }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: var(--card-strong); font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
 .chip--gold { background: var(--gold); color: var(--night); }
@@ -222,3 +231,16 @@ main { flex: 1; padding: 8px 16px calc(var(--tabbar-h) + env(safe-area-inset-bot
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; scroll-behavior: auto !important; }
 }
+
+/* Accueil, formulaires, tuto d'installation */
+.hero { padding: 8px 0 4px; }
+.hero-emoji { font-size: 3rem; margin: 0; line-height: 1.2; }
+.form-error { color: var(--danger); font-weight: 700; margin: 0; }
+.notice { background: rgb(255 209 102 / .14); border-left: 4px solid var(--gold); padding: 10px 14px; border-radius: 10px; font-size: .95rem; }
+.link-text { word-break: break-all; }
+details.card > summary { cursor: pointer; font: 700 1.05rem var(--font-title); min-height: 32px; list-style-position: inside; }
+details.card[open] > summary { margin-bottom: 12px; }
+.steps { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 12px; }
+.step { display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center; }
+.step-n { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--gold); color: var(--night); font: 700 1.1rem var(--font-title); }
+.step-icon { width: 30px; height: 30px; fill: none; stroke: #4aa3ff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; background: #fff; border-radius: 8px; padding: 3px; }
