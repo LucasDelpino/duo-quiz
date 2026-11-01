@@ -41,7 +41,7 @@ describe('adaptateur mémoire — contrat', () => {
     expect(room).toMatchObject({ p1_name: 'Lucas', p2_name: 'Léa', invite_code: null, questions_per_day: 3, report_period_days: 7, report_start: TODAY });
     expect(Object.keys(room).some((k) => k.includes('secret'))).toBe(false);
     // le code ne sert qu'une fois
-    const p3 = createMemoryApi({ storage: c.storage });
+    const p3 = createMemoryApi({ storage: c.storage, now: c.now });
     expect(await code(p3.joinRoom(c.created.invite_code, 'Intrus'))).toBe('invalid_invite');
     expect(await code(p3.getRoom())).toBe('unauthorized');
     expect(await code(c.p1.createRoom(''))).toBe('invalid_name');
@@ -206,7 +206,7 @@ describe('adaptateur mémoire — contrat', () => {
     const code1 = await c.p2.createDeviceLink();
     const code2 = await c.p2.createDeviceLink(); // remplace le précédent
     expect(code2).toMatch(/^[0-9A-F]{8}$/);
-    const phone = createMemoryApi({ storage: c.storage });
+    const phone = createMemoryApi({ storage: c.storage, now: c.now });
     expect(await code(phone.claimDeviceLink(code1))).toBe('invalid_link');
     const res = await phone.claimDeviceLink(` ${code2.toLowerCase()} `);
     expect(res).toMatchObject({ room_id: c.created.room_id, player: 2 });
@@ -215,7 +215,7 @@ describe('adaptateur mémoire — contrat', () => {
     expect(await code(c.p2.getRoom())).toBe('unauthorized');
     expect(await code(phone.claimDeviceLink(code2))).toBe('invalid_link');
     const c1 = await c.p1.createDeviceLink();
-    const ph1 = createMemoryApi({ storage: c.storage });
+    const ph1 = createMemoryApi({ storage: c.storage, now: c.now });
     expect((await ph1.claimDeviceLink(c1)).player).toBe(1);
   });
 
