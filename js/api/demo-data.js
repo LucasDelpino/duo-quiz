@@ -11,7 +11,7 @@ export const PARTNER_TEXTS = [
 ];
 
 export const PARTNER_QUESTIONS = [
-  { text: 'Quel petit geste de ma part te fait le plus plaisir ?', kind: 'text', options: null, category: 'couple:amour' },
+  { text: 'Quel petit geste de {autre} te fait le plus plaisir ?', kind: 'text', options: null, category: 'couple:amour' },
   { text: 'Plutôt soirée jeux ou soirée film ?', kind: 'choice', options: ['Soirée jeux', 'Soirée film'], category: 'quotidien:aime' },
 ];
 

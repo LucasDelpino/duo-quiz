@@ -32,3 +32,11 @@ export function weekday(iso) {
 export function inRange(iso, from, to) {
   return (!from || iso >= from) && (!to || iso <= to);
 }
+
+const dayFmt = new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC', weekday: 'long', day: 'numeric', month: 'long' });
+const shortFmt = new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC', day: 'numeric', month: 'short' });
+
+/** « dimanche 1 novembre » */
+export const formatDay = (iso) => dayFmt.format(new Date(iso + 'T00:00:00Z'));
+/** « 1 nov. » */
+export const formatShort = (iso) => shortFmt.format(new Date(iso + 'T00:00:00Z'));

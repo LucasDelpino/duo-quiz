@@ -11,6 +11,8 @@ const VIEWS = {
   join: () => import('./views/join.js'),
   link: () => import('./views/link.js'),
   install: () => import('./views/install.js'),
+  today: () => import('./views/today.js'),
+  round: () => import('./views/round.js'),
   styleguide: () => import('./views/styleguide.js'),
 };
 
@@ -33,12 +35,18 @@ function renderTabs(nav, activeTab) {
 }
 
 let renderToken = 0;
+let lastRender = 0;
+let currentRoute = null;
+// Écrans rafraîchis au retour au premier plan / en tirant vers le bas (pas un round en cours de saisie).
+const REFRESHABLE = new Set(['today', 'report', 'love', 'history']);
 
 async function render() {
   const token = ++renderToken;
   const main = document.getElementById('app');
   const nav = document.getElementById('tabs');
   const match = resolve(location.hash, hasSession());
+  currentRoute = match.route.name;
+  lastRender = Date.now();
   if (match.redirected) history.replaceState(null, '', hrefOf(match));
 
   const showTabs = match.route.tabs !== false;
@@ -61,7 +69,24 @@ async function render() {
   main.focus({ preventScroll: true });
 }
 
+function refreshIfStale(minAgeMs) {
+  if (REFRESHABLE.has(currentRoute) && Date.now() - lastRender > minAgeMs) render();
+}
+
+function pullToRefresh() {
+  let startY = null;
+  window.addEventListener('touchstart', (e) => { startY = window.scrollY <= 0 ? e.touches[0].clientY : null; }, { passive: true });
+  window.addEventListener('touchend', (e) => {
+    if (startY !== null && e.changedTouches[0].clientY - startY > 90) refreshIfStale(0);
+    startY = null;
+  }, { passive: true });
+}
+
 function start() {
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') refreshIfStale(3000);
+  });
+  pullToRefresh();
   captureInstallPrompt(window);
   document.documentElement.dataset.mode = apiMode();
   document.getElementById('demo-badge').hidden = apiMode() !== 'memory';
