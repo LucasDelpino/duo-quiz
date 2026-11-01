@@ -5,7 +5,7 @@ export const ROUTES = [
   { name: 'join', path: '/join/:code', title: 'Rejoindre', tabs: false, public: true },
   { name: 'link', path: '/link/:code', title: 'Connecter cet appareil', tabs: false, public: true },
   { name: 'install', path: '/install', title: 'Installer l’app', tabs: false, public: true },
-  { name: 'today', path: '/today', title: "Aujourd'hui", tab: 'today' },
+  { name: 'today', path: '/today', title: 'Aujourd’hui', tab: 'today' },
   { name: 'round', path: '/round/:id', title: 'Question', tab: 'today' },
   { name: 'add', path: '/add', title: 'Ajouter', tab: 'add' },
   { name: 'report', path: '/report', title: 'Bilan', tab: 'report' },
@@ -16,7 +16,7 @@ export const ROUTES = [
 ];
 
 export const TABS = [
-  { id: 'today', label: "Aujourd'hui", icon: '🎯', href: '#/today' },
+  { id: 'today', label: 'Aujourd’hui', icon: '🎯', href: '#/today' },
   { id: 'add', label: 'Ajouter', icon: '✍️', href: '#/add' },
   { id: 'report', label: 'Bilan', icon: '🏆', href: '#/report' },
   { id: 'love', label: 'Love', icon: '💞', href: '#/love' },

@@ -23,7 +23,8 @@ const VIEWS = {
 
 async function loadView(name) {
   const loader = VIEWS[name];
-  return loader ? loader() : import('./views/placeholder.js');
+  if (!loader) throw new Error(`Écran inconnu : ${name}`);
+  return loader();
 }
 
 function renderTabs(nav, activeTab) {
@@ -87,7 +88,24 @@ function pullToRefresh() {
   }, { passive: true });
 }
 
+function watchConnectivity() {
+  const banner = document.getElementById('offline-banner');
+  const update = () => { banner.hidden = navigator.onLine !== false; };
+  window.addEventListener('online', () => { update(); refreshIfStale(0); });
+  window.addEventListener('offline', update);
+  update();
+}
+
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => { /* hors ligne non disponible : pas bloquant */ });
+  });
+}
+
 function start() {
+  watchConnectivity();
+  registerServiceWorker();
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') refreshIfStale(3000);
   });

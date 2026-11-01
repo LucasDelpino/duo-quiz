@@ -317,3 +317,6 @@ fieldset.plain { border: 0; padding: 0; margin: 0; }
 .switch-row input::after { content: ''; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform var(--dur) var(--ease); }
 .switch-row input:checked { background: var(--teal); }
 .switch-row input:checked::after { transform: translateX(24px); }
+
+/* Hors ligne + accessibilité */
+.offline-banner { margin: 0 16px 8px; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--danger); color: var(--night); font-weight: 800; font-size: .9rem; }
