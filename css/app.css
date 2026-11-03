@@ -388,3 +388,14 @@ fieldset.plain { border: 0; padding: 0; margin: 0; }
 .portrait-traits { flex-wrap: wrap; gap: 6px; margin-bottom: .5rem; }
 .push-actions { gap: 8px; margin-top: .5rem; }
 .push-actions .btn { flex: 1; }
+
+/* ---------- Invitation : QR code ---------- */
+.qr { width: min(220px, 70vw); margin: .5rem auto; padding: 10px; background: #fff; border-radius: 16px; }
+.qr svg { display: block; width: 100%; height: auto; }
+.invite-steps { counter-reset: s; padding-left: 0; list-style: none; }
+.invite-steps li { counter-increment: s; position: relative; padding-left: 2.2rem; margin: .5rem 0; }
+.invite-steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--gold); color: var(--night); font-weight: 800; display: grid; place-items: center; }
+.invite-qr-box { margin: .25rem 0; }
+.invite-qr-box summary { cursor: pointer; font-weight: 700; }
+.code-inline { letter-spacing: .12em; }
+.step--action .stack { flex: 1; gap: 8px; }

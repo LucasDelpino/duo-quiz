@@ -1,7 +1,7 @@
 // Scénario complet SPEC §9 : 2 téléphones (Galaxy + iPhone) = 2 joueurs, en mode démo (aucun réseau).
 // La « base » démo est recopiée d'un téléphone à l'autre (syncDb) comme le ferait le serveur.
 import { test, expect, devices } from '@playwright/test';
-import { watchPage, syncDb, session, DB_KEY } from './helpers.js';
+import { watchPage, syncDb, session, DB_KEY, openInvite } from './helpers.js';
 
 const CUSTOM = 'Quel super-pouvoir aimerais-tu partager avec {autre} ?';
 
@@ -56,7 +56,7 @@ test('scénario 2 joueurs : créer, rejoindre, question perso, jouer, révélati
   const code = (await a.getByTestId('invite-code').textContent()).trim();
   await b.goto('./?demo=1#/setup');
   await syncDb(a, b);
-  await b.goto(`./?demo=1#/join/${code}`);
+  await openInvite(b, code);
   await b.fill('#join-name', 'Léa');
   await b.click('#join-form button[type="submit"]');
   await expect(b.locator('[data-view="install"]')).toBeVisible();

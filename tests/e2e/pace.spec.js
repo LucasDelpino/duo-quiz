@@ -1,6 +1,6 @@
 // Rythme commun : retard > 10 → pop-up pour le joueur en retard ; avance de 15 → l'autre est bloqué.
 import { test, expect, devices } from '@playwright/test';
-import { watchPage, syncDb, DB_KEY } from './helpers.js';
+import { watchPage, syncDb, DB_KEY, openInvite } from './helpers.js';
 
 test('écart de réponses : alerte du joueur en retard, blocage du joueur en avance', async ({ page: a, browser }, info) => {
   test.setTimeout(60_000);
@@ -16,7 +16,7 @@ test('écart de réponses : alerte du joueur en retard, blocage du joueur en ava
   const code = (await a.getByTestId('invite-code').textContent()).trim();
   await b.goto('./?demo=1#/setup');
   await syncDb(a, b);
-  await b.goto(`./?demo=1#/join/${code}`);
+  await openInvite(b, code);
   await b.fill('#join-name', 'Léa');
   await b.click('#join-form button[type="submit"]');
   await expect(b.locator('[data-view="install"]')).toBeVisible();

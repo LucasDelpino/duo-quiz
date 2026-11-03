@@ -70,3 +70,11 @@ export async function playAllToday(page) {
     }
   }
 }
+
+/** Ouvre un lien d'invitation et affiche le formulaire (sur iPhone dans Safari : « Jouer dans Safari sans installer »). */
+export async function openInvite(page, code, query = '') {
+  await page.goto(`./?demo=1#/join/${code}${query}`);
+  const view = page.locator('[data-view="join"]');
+  await expect(view).toBeVisible();
+  if ((await view.getAttribute('data-flow')) === 'ios-install') await page.getByTestId('join-in-browser').locator('summary').click();
+}

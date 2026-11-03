@@ -1,5 +1,5 @@
 import { test, expect, devices } from '@playwright/test';
-import { watchPage, syncDb, session } from './helpers.js';
+import { watchPage, syncDb, session, openInvite } from './helpers.js';
 
 const IPHONE = devices['iPhone 14'];
 const GALAXY = devices['Galaxy S9+'];
@@ -30,7 +30,7 @@ test.describe('Setup et installation', () => {
     // Léa ouvre le lien sur son iPhone
     await b.goto('./?demo=1#/setup');
     await syncDb(a, b);
-    await b.goto(`./?demo=1#/join/${code}`);
+    await openInvite(b, code);
     await expect(b.locator('#join-code')).toHaveValue(code);
     await b.fill('#join-name', 'Léa');
     await b.click('#join-form button[type="submit"]');
@@ -47,7 +47,7 @@ test.describe('Setup et installation', () => {
     const c = await (await browser.newContext(GALAXY)).newPage();
     await c.goto('./?demo=1#/setup');
     await syncDb(b, c);
-    await c.goto(`./?demo=1#/join/${code}`);
+    await openInvite(c, code);
     await c.fill('#join-name', 'Intrus');
     await c.click('#join-form button[type="submit"]');
     await expect(c.locator('.form-error')).toHaveText(/invalide ou a déjà été utilisé/);

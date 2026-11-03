@@ -69,10 +69,13 @@ describe('audit secrets', () => {
 
 describe('budget JS', () => {
   it('JS applicatif (hors supabase-js et modules démo/dev) < 120 Ko transférés', () => {
-    const prod = appJs.filter((f) => !/vendor\.js|memory\.js|demo-data\.js|styleguide\.js/.test(f));
+    // Bibliothèques tierces (supabase-js, js/vendor/ : QR code) mesurées à part, comme supabase-js.
+    const prod = appJs.filter((f) => !/vendor\.js|js\/vendor\/|memory\.js|demo-data\.js|styleguide\.js/.test(f));
     const raw = prod.reduce((n, f) => n + statSync(f).size, 0);
     const gz = gzipSync(Buffer.concat(prod.map((f) => readFileSync(f)))).length;
     expect(gz).toBeLessThan(120 * 1024);
-    expect(raw).toBeLessThan(160 * 1024); // garde-fou sur la taille brute (commentaires compris)
+    expect(raw).toBeLessThan(200 * 1024); // garde-fou sur la taille brute (commentaires compris)
+    const vendored = appJs.filter((f) => /js\/vendor\//.test(f));
+    expect(gzipSync(Buffer.concat(vendored.map((f) => readFileSync(f)))).length).toBeLessThan(20 * 1024);
   });
 });

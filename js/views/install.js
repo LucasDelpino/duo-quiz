@@ -27,12 +27,28 @@ const ADD_ICON = ['M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 
 
 const step = (n, text, ico) => h('li', { class: 'step' }, h('span', { class: 'step-n', 'aria-hidden': 'true' }, String(n)), h('span', {}, text), ico || null);
 
+/** Étapes « Partager → Sur l'écran d'accueil → Ajouter », numérotées à partir de `n`. */
+export function iosAddSteps(n = 2) {
+  return [
+    step(n, 'Touche le bouton Partager, en bas de l’écran.', icon(SHARE_ICON)),
+    step(n + 1, 'Fais défiler et choisis « Sur l’écran d’accueil ».', icon(ADD_ICON)),
+    step(n + 2, 'Touche « Ajouter », puis ouvre Duo Quiz depuis l’écran d’accueil.'),
+  ];
+}
+
 export function iosTutorial() {
   return h('ol', { class: 'steps', 'data-testid': 'ios-steps' },
     step(1, 'Ouvre ce lien dans Safari.'),
-    step(2, 'Touche le bouton Partager, en bas de l’écran.', icon(SHARE_ICON)),
-    step(3, 'Fais défiler et choisis « Sur l’écran d’accueil ».', icon(ADD_ICON)),
-    step(4, 'Touche « Ajouter », puis ouvre Duo Quiz depuis l’écran d’accueil.'));
+    ...iosAddSteps(2));
+}
+
+/** Variante pour une invitation : copier d'abord, puis installer (une seule liste numérotée). */
+export function iosInviteSteps(copyButton) {
+  return h('ol', { class: 'steps', 'data-testid': 'ios-steps' },
+    h('li', { class: 'step step--action' }, h('span', { class: 'step-n', 'aria-hidden': 'true' }, '1'),
+      h('span', { class: 'stack' }, h('span', {}, 'Copie ton invitation (filet de sécurité).'), copyButton)),
+    ...iosAddSteps(2),
+    step(5, 'L’invitation s’affiche : touche « Rejoindre ». Sinon, touche « Coller mon invitation ».'));
 }
 
 export function androidTutorial() {

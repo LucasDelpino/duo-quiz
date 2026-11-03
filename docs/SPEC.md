@@ -127,6 +127,7 @@ Facettes (pour l'analyse) : `aime`, `naime_pas`, `ressenti`, `valeurs`, `futur`,
 Le formulaire perso demande aussi la facette (libellé simple : « Ça parle de… ce qu'on aime / ce qu'on n'aime pas / … »). Test de validation du fichier.
 
 ## 6. Écrans
+- **Invitation** : lien `#/join/CODE?de=Lucas&n=Léa` (prénom de l'invité facultatif, saisi par l'hôte) + QR code (`js/vendor/qrcode.js`, MIT). Android / app installée : une touche (« Rejoindre »). iPhone dans Safari : installer d'abord (copie de l'invitation + manifeste pointé sur l'invitation via `js/ui/manifest.js`, car l'app installée ne partage pas le stockage de Safari) ; au premier lancement, « Coller mon invitation » lit le presse-papiers (`js/logic/invite.js`).
 - **Setup** : Créer (prénom → code + lien `#/join/CODE` + Partager) / Rejoindre. Écran « Installer l'app » adapté à l'appareil : Android → bouton `beforeinstallprompt` ; iPhone → tuto illustré « Partager → Sur l'écran d'accueil ».
 - **Aujourd'hui** : en haut, toutes les questions qui attendent une action (du jour puis retards) ; dessous, historique tournant des **5 dernières réponses** (la plus récente en premier, trié par l'heure de MA réponse — `js/logic/home.js`). Chaque carte a à droite un rectangle coupé en diagonale par une barre jaune : un triangle par joueur (prénom affiché), vert = prédiction juste, rouge = fausse, gris = en attente / pas répondu.
 - **Round** : après avoir répondu, bouton « Question suivante → » (prochaine question à jouer ; en illimité, tire un nouveau lot si besoin).

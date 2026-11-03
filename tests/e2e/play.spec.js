@@ -1,5 +1,5 @@
 import { test, expect, devices } from '@playwright/test';
-import { watchPage, startSoloDemo, syncDb, playRound } from './helpers.js';
+import { watchPage, startSoloDemo, syncDb, playRound, openInvite } from './helpers.js';
 
 test('démo solo : jouer les questions du jour, révélation, validation', async ({ page }) => {
   const w = watchPage(page);
@@ -45,7 +45,7 @@ test('deux téléphones : attente, anti-triche, révélation identique', async (
   const code = (await a.getByTestId('invite-code').textContent()).trim();
   await b.goto('./?demo=1#/setup');
   await syncDb(a, b);
-  await b.goto(`./?demo=1#/join/${code}`);
+  await openInvite(b, code);
   await b.fill('#join-name', 'Léa');
   await b.click('#join-form button[type="submit"]');
   await b.getByTestId('install-done').click();
