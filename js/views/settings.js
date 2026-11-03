@@ -11,6 +11,7 @@ import { loadPrefs, savePrefs } from '../store.js';
 import { players } from '../game.js';
 import { isISODate } from '../logic/dates.js';
 import { invitePanel } from './setup.js';
+import { pushSupport, permission, currentSubscription, enablePush, disablePush } from '../push.js';
 
 /** Valide le formulaire ; renvoie { patch } ou { error }. */
 export function settingsPatch({ p1_name, p2_name, questions_per_day, report_period_days, report_start, spicy }, hasPartner, current = {}) {
@@ -79,6 +80,38 @@ function roomForm(room) {
     }
   });
   return card([h('h2', {}, 'Votre partie'), f], { 'data-testid': 'room-settings' });
+}
+
+/** Notifications : prévenu·e quand l'autre a répondu à 3 questions. */
+export function notifCard() {
+  const status = h('p', { class: 'small', 'data-testid': 'notif-status' });
+  const btn = button('', { block: true, variant: 'teal', 'data-testid': 'notif-toggle' });
+  const support = pushSupport();
+  const refresh = async () => {
+    btn.hidden = false;
+    if (support === 'ios-install') { status.textContent = 'Sur iPhone, installe d’abord l’app sur l’écran d’accueil (Partager → Sur l’écran d’accueil), puis reviens ici.'; btn.hidden = true; return; }
+    if (support !== 'ok') { status.textContent = 'Les notifications ne sont pas disponibles sur ce navigateur.'; btn.hidden = true; return; }
+    if (permission() === 'denied') { status.textContent = 'Notifications bloquées : autorise-les pour Duo Quiz dans les réglages du téléphone.'; btn.hidden = true; return; }
+    const on = Boolean(await currentSubscription().catch(() => null)) && permission() === 'granted';
+    status.textContent = on ? 'Activées ✅ Tu es prévenu·e chaque fois que ton/ta partenaire a répondu à 3 questions.' : 'Désactivées. Active-les pour savoir quand ton/ta partenaire a joué.';
+    btn.textContent = on ? 'Désactiver les notifications' : 'Activer les notifications 🔔';
+    btn.dataset.on = on ? '1' : '0';
+  };
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    try {
+      const api = await getApi();
+      if (btn.dataset.on === '1') { await disablePush(api); toast('Notifications désactivées', { type: 'info' }); }
+      else { await enablePush(api); toast('Notifications activées 🔔', { type: 'success' }); }
+    } catch (error) {
+      toast(error?.message === 'denied' ? 'Autorisation refusée : tu peux la donner dans les réglages du téléphone.' : messageFor(error), { type: 'error' });
+    } finally {
+      btn.disabled = false;
+      refresh();
+    }
+  });
+  refresh();
+  return card([h('h2', {}, 'Notifications 🔔'), status, btn], { 'data-testid': 'notif-card' });
 }
 
 function soundsCard() {
@@ -156,6 +189,7 @@ export async function render({ mode }) {
     h('a', { class: 'card nav-card', href: '#/history', 'data-testid': 'to-history' }, h('span', { 'aria-hidden': 'true' }, '📜'), h('span', {}, 'Historique des questions')),
     !room.p2_name && room.invite_code && me === 1 ? invitePanel(room.invite_code, { onboarding: false }) : null,
     roomForm(room),
+    notifCard(),
     soundsCard(),
     deviceCard(),
     leaveCard(mode));

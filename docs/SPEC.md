@@ -135,6 +135,11 @@ Le formulaire perso demande aussi la facette (libellé simple : « Ça parle de�
 - Navigation par barre d'onglets en bas (Aujourd'hui · Ajouter · Bilan · Love · Plus).
 - Rafraîchissement à l'ouverture, au retour au premier plan (`visibilitychange`), bouton/tirer-pour-rafraîchir.
 
+## 6 bis. Notifications push (migration 006 + Edge Function `notify-partner`)
+- Chaque téléphone s'abonne (Web Push, clé VAPID publique dans `js/config.js`) via la RPC `save_push_subscription` ; invitation sur l'accueil + carte dans Réglages.
+- Après chaque réponse, l'app appelle l'Edge Function (en-tête `x-player-secret`, non bloquant) ; la RPC `push_claim` (clé service uniquement) décide : toutes les **3 réponses** d'un joueur, l'autre reçoit « {prénom} a répondu à 3 questions 👀 À toi de jouer ! ». Toucher la notification ouvre l'accueil.
+- Chiffrement RFC 8291 (aes128gcm) + VAPID RFC 8292 en WebCrypto, sans dépendance ; abonnements expirés (404/410) supprimés. iPhone : uniquement depuis l'app installée (iOS 16.4+).
+
 ## 7. Design — « jeu télé de couple »
 - Ambiance **ludique et chaleureuse** façon quiz show : fond dégradé profond (nuit violette → magenta), cartes « plateau de jeu » arrondies, accents corail, jaune or (points), turquoise. Mode sombre par défaut.
 - Typo ronde et grasse pour les titres (ex. Fredoka / Baloo 2), lisible pour le texte (ex. Nunito).

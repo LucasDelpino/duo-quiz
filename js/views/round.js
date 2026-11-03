@@ -91,7 +91,9 @@ function playFlow(root, data, ctx) {
     send.addEventListener('click', async () => {
       err.show(null);
       try {
-        await busy(send, async () => (await getApi()).submitAnswer(round.id, state.self, state.guess));
+        const api = await getApi();
+        await busy(send, async () => api.submitAnswer(round.id, state.self, state.guess));
+        api.notifyPartner?.().catch?.(() => {}); // toutes les 3 réponses, le partenaire reçoit une notification
         go(location.hash);
       } catch (error) {
         err.show(messageFor(error));

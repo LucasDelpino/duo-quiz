@@ -55,4 +55,10 @@ Ajoute `?demo=1` à l'adresse : tout reste sur le téléphone, rien n'est envoy�
 - Aucune nouvelle migration requise : la facette des questions est stockée dans `category` (« gouts:aime ») pour la banque comme pour les questions perso.
 - [x] `supabase/migrations/003_questions_illimitees.sql` — option « Illimité » pour les questions par jour.
 - [x] `supabase/migrations/004_rythme_commun.sql` — rythme commun : alerte au-delà de 10 réponses de retard, blocage à 15 d’avance.
-- [ ] `supabase/migrations/005_questions_coquines.sql` — réglage commun « Questions coquines 🔥 » (sans ce script : « de temps en temps » par défaut, réglage non modifiable).
+- [x] `supabase/migrations/005_questions_coquines.sql` — réglage commun « Questions coquines 🔥 » (sans ce script : « de temps en temps » par défaut, réglage non modifiable).
+- [ ] `supabase/migrations/006_notifications.sql` — abonnements aux notifications push.
+
+## Notifications push (Edge Function)
+1. Supabase → Edge Functions → nouvelle fonction **`notify-partner`** (éditeur) → coller `supabase/functions/notify-partner/index.ts` → Deploy (laisser « Verify JWT » activé).
+2. Edge Functions → Secrets : `VAPID_PUBLIC_KEY` (= `js/config.js`), `VAPID_PRIVATE_KEY` (jamais dans le dépôt), `VAPID_SUBJECT` = `https://lucasdelpino.github.io/duo-quiz/`. Optionnel : `PUSH_EVERY` (3 par défaut).
+3. Sur chaque téléphone (iPhone : depuis l'app installée) : « Activer les notifications 🔔 ».

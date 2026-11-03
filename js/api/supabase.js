@@ -181,6 +181,29 @@ export async function createSupabaseApi({
       return (await run(db().from('analyses').select(ANALYSIS_COLS).order('period_end', { ascending: true }))) || [];
     },
 
+    /** Notifications push (migration 006). */
+    async savePushSubscription(endpoint, p256dh, auth) {
+      return run(db().rpc('save_push_subscription', { p_endpoint: endpoint, p_p256dh: p256dh, p_auth: auth }));
+    },
+
+    async deletePushSubscription(endpoint) {
+      return run(db().rpc('delete_push_subscription', { p_endpoint: endpoint }));
+    },
+
+    /** Prévient l'Edge Function après une réponse ; elle décide s'il faut notifier le partenaire. Non bloquant. */
+    async notifyPartner(fetcher = globalThis.fetch) {
+      if (!session.secret || !url) return null;
+      try {
+        const res = await fetcher(`${url}/functions/v1/notify-partner`, {
+          method: 'POST',
+          headers: { apikey: key, Authorization: `Bearer ${key}`, 'x-player-secret': session.secret },
+        });
+        return res.ok ? await res.json().catch(() => null) : null;
+      } catch {
+        return null;
+      }
+    },
+
     /** Rythme commun (migration 004) : { me, them, warn_after, block_at }. Non critique : null si indisponible. */
     async pace() {
       try {

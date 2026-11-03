@@ -16,6 +16,7 @@ import { periodBounds, roundsIn } from '../logic/report.js';
 import { appBaseUrl, go, leave, getApi } from '../context.js';
 import { progressSummary, progressMessage, ago, shouldShowPopup, POPUP_KEY } from '../logic/progress.js';
 import { paceState, paceMessage, PACE_POPUP_KEY } from '../logic/pace.js';
+import { pushSupport, permission, enablePush, syncPush, PUSH_PROMPT_KEY } from '../push.js';
 
 const LOOKBACK_DAYS = 30;
 
@@ -143,6 +144,31 @@ function progressPopup(summary, me, names, todays, game, { msg = progressMessage
   return overlay;
 }
 
+/** Invitation à activer les notifications (tant qu'elles ne sont ni activées, ni refusées, ni écartées). */
+function pushPrompt(room, names, me) {
+  let dismissed = false;
+  try { dismissed = Boolean(localStorage.getItem(PUSH_PROMPT_KEY)); } catch { /* ignoré */ }
+  if (!room.p2_name || dismissed || pushSupport() !== 'ok' || permission() !== 'default') return null;
+  const autre = names[me === 1 ? 2 : 1];
+  let el;
+  const hide = () => { try { localStorage.setItem(PUSH_PROMPT_KEY, '1'); } catch { /* ignoré */ } el.remove(); };
+  const on = button('Activer 🔔', { variant: 'teal', 'data-testid': 'push-enable', onClick: async () => {
+    try {
+      await enablePush(await getApi());
+      toast('Notifications activées 🔔', { type: 'success' });
+      hide();
+    } catch (error) {
+      toast(error?.message === 'denied' ? 'Autorisation refusée : tu peux la donner dans les réglages du téléphone.' : messageFor(error), { type: 'error' });
+      if (permission() === 'denied') hide();
+    }
+  } });
+  el = card([
+    h('p', {}, h('strong', {}, 'Ne rate plus rien 🔔'), h('br'), `Reçois une notification quand ${autre} a répondu à 3 questions.`),
+    h('div', { class: 'row push-actions' }, on, button('Plus tard', { variant: 'ghost', onClick: hide })),
+  ], { 'data-testid': 'push-prompt' });
+  return el;
+}
+
 /** Bandeau d'avance / de blocage (rythme commun). */
 function paceBanner(pace, me, names) {
   if (!pace || !['ahead', 'blocked'].includes(pace.state)) return null;
@@ -211,6 +237,7 @@ export async function render() {
       pace = paceState(p);
     }
   } catch { summary = null; pace = null; } // indicateurs non critiques
+  if (room.p2_name) getApi().then((api) => syncPush(api)).catch(() => {}); // abonnement existant : ré-enregistré
   const paceMsg = pace?.state === 'behind' ? paceMessage(pace, names, me) : null;
   const todays = sortForDisplay(game.rounds.filter((r) => r.play_date === today));
   const { pending, recent } = splitRounds(game.rounds, game.answers, game.judgments, me, today);
@@ -223,6 +250,7 @@ export async function render() {
     waitingPartner(room),
     scoreBanner(room, game, me, names, today),
     paceBanner(pace, me, names),
+    pushPrompt(room, names, me),
     progressBanner(summary, me, names),
     todays.length && done ? h('p', { class: 'notice', 'data-testid': 'all-done' }, room.questions_per_day === 0 ? 'Tout est joué pour l’instant 🎉' : 'Tout est joué pour aujourd’hui 🎉 Reviens demain pour de nouvelles questions !') : null,
     h('div', { class: 'stack', 'data-testid': 'today-rounds' },

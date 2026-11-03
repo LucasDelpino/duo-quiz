@@ -1,7 +1,7 @@
 // Service worker Duo Quiz : app utilisable hors ligne (coquille + banque en cache).
 // Stratégie : réseau d'abord (toujours la dernière version en ligne), cache en repli hors ligne.
 // Les appels Supabase ne sont JAMAIS mis en cache (données privées, toujours fraîches).
-const VERSION = 'duo-quiz-v6';
+const VERSION = 'duo-quiz-v7';
 
 const ASSETS = [
   './',
@@ -41,6 +41,7 @@ const ASSETS = [
   'js/logic/progress.js',
   'js/logic/pace.js',
   'js/logic/home.js',
+  'js/push.js',
   'js/logic/custom.js',
   'js/logic/dates.js',
   'js/logic/draw.js',
@@ -114,4 +115,35 @@ self.addEventListener('fetch', (event) => {
   const sameOrigin = url.origin === self.location.origin;
   if (!sameOrigin && !request.url.startsWith(CDN)) return; // Supabase & co : réseau direct, jamais de cache
   event.respondWith(networkFirst(request));
+});
+
+// ---------- Notifications push (envoyées par l'Edge Function « notify-partner ») ----------
+self.addEventListener('push', (event) => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch { data = { body: event.data ? event.data.text() : '' }; }
+  const title = data.title || 'Duo Quiz 💞';
+  event.waitUntil(self.registration.showNotification(title, {
+    body: data.body || 'Ton/ta partenaire a joué. À toi !',
+    icon: 'assets/icons/icon-192.png',
+    badge: 'assets/icons/icon-192.png',
+    tag: data.tag || 'duo-quiz',
+    renotify: true,
+    data: { url: data.url || './#/today' },
+  }));
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const target = new URL(event.notification.data?.url || './#/today', self.registration.scope).href;
+  event.waitUntil((async () => {
+    const wins = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const w of wins) {
+      if (w.url.startsWith(self.registration.scope)) {
+        await w.focus();
+        if ('navigate' in w) await w.navigate(target).catch(() => {});
+        return;
+      }
+    }
+    await self.clients.openWindow(target);
+  })());
 });

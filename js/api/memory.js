@@ -309,6 +309,11 @@ export function createMemoryApi({ storage = defaultStorage(), secret = null, now
         .map((a) => pick(a, ['id', 'room_id', 'period_start', 'period_end', 'compatibility', 'content', 'created_at'])));
     },
 
+    // Notifications : sans objet en démo (pas de serveur d'envoi).
+    async savePushSubscription() { return null; },
+    async deletePushSubscription() { return null; },
+    async notifyPartner() { return null; },
+
     /** Équivalent de pace() : compteurs de réponses des deux joueurs. */
     async pace() {
       return withMe((db, { room, player }) => ({
