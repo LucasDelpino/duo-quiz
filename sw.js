@@ -1,7 +1,7 @@
 // Service worker Duo Quiz : app utilisable hors ligne (coquille + banque en cache).
 // Stratégie : réseau d'abord (toujours la dernière version en ligne), cache en repli hors ligne.
 // Les appels Supabase ne sont JAMAIS mis en cache (données privées, toujours fraîches).
-const VERSION = 'duo-quiz-v8';
+const VERSION = 'duo-quiz-v9';
 
 const ASSETS = [
   './',
@@ -95,10 +95,18 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Fichiers de l'app : on revalide auprès du serveur (cache HTTP de GitHub Pages ≈ 10 min ignoré),
+// sinon une mise à jour publiée n'arriverait qu'après expiration du cache.
+function fresh(request) {
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return fetch(request);
+  return fetch(request.url, { cache: 'no-cache', credentials: 'same-origin' });
+}
+
 async function networkFirst(request) {
   const cache = await caches.open(VERSION);
   try {
-    const response = await fetch(request);
+    const response = await fresh(request);
     if (response && (response.ok || response.type === 'opaque')) cache.put(request, response.clone());
     return response;
   } catch (error) {

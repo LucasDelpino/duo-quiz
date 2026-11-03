@@ -98,8 +98,27 @@ function watchConnectivity() {
 
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
+  // Nouvelle version installée → l'app se recharge une fois (seulement si une version précédente tournait déjà).
+  // Uniquement si une NOUVELLE version a été trouvée pendant que cette page tournait (jamais au 1er install).
+  const hadController = Boolean(navigator.serviceWorker.controller);
+  let updateFound = false;
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || !updateFound || reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => { /* hors ligne non disponible : pas bloquant */ });
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+      .then((reg) => {
+        reg.addEventListener('updatefound', () => { if (hadController) updateFound = true; });
+        reg.update().catch(() => {});
+        // Vérifie aussi les mises à jour à chaque retour au premier plan.
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') reg.update().catch(() => {});
+        });
+      })
+      .catch(() => { /* hors ligne non disponible : pas bloquant */ });
   });
 }
 
