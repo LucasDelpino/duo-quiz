@@ -97,7 +97,7 @@ export function shareAppCard() {
     h('p', { class: 'small muted' }, 'Des amis veulent jouer en couple ? Envoie-leur ce lien : ils créeront leur propre partie.'),
     input,
     h('div', { class: 'row push-actions' },
-      button('Copier le lien', { variant: 'teal', 'data-testid': 'copy-app-link', onClick: () => copy(url) }),
+      button('Copier 📋', { variant: 'teal', 'data-testid': 'copy-app-link', onClick: () => copy(url) }),
       button('Partager', { variant: 'ghost', onClick: () => share({ title: 'Duo Quiz', text: 'Le jeu à deux pour mieux se connaître 💞 Crée ta partie ici :', url }) })),
   ], { 'data-testid': 'share-app' });
 }
