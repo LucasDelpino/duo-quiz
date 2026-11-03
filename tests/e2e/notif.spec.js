@@ -18,6 +18,9 @@ test('notifications : invitation sur l’accueil, carte dans les réglages', asy
 
   await page.goto('./?demo=1#/settings');
   await expect(page.getByTestId('notif-card')).toBeVisible();
+  // Lien de l'app à partager : adresse propre, sans ?demo ni #route
+  await expect(page.getByTestId('app-link')).toHaveValue(/^http:\/\/127\.0\.0\.1:\d+\/duo-quiz\/$/);
+  await expect(page.getByTestId('copy-app-link')).toBeVisible();
   await expect(page.getByTestId('notif-status')).toContainText('Désactivées');
   await expect(page.getByTestId('notif-toggle')).toHaveText('Activer les notifications 🔔');
   expect(w.errors).toEqual([]);

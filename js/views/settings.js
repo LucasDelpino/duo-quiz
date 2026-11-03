@@ -82,6 +82,26 @@ function roomForm(room) {
   return card([h('h2', {}, 'Votre partie'), f], { 'data-testid': 'room-settings' });
 }
 
+/** Adresse publique de l'app (sans paramètres ni démo) : à partager pour la faire télécharger. */
+export function appShareUrl(loc = location) {
+  return `${loc.origin}${loc.pathname}`;
+}
+
+/** Faire découvrir Duo Quiz : lien de l'app à copier ou partager. */
+export function shareAppCard() {
+  const url = appShareUrl();
+  const input = h('input', { id: 'app-link', class: 'input', type: 'text', readonly: true, value: url, 'aria-label': 'Lien de l’app Duo Quiz', 'data-testid': 'app-link' });
+  input.addEventListener('focus', () => input.select());
+  return card([
+    h('h2', {}, 'Faire découvrir Duo Quiz 💌'),
+    h('p', { class: 'small muted' }, 'Des amis veulent jouer en couple ? Envoie-leur ce lien : ils créeront leur propre partie.'),
+    input,
+    h('div', { class: 'row push-actions' },
+      button('Copier le lien', { variant: 'teal', 'data-testid': 'copy-app-link', onClick: () => copy(url) }),
+      button('Partager', { variant: 'ghost', onClick: () => share({ title: 'Duo Quiz', text: 'Le jeu à deux pour mieux se connaître 💞 Crée ta partie ici :', url }) })),
+  ], { 'data-testid': 'share-app' });
+}
+
 /** Notifications : prévenu·e quand l'autre a répondu à 3 questions. */
 export function notifCard() {
   const status = h('p', { class: 'small', 'data-testid': 'notif-status' });
@@ -189,6 +209,7 @@ export async function render({ mode }) {
     h('a', { class: 'card nav-card', href: '#/history', 'data-testid': 'to-history' }, h('span', { 'aria-hidden': 'true' }, '📜'), h('span', {}, 'Historique des questions')),
     !room.p2_name && room.invite_code && me === 1 ? invitePanel(room.invite_code, { onboarding: false }) : null,
     roomForm(room),
+    shareAppCard(),
     notifCard(),
     soundsCard(),
     deviceCard(),

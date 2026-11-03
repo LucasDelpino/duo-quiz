@@ -36,3 +36,10 @@ describe('sons', () => {
     expect(play('miss')).toBe(false); // préférences par défaut : sons coupés
   });
 });
+
+import { appShareUrl } from '../../js/views/settings.js';
+import { it as it3, expect as e3 } from 'vitest';
+it3('lien de l’app à partager : sans paramètres ni route', () => {
+  e3(appShareUrl({ origin: 'https://lucasdelpino.github.io', pathname: '/duo-quiz/', href: 'https://lucasdelpino.github.io/duo-quiz/?demo=1#/settings' }))
+    .toBe('https://lucasdelpino.github.io/duo-quiz/');
+});
